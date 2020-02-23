@@ -3,10 +3,20 @@ import { publicKey, md5 } from './config/config'
 import { checkStatus } from './utils/checkStatus'
 import { parseJSON } from './utils/parseJSON'
 
-export const getAllCharacters = async () => {
-  const queryStr = [`?ts=1`, `limit=36`, `apikey=${publicKey}`, `hash=${md5}`].join('&')
-  return fetch(baseUrl + `v1/public/characters` + queryStr)
-    .then(checkStatus)
-    .then(parseJSON)
-    .catch(err => console.error(err))
+export const Characters = {
+  getAll: async (page, isAscending, search) => {
+    const queryStr = [
+      `?ts=1`,
+      `limit=36`,
+      `hash=${md5}`,
+      `apikey=${publicKey}`,
+      `orderBy=${isAscending ? '' : '-'}name`,
+      search ? `nameStartsWith=${search}` : ''
+    ].join('&')
+
+    return fetch(baseUrl + `v1/public/characters` + queryStr)
+      .then(checkStatus)
+      .then(parseJSON)
+      .catch(err => console.error(err))
+  }
 }
