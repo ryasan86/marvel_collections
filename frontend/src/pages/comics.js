@@ -1,13 +1,11 @@
 import React from 'react'
-
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import '../styles/index.css'
 
-const IndexPage = () => (
+const ComicsPage = () => (
   <Layout>
-    <SEO title='Home' />
+    <SEO title='Comics' />
   </Layout>
 )
 
-export default IndexPage
+export default ComicsPage
