@@ -2,8 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import StyledCharactersList from '../styles/CharactersListStyles'
 import CharacterItem from './CharacterItem'
+import DelayMessage from './DelayMessage'
 
 const CharactersList = ({ characters }) => {
+  if (!characters) {
+    return <DelayMessage text='Loading...' />
+  }
+
+  if (characters.length === 0) {
+    return <DelayMessage text='0 Results Found 😮' />
+  }
+
   return (
     <StyledCharactersList data-testid='characters-list'>
       {characters.map((c, i) => (
@@ -14,7 +23,7 @@ const CharactersList = ({ characters }) => {
 }
 
 CharactersList.propTypes = {
-  characters: PropTypes.array.isRequired
+  characters: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default CharactersList

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Row, SortBy } from '../styles/ControlsStyles'
 import { MagnifierSVG } from '../images'
 
-const Controls = ({ isAscending, setIsAscending, searchTerm }) => {
+const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
   const [input, setInput] = useState('')
 
   const handleChange = e => {
@@ -10,11 +11,11 @@ const Controls = ({ isAscending, setIsAscending, searchTerm }) => {
   }
 
   const handleKeyPress = e => {
-    if (e.key === 'Enter') searchTerm(input)
+    if (e.key === 'Enter') console.log(input) || setSearch(input)
   }
 
-  const handleClick = () => {
-    setIsAscending(!isAscending)
+  const handleSortClick = () => {
+    setIsAscending(prevState => !prevState)
   }
 
   return (
@@ -29,16 +30,23 @@ const Controls = ({ isAscending, setIsAscending, searchTerm }) => {
         />
       </Row>
       <Row>
-        <div>1000 RESULTS</div>
+        <div>{total} RESULTS</div>
         <SortBy>
           <div>SORT BY</div>
-          <a className='sort-btn' onClick={handleClick}>
+          <a className='sort-btn' onClick={handleSortClick}>
             {isAscending ? 'Z-A' : 'A-Z'}
           </a>
         </SortBy>
       </Row>
     </div>
   )
+}
+
+Controls.propTypes = {
+  isAscending: PropTypes.bool.isRequired,
+  setIsAscending: PropTypes.func.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  total: PropTypes.number
 }
 
 export default Controls

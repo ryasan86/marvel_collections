@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledCharacterItem = styled.li`
-  width: 100%;
+  width: 19.2rem;
   img {
     width: 100%;
   }

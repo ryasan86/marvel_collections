@@ -1,22 +1,22 @@
-import { baseUrl } from './constants'
+import { API_ROOT, LIMIT, CHARS_ENDPOINT } from './constants'
 import { publicKey, md5 } from './config/config'
-import { checkStatus } from './utils/checkStatus'
-import { parseJSON } from './utils/parseJSON'
+import { checkStatus, parseJSON, handleError } from './utils'
 
-export const Characters = {
-  getAll: async (page, isAscending, search) => {
-    const queryStr = [
-      `?ts=1`,
-      `limit=36`,
-      `hash=${md5}`,
-      `apikey=${publicKey}`,
-      `orderBy=${isAscending ? '' : '-'}name`,
-      search ? `nameStartsWith=${search}` : ''
-    ].join('&')
-
-    return fetch(baseUrl + `v1/public/characters` + queryStr)
+const requests = {
+  get: url =>
+    fetch(API_ROOT + url)
       .then(checkStatus)
       .then(parseJSON)
-      .catch(err => console.error(err))
-  }
+      .catch(handleError)
+}
+
+const queries =  {
+  characters: CHARS_ENDPOINT + `?ts=1&limit=${LIMIT}&hash=${md5}&apikey=${publicKey}`
+}
+
+export const Characters = {
+  getAll: async (page, isAscending) =>
+    requests.get(`${queries.characters}&orderBy=${isAscending ? '' : '-'}name`),
+  byName: async (page, isAscending, search) =>
+    requests.get(`${queries.characters}&orderBy=${isAscending ? '' : '-'}name&nameStartsWith=${search}`)
 }

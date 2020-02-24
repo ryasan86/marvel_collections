@@ -4,27 +4,21 @@ import CharactersList from '../components/CharactersList'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Layout from '../components/Layout'
 import Controls from '../components/Controls'
-import Loader from '../components/Loader'
 import MaxWidth from '../styles/common/MaxWidth'
 import { Characters } from '../client'
 
 const CharactersPage = () => {
-  const [characters, setCharacters] = useState([])
-  const [isLoading, setIsLoading] = useState(null)
   const [isAscending, setIsAscending] = useState(true)
-  const [search, setSearch] = useState(null)
+  const [characters, setCharacters] = useState({})
   const [error, setError] = useState(null)
-
-  const searchTerm = term => {
-    setSearch(term)
-  }
+  const [search, setSearch] = useState(null)
+  const setCharactersData = res => setCharacters(res.data)
 
   useEffect(() => {
-    setIsLoading(true)
-    Characters.getAll(null, isAscending, search)
-      .then(res => setCharacters(res.data.results))
-      .catch(err => setError(err))
-      .then(() => setIsLoading(false))
+    const charactersPromise = search ? Characters.byName : Characters.getAll
+    charactersPromise(null, isAscending, search)
+      .then(setCharactersData)
+      .catch(setError)
   }, [isAscending, search])
 
   return (
@@ -33,12 +27,13 @@ const CharactersPage = () => {
       <MaxWidth>
         <h1>MARVEL CHARACTERS LIST</h1>
         <Controls
-          searchTerm={searchTerm}
+          setSearch={setSearch}
           isAscending={isAscending}
           setIsAscending={setIsAscending}
+          total={characters.total}
         />
         <ErrorBoundary error={error}>
-          {isLoading ? <Loader /> : <CharactersList characters={characters} />}
+          <CharactersList characters={characters.results} />
         </ErrorBoundary>
       </MaxWidth>
     </Layout>

@@ -1,12 +1,6 @@
 import React from 'react'
-import Layout from '../components/Layout'
-import SEO from '../components/SEO'
+import CharactersPage from './characters'
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title='Home' />
-    Home
-  </Layout>
-)
+const IndexPage = () => <CharactersPage />
 
 export default IndexPage

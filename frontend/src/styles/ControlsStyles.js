@@ -5,6 +5,9 @@ const Row = styled.div`
   justify-content: space-between;
   margin: 2rem 0;
   position: relative;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--gray);
   input {
     width: 50%;
     outline: none;
