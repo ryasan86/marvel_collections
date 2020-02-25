@@ -1,25 +1,25 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import Header from './Header'
 import Footer from './Footer'
+import Main from '../styles/MainStyles'
 import '../styles/global.css'
 
-const Main = styled.main`
+const StyledLayout = styled.div`
+  height: 100%;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  min-height: 100%;
+  flex-direction: column;
 `
 
-const Layout = ({ children }) => {
-  return (
-    <>
-      <Header />
-      <Main>{children}</Main>
-      <Footer />
-    </>
-  )
-}
+const Layout = ({ children }) => (
+  <StyledLayout>
+    <Header />
+    <Main>{children}</Main>
+    <Footer />
+  </StyledLayout>
+)
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired

@@ -6,6 +6,8 @@ const StyledFooter = styled.footer`
   color: var(--off-white);
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: var(--small-font);
   div {
     width: 100%;
     text-align: right;

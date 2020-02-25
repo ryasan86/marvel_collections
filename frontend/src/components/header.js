@@ -3,6 +3,10 @@ import { Link } from 'gatsby'
 import StyledHeader, { StyledNavItem } from '../styles/HeaderStyles'
 import { MarvelSVG } from '../images'
 
+const activeStyle = {
+  color: 'white'
+}
+
 const Header = () => (
   <StyledHeader>
     <StyledNavItem className='logo'>
@@ -11,10 +15,14 @@ const Header = () => (
       </Link>
     </StyledNavItem>
     <StyledNavItem>
-      <Link to='/characters'>CHARACTERS</Link>
+      <Link to='/characters' activeStyle={activeStyle}>
+        CHARACTERS
+      </Link>
     </StyledNavItem>
     <StyledNavItem>
-      <Link to='/comics'>COMICS</Link>
+      <Link to='/comics' activeStyle={activeStyle}>
+        COMICS
+      </Link>
     </StyledNavItem>
   </StyledHeader>
 )

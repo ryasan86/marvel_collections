@@ -11,7 +11,7 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
   }
 
   const handleKeyPress = e => {
-    if (e.key === 'Enter') console.log(input) || setSearch(input)
+    if (e.key === 'Enter') setSearch(input)
   }
 
   const handleSortClick = () => {
@@ -19,7 +19,7 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
   }
 
   return (
-    <div>
+    <>
       <Row>
         <img src={MagnifierSVG} alt='search-icon' />
         <input
@@ -30,7 +30,7 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
         />
       </Row>
       <Row>
-        <div>{total} RESULTS</div>
+        <div>{total && `${total} RESULTS`}</div>
         <SortBy>
           <div>SORT BY</div>
           <a className='sort-btn' onClick={handleSortClick}>
@@ -38,7 +38,7 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
           </a>
         </SortBy>
       </Row>
-    </div>
+    </>
   )
 }
 

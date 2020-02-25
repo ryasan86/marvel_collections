@@ -10,11 +10,11 @@ const CharactersList = ({ characters }) => {
   }
 
   if (characters.length === 0) {
-    return <DelayMessage text='0 Results Found 😮' />
+    return <DelayMessage text='0 Characters Found 😮' />
   }
 
   return (
-    <StyledCharactersList data-testid='characters-list'>
+    <StyledCharactersList>
       {characters.map((c, i) => (
         <CharacterItem key={c.name} c={c}></CharacterItem>
       ))}

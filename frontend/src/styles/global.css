@@ -3,9 +3,14 @@
 /* theme */
 :root {
   --black: #1f1f1f;
+  --blacker: #141414;
   --red: #ec1c24;
   --off-white: #e1e1e1;
   --gray: #999;
+  --light-gray: #bbb;
+  --small-font: 1.2rem;
+  --regular-font: 1.4rem;
+  --large-font: 1.7rem;
   --max-width: 120rem;
 }
 
@@ -14,22 +19,22 @@
 *:before,
 *:after {
   box-sizing: border-box;
+  /* outline: 1px solid red; */
 }
 
 html,
 body {
   font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
-  height: 100%;
   font-size: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
   margin: 0;
   padding: 0;
 }
 
 li {
   list-style-type: none;
-}
-
-#___gatsby,
-#gatsby-focus-wrapper {
-  height: 100%;
 }

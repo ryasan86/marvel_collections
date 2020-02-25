@@ -1,43 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import SEO from '../components/SEO'
-import CharactersList from '../components/CharactersList'
-import ErrorBoundary from '../components/ErrorBoundary'
+import React from 'react'
+import { Router } from '@reach/router'
 import Layout from '../components/Layout'
-import Controls from '../components/Controls'
-import MaxWidth from '../styles/common/MaxWidth'
-import { Characters } from '../client'
+import Main from '../components/CharacterMain'
+import Details from '../components/CharacterDetails'
 
-const CharactersPage = () => {
-  const [isAscending, setIsAscending] = useState(true)
-  const [characters, setCharacters] = useState({})
-  const [error, setError] = useState(null)
-  const [search, setSearch] = useState(null)
-  const setCharactersData = res => setCharacters(res.data)
-
-  useEffect(() => {
-    const charactersPromise = search ? Characters.byName : Characters.getAll
-    charactersPromise(null, isAscending, search)
-      .then(setCharactersData)
-      .catch(setError)
-  }, [isAscending, search])
-
+const CharactersMain = props => {
   return (
     <Layout>
-      <SEO title='Characters'></SEO>
-      <MaxWidth>
-        <h1>MARVEL CHARACTERS LIST</h1>
-        <Controls
-          setSearch={setSearch}
-          isAscending={isAscending}
-          setIsAscending={setIsAscending}
-          total={characters.total}
-        />
-        <ErrorBoundary error={error}>
-          <CharactersList characters={characters.results} />
-        </ErrorBoundary>
-      </MaxWidth>
+      <Main {...props} />
     </Layout>
   )
 }
+
+const CharacterDetails = props => {
+  return (
+    <Layout>
+      <Details {...props} />
+    </Layout>
+  )
+}
+
+const CharactersPage = props => (
+  <Router>
+    <CharactersMain path='/characters' />
+    <CharacterDetails path='/characters/:name' />
+  </Router>
+)
 
 export default CharactersPage
