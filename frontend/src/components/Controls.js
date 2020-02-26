@@ -8,7 +8,7 @@ import { MagnifierSVG } from '../images'
 const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
   const [input, setInput] = useState('')
 
-  const handleSortClick = () => {
+  const sortClick = () => {
     setIsAscending(prevState => !prevState)
   }
 
@@ -27,7 +27,7 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
         <div>{total && `${total} RESULTS`}</div>
         <SortBy>
           <div>SORT BY</div>
-          <a className='sort-btn' onClick={handleSortClick}>
+          <a className='sort-btn' onClick={sortClick}>
             {isAscending ? 'Z-A' : 'A-Z'}
           </a>
         </SortBy>

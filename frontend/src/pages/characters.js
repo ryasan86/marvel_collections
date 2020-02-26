@@ -3,7 +3,7 @@ import { Router } from '@reach/router'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
 import ItemsList from '../components/ItemsList'
-import CharacterDeets from '../components/CharacterDetails'
+import CharacterDetails from '../components/CharacterDetails'
 import SEO from '../components/SEO'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Controls from '../components/Controls'
@@ -15,14 +15,15 @@ const CharactersMain = ({ path: endpoint }) => {
   const [characters, setCharacters] = useState(null)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState(null)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     setCharacters(null)
     const charactersPromise = search ? Characters.byName : Characters.getAll
-    charactersPromise({ page: null, isAscending, search })
+    charactersPromise({ page, isAscending, search })
       .then(setCharacters)
       .catch(setError)
-  }, [isAscending, search])
+  }, [page, isAscending, search])
 
   return (
     <Layout>
@@ -37,8 +38,11 @@ const CharactersMain = ({ path: endpoint }) => {
         />
         <ErrorBoundary error={error}>
           <ItemsList
-            items={characters && characters.results}
+            page={page}
+            setPage={setPage}
             endpoint={endpoint}
+            total={characters && characters.total}
+            items={characters && characters.results}
           />
         </ErrorBoundary>
       </MaxWidth>
@@ -49,12 +53,6 @@ const CharactersMain = ({ path: endpoint }) => {
 Characters.propTypes = {
   endpoint: PropTypes.string
 }
-
-const CharacterDetails = props => (
-  <Layout>
-    <CharacterDeets {...props} />
-  </Layout>
-)
 
 const CharactersPage = () => (
   <Router>

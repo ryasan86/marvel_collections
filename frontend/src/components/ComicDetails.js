@@ -1,7 +1,8 @@
 import React from 'react'
+import Layout from './Layout'
 
 const ComicDetails = () => {
-  return <div>Comic Details</div>
+  return <Layout>Comic Details</Layout>
 }
 
 export default ComicDetails

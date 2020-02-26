@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import StyledList from '../styles/ListStyles'
 import Item from './Item'
 import DelayMessage from './DelayMessage'
+import Pagination from './Pagination'
 
-const ItemsList = ({ items, endpoint }) => {
+const ItemsList = ({ items, endpoint, page, setPage, total }) => {
   if (!items) {
     return <DelayMessage text='Loading...' />
   }
@@ -14,11 +15,14 @@ const ItemsList = ({ items, endpoint }) => {
   }
 
   return (
-    <StyledList>
-      {items.map((c, i) => (
-        <Item key={i} c={c} endpoint={endpoint}></Item>
-      ))}
-    </StyledList>
+    <>
+      <StyledList>
+        {items.map((c, i) => (
+          <Item key={i} c={c} endpoint={endpoint}></Item>
+        ))}
+      </StyledList>
+      <Pagination page={page} setPage={setPage} total={total} />
+    </>
   )
 }
 

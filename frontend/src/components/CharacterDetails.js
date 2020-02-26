@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import SEO from '../components/SEO'
-import { MaxWidth } from './common'
 import StyledCharacterDetails, {
   BannerSection,
   DescriptionSection,
@@ -8,8 +8,10 @@ import StyledCharacterDetails, {
   LeftColumn,
   RightColumn
 } from '../styles/CharacterDetailsStyles'
+import Layout from './Layout'
 import DelayMessage from './DelayMessage'
 import ErrorBoundary from './ErrorBoundary'
+import { MaxWidth } from './common'
 import { Comics } from '../client'
 
 const ComicList = ({ comics }) => {
@@ -33,6 +35,10 @@ const ComicList = ({ comics }) => {
   )
 }
 
+ComicList.propTypes = {
+  comics: PropTypes.arrayOf(PropTypes.object)
+}
+
 const CharacterDetails = ({ location: { state } }) => {
   const [isAscending, setIsAscending] = useState(true)
   const [comics, setComics] = useState(null)
@@ -45,42 +51,44 @@ const CharacterDetails = ({ location: { state } }) => {
   }, [])
 
   return (
-    <StyledCharacterDetails>
-      <SEO title={state.name} />
-      <BannerSection>
+    <Layout>
+      <StyledCharacterDetails>
+        <SEO title={state.name} />
+        <BannerSection>
+          <MaxWidth>
+            <LeftColumn>
+              <img
+                src={state.thumbnail.path + '/portrait_incredible.jpg'}
+                alt={state.name}
+              />
+            </LeftColumn>
+            <RightColumn>
+              <h1>{state.name}</h1>
+            </RightColumn>
+          </MaxWidth>
+        </BannerSection>
         <MaxWidth>
-          <LeftColumn>
-            <img
-              src={state.thumbnail.path + '/portrait_incredible.jpg'}
-              alt={state.name}
-            />
-          </LeftColumn>
-          <RightColumn>
-            <h1>{state.name}</h1>
-          </RightColumn>
+          <DescriptionSection>
+            <LeftColumn>
+              <h3>DESCRIPTION</h3>
+            </LeftColumn>
+            <RightColumn>
+              <p>
+                {state.description
+                  ? state.description
+                  : 'Description Unavailable'}
+              </p>
+            </RightColumn>
+          </DescriptionSection>
+          <ComicsSection>
+            <h4>COMICS LIST</h4>
+            <ErrorBoundary error={error}>
+              <ComicList comics={comics && comics.results} />
+            </ErrorBoundary>
+          </ComicsSection>
         </MaxWidth>
-      </BannerSection>
-      <MaxWidth>
-        <DescriptionSection>
-          <LeftColumn>
-            <h3>DESCRIPTION</h3>
-          </LeftColumn>
-          <RightColumn>
-            <p>
-              {state.description
-                ? state.description
-                : 'Description Unavailable'}
-            </p>
-          </RightColumn>
-        </DescriptionSection>
-        <ComicsSection>
-          <h4>COMICS LIST</h4>
-          <ErrorBoundary error={error}>
-            <ComicList comics={comics && comics.results} />
-          </ErrorBoundary>
-        </ComicsSection>
-      </MaxWidth>
-    </StyledCharacterDetails>
+      </StyledCharacterDetails>
+    </Layout>
   )
 }
 

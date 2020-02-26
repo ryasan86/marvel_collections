@@ -1,18 +1,22 @@
-import { apikey, hash } from './config/config'
 import { checkStatus, responseData, handleError } from './utils'
 import agent from 'superagent'
 
+export const perPage = 36 // characters and comics per page
 const apiRoot = 'https://gateway.marvel.com/'
-const perPage = 36 // characters and comics per page
-const ts = 1 // time stamp
 const charsEndpoint = `v1/public/characters`
 const comicsEndpoint = `v1/public/comics`
+
+const authParams = {
+  ts: 1,
+  hash: process.env.GATSBY_MD5_HASH,
+  apikey: process.env.GATSBY_API_KEY
+}
 
 const request = {
   get: (url, query) =>
     agent
       .get(apiRoot + url)
-      .query({ ...query, ts, hash, apikey })
+      .query({ ...query, ...authParams })
       .then(checkStatus)
       .then(responseData)
       .catch(handleError)
@@ -23,7 +27,8 @@ export const Characters = {
   getAll: ({ page, isAscending }) =>
     request.get(charsEndpoint, {
       limit: perPage,
-      orderBy: isAscending ? 'name' : '-name',
+      offset: (page - 1) * perPage,
+      orderBy: isAscending ? 'name' : '-name'
     }),
   byName: ({ page, isAscending, search }) =>
     request.get(charsEndpoint, {

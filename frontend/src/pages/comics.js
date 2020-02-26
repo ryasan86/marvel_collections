@@ -6,7 +6,7 @@ import SEO from '../components/SEO'
 import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
 import ErrorBoundary from '../components/ErrorBoundary'
-import ComicDeets from '../components/ComicDetails'
+import ComicDetails from '../components/ComicDetails'
 import { MaxWidth } from '../components/common/MaxWidth'
 import { Comics } from '../client'
 
@@ -46,12 +46,6 @@ const ComicsMain = ({ path: endpoint }) => {
 ComicsMain.propTypes = {
   endpoint: PropTypes.string
 }
-
-const ComicDetails = props => (
-  <Layout>
-    <ComicDeets {...props} />
-  </Layout>
-)
 
 const ComicsPage = () => (
   <Router>
