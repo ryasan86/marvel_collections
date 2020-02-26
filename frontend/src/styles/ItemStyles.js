@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledCharacterItem = styled.li`
+const ItemStyles = styled.li`
   width: 19.2rem;
   img {
     width: 100%;
@@ -8,4 +8,4 @@ const StyledCharacterItem = styled.li`
   }
 `
 
-export default StyledCharacterItem
+export default ItemStyles

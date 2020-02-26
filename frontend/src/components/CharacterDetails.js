@@ -18,7 +18,7 @@ const ComicList = ({ comics }) => {
   }
 
   if (comics.length === 0) {
-    return <DelayMessage text='0 comics found 😮' />
+    return <DelayMessage text='0 results found 😮' />
   }
 
   return (
@@ -39,8 +39,8 @@ const CharacterDetails = ({ location: { state } }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    Comics.byCharacter(null, isAscending, state.id)
-      .then(res => setComics(res.data))
+    Comics.byCharacter({ page: null, charId: state.id, isAscending })
+      .then(setComics)
       .catch(setError)
   }, [])
 

@@ -2,7 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Marvel Collections`,
     description: `Collection builder using Marvel's API and graphql.`,
-    author: `Ryan Santos`
+    author: `Ryan Santos`,
+    repo_url: `https://github.com/ryasan86/marvel_collections`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

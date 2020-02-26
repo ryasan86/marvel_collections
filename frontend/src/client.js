@@ -1,29 +1,50 @@
-import { publicKey, md5 } from './config/config'
-import { checkStatus, parseJSON, handleError } from './utils'
+import { apikey, hash } from './config/config'
+import { checkStatus, responseData, handleError } from './utils'
+import agent from 'superagent'
 
 const apiRoot = 'https://gateway.marvel.com/'
-const limit = 36
-const charsEndpoint = `v1/public/characters?ts=1&hash=${md5}&apikey=${publicKey}`
-const comicsEndpoint = `v1/public/comics?ts=1&hash=${md5}&apikey=${publicKey}`
+const perPage = 36 // characters and comics per page
+const ts = 1 // time stamp
+const charsEndpoint = `v1/public/characters`
+const comicsEndpoint = `v1/public/comics`
 
-const requests = {
-  get: url =>
-    fetch(apiRoot + url)
+const request = {
+  get: (url, query) =>
+    agent
+      .get(apiRoot + url)
+      .query({ ...query, ts, hash, apikey })
       .then(checkStatus)
-      .then(parseJSON)
+      .then(responseData)
       .catch(handleError)
 }
 
+// fetch characters
 export const Characters = {
-  getAll: (page, isAscending) =>
-    requests.get(`${charsEndpoint}&limit=${limit}&orderBy=${isAscending ? '' : '-'}name`),
-  byName: (page, isAscending, search) =>
-    requests.get(`${charsEndpoint}&limit=${limit}&orderBy=${isAscending ? '' : '-'}name&nameStartsWith=${search}`)
+  getAll: ({ page, isAscending }) =>
+    request.get(charsEndpoint, {
+      limit: perPage,
+      orderBy: isAscending ? 'name' : '-name',
+    }),
+  byName: ({ page, isAscending, search }) =>
+    request.get(charsEndpoint, {
+      limit: perPage,
+      orderBy: isAscending ? 'name' : '-name',
+      nameStartsWith: search
+    })
 }
 
+// fetch comics
 export const Comics = {
-  getAll: (page, isAscending) =>
-    requests.get(`${comicsEndpoint}&limit=${limit}&orderBy=${isAscending ? '' : '-'}title`),
-  byCharacter: (page, isAscending, charId) =>
-    requests.get(`v1/public/characters/${charId}/comics?hash=${md5}&apikey=${publicKey}&ts=1&limit=10`)
+  getAll: ({ page, isAscending }) =>
+    request.get(comicsEndpoint, {
+      limit: perPage,
+      orderBy: isAscending ? 'title' : '-title'
+    }),
+  byTitle: ({ page, isAscending, search }) =>
+    request.get(comicsEndpoint, {
+      limit: perPage,
+      orderBy: isAscending ? 'title' : '-title'
+    }),
+  byCharacter: ({ page, isAscending, charId }) =>
+    request.get(`v1/public/characters/${charId}/comics`, { limit: 10 })
 }

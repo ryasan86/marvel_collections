@@ -1,3 +1,3 @@
-export const publicKey = 'PUBLIC_KEY'
+export const apikey = 'PUBLIC_KEY'
 export const privateKey = 'PRIVATE_KEY'
-export const md5 = 'MD5_HASH'
+export const hash = 'MD5_HASH'

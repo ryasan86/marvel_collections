@@ -1,3 +1,1 @@
-export const handleError = err => {
-  return console.error(err)
-}
+export const handleError = err => console.error(err)
