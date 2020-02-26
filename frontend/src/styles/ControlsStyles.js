@@ -1,28 +1,28 @@
 import styled from 'styled-components'
 
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 2rem 0;
-  position: relative;
+const StyledControls = styled.div`
   font-size: 1.3rem;
-  font-weight: 900;
+  font-weight: normal;
   color: var(--gray);
+  & > div {
+    position: relative;
+    margin: 2rem 0;
+  } 
   input {
     width: 50%;
     outline: none;
     border: none;
     border-bottom: 2px solid black;
-    padding: 1rem 3rem;
+    padding: 1rem 4.5rem;
     font-size: 2rem;
     &:focus {
-      box-shadow: 0 0 3px 1px gold;
+      box-shadow: 0 0 3px 1px var(--gray);
     }
   }
   img {
     position: absolute;
     height: 100%;
-    padding: 1rem 0;
+    padding: 1rem;
   }
 `
 
@@ -35,4 +35,5 @@ const SortBy = styled.div`
   }
 `
 
-export { Row, SortBy }
+export { SortBy }
+export default StyledControls

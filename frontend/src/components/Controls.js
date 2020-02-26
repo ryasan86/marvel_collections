@@ -1,32 +1,26 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Row, SortBy } from '../styles/ControlsStyles'
+import StyledControls, { SortBy } from '../styles/ControlsStyles'
+import { Input } from './common/Input'
+import { Row } from './common/Row'
 import { MagnifierSVG } from '../images'
 
 const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
   const [input, setInput] = useState('')
-
-  const handleChange = e => {
-    setInput(e.target.value)
-  }
-
-  const handleKeyPress = e => {
-    if (e.key === 'Enter') setSearch(input)
-  }
 
   const handleSortClick = () => {
     setIsAscending(prevState => !prevState)
   }
 
   return (
-    <>
+    <StyledControls>
       <Row>
         <img src={MagnifierSVG} alt='search-icon' />
-        <input
+        <Input
           type='text'
           value={input}
-          onChange={handleChange}
-          onKeyPress={handleKeyPress}
+          onChange={setInput}
+          onKeyPress={setSearch}
         />
       </Row>
       <Row>
@@ -38,7 +32,7 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
           </a>
         </SortBy>
       </Row>
-    </>
+    </StyledControls>
   )
 }
 

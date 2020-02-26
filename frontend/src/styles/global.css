@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
-
 /* theme */
 :root {
-  --black: #1f1f1f;
-  --blacker: #141414;
+  --dark: #1f1f1f;
+  --darker: #141414;
   --red: #ec1c24;
   --off-white: #e1e1e1;
   --gray: #999;

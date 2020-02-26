@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const StyledFooter = styled.footer`
   padding: 2rem 0;
-  background: var(--black);
+  background: var(--dark);
   color: var(--off-white);
   display: flex;
   justify-content: center;

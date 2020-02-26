@@ -6,7 +6,7 @@ const StyledHeader = styled.ul`
   justify-content: center;
   margin: 0;
   padding: 0;
-  background: var(--black);
+  background: var(--dark);
 `
 
 const StyledNavItem = styled.li`

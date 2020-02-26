@@ -32,7 +32,7 @@ const StyledCharacterDetails = styled.div`
 
 const BannerSection = styled.section`
   width: 100%;
-  background: var(--blacker);
+  background: var(--darker);
   display: flex;
   justify-content: center;
   & > div {

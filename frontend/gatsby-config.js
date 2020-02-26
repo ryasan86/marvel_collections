@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Marvel Collections`,
     description: `Collection builder using Marvel's API and graphql.`,
-    author: `Ryan Santos`,
+    author: `Ryan Santos`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -10,8 +10,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -24,11 +24,23 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/favicon.ico`, // This path is relative to the root of the site.
-      },
+        icon: `src/images/favicon.ico` // This path is relative to the root of the site.
+      }
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
-  ],
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Roboto Condensed`,
+            variants: ['light', 'normal', 'bold', 'bolder']
+          }
+        ]
+      }
+    }
+  ]
 }
+
+// this (optional) plugin enables Progressive Web App + Offline functionality
+// To learn more, visit: https://gatsby.dev/offline
+// `gatsby-plugin-offline`,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SEO from '../components/SEO'
-import { MaxWidth } from '../styles/common'
+import { MaxWidth } from './common'
 import StyledCharacterDetails, {
   BannerSection,
   DescriptionSection,
@@ -12,6 +12,27 @@ import DelayMessage from './DelayMessage'
 import ErrorBoundary from './ErrorBoundary'
 import { Comics } from '../client'
 
+const ComicList = ({ comics }) => {
+  if (!comics) {
+    return <DelayMessage text='Loading...' />
+  }
+
+  if (comics.length === 0) {
+    return <DelayMessage text='0 comics found 😮' />
+  }
+
+  return (
+    <ul>
+      {comics.map((c, i) => (
+        <li key={i}>
+          <img src={`${c.thumbnail.path}/portrait_incredible.jpg`} alt='' />
+          <span>{c.title}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 const CharacterDetails = ({ location: { state } }) => {
   const [isAscending, setIsAscending] = useState(true)
   const [comics, setComics] = useState(null)
@@ -19,7 +40,7 @@ const CharacterDetails = ({ location: { state } }) => {
 
   useEffect(() => {
     Comics.byCharacter(null, isAscending, state.id)
-      .then(res => console.log(res.data) || setComics(res.data))
+      .then(res => setComics(res.data))
       .catch(setError)
   }, [])
 
@@ -60,27 +81,6 @@ const CharacterDetails = ({ location: { state } }) => {
         </ComicsSection>
       </MaxWidth>
     </StyledCharacterDetails>
-  )
-}
-
-const ComicList = ({ comics }) => {
-  if (!comics) {
-    return <DelayMessage text='Loading...' />
-  }
-
-  if (comics.length === 0) {
-    return <DelayMessage text='0 comics found 😮' />
-  }
-
-  return (
-    <ul>
-      {comics.map((c, i) => (
-        <li key={i}>
-          <img src={`${c.thumbnail.path}/portrait_incredible.jpg`} alt='' />
-          <span>{c.title}</span>
-        </li>
-      ))}
-    </ul>
   )
 }
 
