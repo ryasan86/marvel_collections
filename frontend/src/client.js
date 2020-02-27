@@ -1,7 +1,7 @@
 import { checkStatus, responseData, handleError } from './utils'
 import agent from 'superagent'
 
-export const limit = 35 // how many items to show per page
+export const limit = 36 // how many items to show per page
 const apiRoot = 'https://gateway.marvel.com/'
 const charsEndpoint = `v1/public/characters`
 const comicsEndpoint = `v1/public/comics`

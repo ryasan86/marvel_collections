@@ -12,7 +12,7 @@ import { Comics } from '../client'
 import { sortMap } from '../components/SortBy'
 
 const ComicsMain = ({ path: endpoint }) => {
-  const [orderBy, dispatchOrderBy] = useState(sortMap.comics.ascending_alpha)
+  const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [comics, setComics] = useState(null)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState(null)
@@ -22,7 +22,7 @@ const ComicsMain = ({ path: endpoint }) => {
     setComics(null)
     const ComicsPromise = search ? Comics.byTitle : Comics.getAll
     ComicsPromise({ page, orderBy, search })
-      .then(res => console.log(res) || setComics(res))
+      .then(setComics)
       .catch(setError)
   }, [page, orderBy, search])
 
@@ -30,11 +30,11 @@ const ComicsMain = ({ path: endpoint }) => {
     <Layout>
       <SEO title='Comics' />
       <MaxWidth>
-        <h1>COMICS LIST</h1>
+        <h3>COMICS LIST</h3>
         <Controls
           endpoint={endpoint}
           setSearch={setSearch}
-          dispatchOrderBy={dispatchOrderBy}
+          setOrderBy={setOrderBy}
           total={comics && comics.total}
         />
         <ErrorBoundary error={error}>
@@ -58,7 +58,7 @@ ComicsMain.propTypes = {
 const ComicsPage = () => (
   <Router>
     <ComicsMain path='/comics' />
-    <ComicDetails path='/comics/*' />
+    <ComicDetails path='/comics/:title' />
   </Router>
 )
 

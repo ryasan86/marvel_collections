@@ -17,7 +17,6 @@
 *:before,
 *:after {
   box-sizing: border-box;
-  /* outline: 1px solid red; */
 }
 
 html,
@@ -35,4 +34,24 @@ ul {
 
 li {
   list-style-type: none;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+h2 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 3rem;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: var(--large-font);
 }

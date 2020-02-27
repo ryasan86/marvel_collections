@@ -6,7 +6,8 @@ import StyledCharacterDetails, {
   Description,
   CharacterComics,
   LeftColumn,
-  RightColumn
+  RightColumn,
+  ContentContainer
 } from '../styles/CharacterDetailsStyles'
 import Layout from './Layout'
 import ItemsList from './ItemsList'
@@ -15,9 +16,11 @@ import ErrorBoundary from './ErrorBoundary'
 import { Row } from './common/Row'
 import { MaxWidth } from './common'
 import { Comics, Characters } from '../client'
+import { MarvelBg } from '../images'
 
 const BannerSection = ({ state }) => (
-  <Banner>
+  <Banner bg={MarvelBg}>
+    <div className='background-image' />
     <MaxWidth>
       <LeftColumn>
         <img
@@ -44,7 +47,7 @@ const DescriptionSection = ({ state }) => (
 )
 
 const CharacterComicsSection = ({
-  dispatchOrderBy,
+  setOrderBy,
   error,
   page,
   setPage,
@@ -55,7 +58,7 @@ const CharacterComicsSection = ({
       <LeftColumn>
         <h3>COMICS LIST</h3>
       </LeftColumn>
-      <SortBy dispatchOrderBy={dispatchOrderBy} endpoint='/comics' />
+      <SortBy setOrderBy={setOrderBy} endpoint='/comics' />
     </Row>
     <ErrorBoundary error={error}>
       <ItemsList
@@ -69,9 +72,8 @@ const CharacterComicsSection = ({
   </CharacterComics>
 )
 
-
 const CharacterDetails = ({ location: { state } }) => {
-  const [orderBy, dispatchOrderBy] = useState(sortMap.comics.ascending_alpha)
+  const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [comics, setComics] = useState(null)
   const [error, setError] = useState(null)
   const [page, setPage] = useState(1)
@@ -88,15 +90,17 @@ const CharacterDetails = ({ location: { state } }) => {
       <StyledCharacterDetails>
         <SEO title={state.name} />
         <BannerSection state={state} />
-        <DescriptionSection state={state}></DescriptionSection>
-        <CharacterComicsSection
-          orderBy={orderBy}
-          error={error}
-          page={page}
-          setPage={setPage}
-          comics={comics}
-          dispatchOrderBy={dispatchOrderBy}
-        />
+        <ContentContainer>
+          <DescriptionSection state={state}></DescriptionSection>
+          <CharacterComicsSection
+            orderBy={orderBy}
+            error={error}
+            page={page}
+            setPage={setPage}
+            comics={comics}
+            setOrderBy={setOrderBy}
+          />
+        </ContentContainer>
       </StyledCharacterDetails>
     </Layout>
   )

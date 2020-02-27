@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 
 const ItemStyles = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: opacity 0.7s;
+  transition-delay: 0.5s;
+  opacity: ${props => props.isVisible ? '1' : '0'};
   img {
     width: 100%;
     cursor: pointer;
@@ -11,7 +17,7 @@ const ItemStyles = styled.li`
     }
   }
   .text-row {
-    padding: 3rem 0;
+    padding: 2rem 0;
     font-size: var(--small-font);
     font-weight: bold;
   }

@@ -1,4 +1,5 @@
-import MarvelSVG from './marvel_logo.svg'
+import MarvelSVG from './marvel-logo.svg'
 import MagnifierSVG from './magnifying-glass.svg'
+import MarvelBg from './marvel-bg.jpg'
 
-export { MarvelSVG, MagnifierSVG }
+export { MarvelBg, MarvelSVG, MagnifierSVG }

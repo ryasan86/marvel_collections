@@ -12,7 +12,7 @@ import { Characters } from '../client'
 import { sortMap } from '../components/SortBy'
 
 const CharactersMain = ({ path: endpoint }) => {
-  const [orderBy, dispatchOrderBy] = useState(sortMap.characters.ascending_alpha)
+  const [orderBy, setOrderBy] = useState(sortMap.characters.ascending_alpha)
   const [characters, setCharacters] = useState(null)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState(null)
@@ -30,11 +30,11 @@ const CharactersMain = ({ path: endpoint }) => {
     <Layout>
       <SEO title='Characters' />
       <MaxWidth>
-        <h1>CHARACTERS LIST</h1>
+        <h3>CHARACTERS LIST</h3>
         <Controls
           endpoint={endpoint}
           setSearch={setSearch}
-          dispatchOrderBy={dispatchOrderBy}
+          setOrderBy={setOrderBy}
           total={characters && characters.total}
         />
         <ErrorBoundary error={error}>

@@ -24,9 +24,9 @@ const options = [
   { name: 'LATEST', value: 'descending_modified' }
 ]
 
-const SortBy = ({ className, dispatchOrderBy, endpoint }) => {
+const SortBy = ({ className, setOrderBy, endpoint }) => {
   const location = endpoint.slice(1)
-  const handleChange = e => dispatchOrderBy(sortMap[location][e.target.value])
+  const handleChange = e => setOrderBy(sortMap[location][e.target.value])
 
   return (
     <StyledSortBy className={className}>

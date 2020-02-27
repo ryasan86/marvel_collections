@@ -30,14 +30,11 @@ const StyledControls = styled.div`
   }
 `
 
-const SortBy = styled.div`
-  display: flex;
-  .sort-btn {
-    color: var(--red);
-    margin-left: 0.5rem;
-    cursor: pointer;
-  }
+const StyledTotal = styled.div`
+  transition: opacity 0.7s;
+  transition-delay: 0.5s;
+  opacity: ${props => props.isVisible ? '1' : '0'};
 `
 
-export { SortBy }
+export { StyledTotal }
 export default StyledControls

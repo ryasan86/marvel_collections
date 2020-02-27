@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import StyledControls from '../styles/ControlsStyles'
+import StyledControls, { StyledTotal } from '../styles/ControlsStyles'
 import SortBy from './SortBy'
 import { Input } from './common/Input'
 import { Row } from './common/Row'
 import { MagnifierSVG } from '../images'
 
-const Controls = ({ setSearch, total, dispatchOrderBy, endpoint }) => {
+const Total = ({ children }) => {
+  const [isVisible, setIsVisible] = useState(false)
+  useEffect(() => setIsVisible(true), [])
+  
+  return <StyledTotal isVisible={isVisible}>{children}</StyledTotal>
+}
+
+const Controls = ({ setSearch, total, setOrderBy, endpoint }) => {
   const [input, setInput] = useState('')
 
   return (
@@ -22,15 +29,15 @@ const Controls = ({ setSearch, total, dispatchOrderBy, endpoint }) => {
         />
       </Row>
       <Row>
-        <div>{total ? `${total} RESULTS` : ''}</div>
-        <SortBy dispatchOrderBy={dispatchOrderBy} endpoint={endpoint} />
+        <Total>{total ? `${total} RESULTS` : ''}</Total>
+        <SortBy setOrderBy={setOrderBy} endpoint={endpoint} />
       </Row>
     </StyledControls>
   )
 }
 
 Controls.propTypes = {
-  dispatchOrderBy: PropTypes.func.isRequired,
+  setOrderBy: PropTypes.func.isRequired,
   setSearch: PropTypes.func.isRequired,
   total: PropTypes.number
 }
