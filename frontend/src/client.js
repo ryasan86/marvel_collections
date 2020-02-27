@@ -1,7 +1,7 @@
 import { checkStatus, responseData, handleError } from './utils'
 import agent from 'superagent'
 
-export const limit = 36 // how many items to show per page
+export const limit = 35 // how many items to show per page
 const apiRoot = 'https://gateway.marvel.com/'
 const charsEndpoint = `v1/public/characters`
 const comicsEndpoint = `v1/public/comics`
@@ -22,40 +22,44 @@ const request = {
       .catch(handleError)
 }
 
+const offset = (page, perPage) => (page - 1) * perPage || 0
+
 // fetch characters
 export const Characters = {
-  getAll: ({ page, isAscending }) =>
+  getAll: ({ page, orderBy }) =>
     request.get(charsEndpoint, {
       limit: limit,
-      offset: (page - 1) * limit,
-      orderBy: isAscending ? 'name' : '-name'
+      orderBy: orderBy,
+      offset: offset(page, limit)
     }),
-  byName: ({ page, isAscending, search }) =>
+  byName: ({ page, orderBy, search }) =>
     request.get(charsEndpoint, {
       limit: limit,
-      offset: (page - 1) * limit,
-      orderBy: isAscending ? 'name' : '-name',
-      nameStartsWith: search
+      orderBy: orderBy,
+      nameStartsWith: search,
+      offset: offset(page, limit)
     })
 }
 
 // fetch comics
 export const Comics = {
-  getAll: ({ page, isAscending }) =>
-    console.log(page) || request.get(comicsEndpoint, {
-      limit: limit,
-      offset: (page - 1) * limit,
-      orderBy: isAscending ? 'title' : '-title'
-    }),
-  byTitle: ({ page, isAscending, search }) =>
+  getAll: ({ page, orderBy }) =>
     request.get(comicsEndpoint, {
       limit: limit,
-      offset: (page - 1) * limit,
-      orderBy: isAscending ? 'title' : '-title'
+      orderBy: orderBy,
+      offset: offset(page, limit)
     }),
-  byCharacter: ({ page, isAscending, charId }) =>
+  byTitle: ({ page, orderBy, search }) =>
+    request.get(comicsEndpoint, {
+      limit: limit,
+      orderBy: orderBy,
+      titleStartsWith: search,
+      offset: offset(page, limit)
+    }),
+  byCharacter: ({ page, orderBy, charId }) =>
     request.get(`v1/public/characters/${charId}/comics`, {
-      limit: 10,
-      offset: (page - 1) * 10
+      limit: 12,
+      orderBy: orderBy,
+      offset: offset(page, 12)
     })
 }

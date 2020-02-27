@@ -7,3 +7,4 @@
 5. Keep footer at either bottom of large content or at bottom of page if content doesn't fill page
 6. nprogress
 7. downshift
+8. Make focus outline consistent

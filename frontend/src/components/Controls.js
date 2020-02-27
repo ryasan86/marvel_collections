@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import StyledControls, { SortBy } from '../styles/ControlsStyles'
+import StyledControls from '../styles/ControlsStyles'
+import SortBy from './SortBy'
 import { Input } from './common/Input'
 import { Row } from './common/Row'
 import { MagnifierSVG } from '../images'
 
-const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
+const Controls = ({ setSearch, total, dispatchOrderBy, endpoint }) => {
   const [input, setInput] = useState('')
-
-  const sortClick = () => {
-    setIsAscending(prevState => !prevState)
-  }
 
   return (
     <StyledControls>
@@ -25,21 +22,15 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
         />
       </Row>
       <Row>
-        <div>{total && `${total} RESULTS`}</div>
-        <SortBy>
-          <div>SORT BY</div>
-          <a className='sort-btn' onClick={sortClick}>
-            {isAscending ? 'Z-A' : 'A-Z'}
-          </a>
-        </SortBy>
+        <div>{total ? `${total} RESULTS` : ''}</div>
+        <SortBy dispatchOrderBy={dispatchOrderBy} endpoint={endpoint} />
       </Row>
     </StyledControls>
   )
 }
 
 Controls.propTypes = {
-  isAscending: PropTypes.bool.isRequired,
-  setIsAscending: PropTypes.func.isRequired,
+  dispatchOrderBy: PropTypes.func.isRequired,
   setSearch: PropTypes.func.isRequired,
   total: PropTypes.number
 }

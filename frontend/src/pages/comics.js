@@ -9,9 +9,10 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import ComicDetails from '../components/ComicDetails'
 import { MaxWidth } from '../components/common/MaxWidth'
 import { Comics } from '../client'
+import { sortMap } from '../components/SortBy'
 
 const ComicsMain = ({ path: endpoint }) => {
-  const [isAscending, setIsAscending] = useState(true)
+  const [orderBy, dispatchOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [comics, setComics] = useState(null)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState(null)
@@ -20,10 +21,10 @@ const ComicsMain = ({ path: endpoint }) => {
   useEffect(() => {
     setComics(null)
     const ComicsPromise = search ? Comics.byTitle : Comics.getAll
-    ComicsPromise({ page, isAscending, search })
-      .then(setComics)
+    ComicsPromise({ page, orderBy, search })
+      .then(res => console.log(res) || setComics(res))
       .catch(setError)
-  }, [page, isAscending, search])
+  }, [page, orderBy, search])
 
   return (
     <Layout>
@@ -31,9 +32,9 @@ const ComicsMain = ({ path: endpoint }) => {
       <MaxWidth>
         <h1>COMICS LIST</h1>
         <Controls
+          endpoint={endpoint}
           setSearch={setSearch}
-          isAscending={isAscending}
-          setIsAscending={setIsAscending}
+          dispatchOrderBy={dispatchOrderBy}
           total={comics && comics.total}
         />
         <ErrorBoundary error={error}>

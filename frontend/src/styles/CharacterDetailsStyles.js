@@ -30,7 +30,8 @@ const StyledCharacterDetails = styled.div`
   }
 `
 
-const BannerSection = styled.section`
+// sections
+const Banner = styled.section`
   width: 100%;
   background: var(--darker);
   display: flex;
@@ -41,23 +42,25 @@ const BannerSection = styled.section`
   }
 `
 
-const DescriptionSection = styled.section`
+const Description = styled.section`
   display: flex;
   margin-top: 2rem;
+  width: 100%;
+  max-width: var(--max-width);
 `
 
-const ComicsSection = styled.section`
+const CharacterComics = styled.section`
   width: 100%;
+  max-width: var(--max-width);
   display: flex;
   flex-direction: column;
   margin-top: 5rem;
-  ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16.667%, 1fr));
-    gap: 1rem;
+  .comics-list-row {
+    width: 100%;
+    align-items: center;
   }
 `
-
+// columns
 const LeftColumn = styled.div`
   width: 30%;
 `
@@ -68,5 +71,5 @@ const RightColumn = styled.div`
   justify-content: center;
 `
 
-export { BannerSection, DescriptionSection, ComicsSection, LeftColumn, RightColumn }
+export { Banner, Description, CharacterComics, LeftColumn, RightColumn }
 export default StyledCharacterDetails

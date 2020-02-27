@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledControls = styled.div`
-  font-size: 1.3rem;
+  font-size: var(--regular-font);
   font-weight: normal;
   color: var(--gray);
   & > div {

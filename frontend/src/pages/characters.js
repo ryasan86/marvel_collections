@@ -9,9 +9,10 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import Controls from '../components/Controls'
 import { MaxWidth } from '../components/common'
 import { Characters } from '../client'
+import { sortMap } from '../components/SortBy'
 
 const CharactersMain = ({ path: endpoint }) => {
-  const [isAscending, setIsAscending] = useState(true)
+  const [orderBy, dispatchOrderBy] = useState(sortMap.characters.ascending_alpha)
   const [characters, setCharacters] = useState(null)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState(null)
@@ -20,10 +21,10 @@ const CharactersMain = ({ path: endpoint }) => {
   useEffect(() => {
     setCharacters(null)
     const charactersPromise = search ? Characters.byName : Characters.getAll
-    charactersPromise({ page, isAscending, search })
+    charactersPromise({ page, orderBy, search })
       .then(setCharacters)
       .catch(setError)
-  }, [page, isAscending, search])
+  }, [page, orderBy, search])
 
   return (
     <Layout>
@@ -31,9 +32,9 @@ const CharactersMain = ({ path: endpoint }) => {
       <MaxWidth>
         <h1>CHARACTERS LIST</h1>
         <Controls
+          endpoint={endpoint}
           setSearch={setSearch}
-          isAscending={isAscending}
-          setIsAscending={setIsAscending}
+          dispatchOrderBy={dispatchOrderBy}
           total={characters && characters.total}
         />
         <ErrorBoundary error={error}>

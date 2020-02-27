@@ -5,10 +5,10 @@ import ItemStyles from '../styles/ItemStyles'
 
 const CharacterItem = ({ c, endpoint }) => (
   <ItemStyles>
-    <div>{c.name}</div>
     <Link to={`${endpoint}/${c.name}`} state={c}>
       <img src={c.thumbnail.path + '/portrait_incredible.jpg'} alt={c.name} />
     </Link>
+    <div className='text-row'>{c.name}</div>
   </ItemStyles>
 )
 
@@ -17,7 +17,7 @@ const ComicItem = ({ c, endpoint }) => (
     <Link to={`${endpoint}/${c.title}`} state={c}>
       <img src={c.thumbnail.path + '/portrait_incredible.jpg'} alt={c.title} />
     </Link>
-    <div>{c.title}</div>
+    <div className='text-row'>{c.title}</div>
   </ItemStyles>
 )
 

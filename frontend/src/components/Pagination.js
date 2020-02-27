@@ -1,16 +1,21 @@
 import React from 'react'
+import localeInfo from 'rc-pagination/lib/locale/en_US'
 import StyledPagination from '../styles/PaginationStyles'
 import { limit } from '../client'
 
-const PrevIcon = ({ disabled }) => (
-  <button disabled={disabled}>&lt; Prev</button>
-)
-
-const NextIcon = ({ disabled }) => (
-  <button disabled={disabled}>Next &gt;</button>
-)
-
-const Ellipsis = () => <a>...</a>
+const buttonItemRender = (current, type, element) => {
+  switch (type) {
+    case 'prev':
+      return <button className='prev'>&#8678; Prev</button>
+    case 'next':
+      return <button className='next'>Next &#8680;</button>
+    case 'jump-prev':
+    case 'jump-next':
+      return <a>...</a>
+    default:
+      return element
+  }
+}
 
 const Pagination = ({ total, page, setPage }) => {
   const pageCount = Math.ceil(total / limit)
@@ -22,11 +27,11 @@ const Pagination = ({ total, page, setPage }) => {
       current={page}
       defaultPageSize={limit}
       onChange={handlePageChange}
-      showTitle={false}
-      prevIcon={<PrevIcon disabled={page === 1} />}
-      nextIcon={<NextIcon disabled={page === pageCount} />}
-      jumpPrevIcon={<Ellipsis />}
-      jumpNextIcon={<Ellipsis />}
+      itemRender={buttonItemRender}
+      prevDisabled={page === 1}
+      nextDisabled={page === pageCount}
+      locale={localeInfo}
+      showTitle
     />
   )
 }
