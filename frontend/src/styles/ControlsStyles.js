@@ -7,7 +7,7 @@ const StyledControls = styled.div`
   & > div {
     position: relative;
     margin: 2rem 0;
-  } 
+  }
   input {
     width: 50%;
     outline: none;
@@ -15,8 +15,12 @@ const StyledControls = styled.div`
     border-bottom: 2px solid black;
     padding: 1rem 4.5rem;
     font-size: 2rem;
+    font-weight: bolder;
     &:focus {
       box-shadow: 0 0 3px 1px var(--gray);
+    }
+    &::placeholder {
+      color: #eee;
     }
   }
   img {

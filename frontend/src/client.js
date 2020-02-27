@@ -1,7 +1,7 @@
 import { checkStatus, responseData, handleError } from './utils'
 import agent from 'superagent'
 
-export const perPage = 36 // characters and comics per page
+export const limit = 36 // how many items to show per page
 const apiRoot = 'https://gateway.marvel.com/'
 const charsEndpoint = `v1/public/characters`
 const comicsEndpoint = `v1/public/comics`
@@ -26,13 +26,14 @@ const request = {
 export const Characters = {
   getAll: ({ page, isAscending }) =>
     request.get(charsEndpoint, {
-      limit: perPage,
-      offset: (page - 1) * perPage,
+      limit: limit,
+      offset: (page - 1) * limit,
       orderBy: isAscending ? 'name' : '-name'
     }),
   byName: ({ page, isAscending, search }) =>
     request.get(charsEndpoint, {
-      limit: perPage,
+      limit: limit,
+      offset: (page - 1) * limit,
       orderBy: isAscending ? 'name' : '-name',
       nameStartsWith: search
     })
@@ -41,15 +42,20 @@ export const Characters = {
 // fetch comics
 export const Comics = {
   getAll: ({ page, isAscending }) =>
-    request.get(comicsEndpoint, {
-      limit: perPage,
+    console.log(page) || request.get(comicsEndpoint, {
+      limit: limit,
+      offset: (page - 1) * limit,
       orderBy: isAscending ? 'title' : '-title'
     }),
   byTitle: ({ page, isAscending, search }) =>
     request.get(comicsEndpoint, {
-      limit: perPage,
+      limit: limit,
+      offset: (page - 1) * limit,
       orderBy: isAscending ? 'title' : '-title'
     }),
   byCharacter: ({ page, isAscending, charId }) =>
-    request.get(`v1/public/characters/${charId}/comics`, { limit: 10 })
+    request.get(`v1/public/characters/${charId}/comics`, {
+      limit: 10,
+      offset: (page - 1) * 10
+    })
 }

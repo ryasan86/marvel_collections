@@ -1,32 +1,33 @@
 import React from 'react'
 import StyledPagination from '../styles/PaginationStyles'
-import { perPage } from '../client'
+import { limit } from '../client'
 
-// offset - skip the specified number resources in the result set
-// pages = total items / per page
-// truncate right side if pages - 5 is greater than 0
+const PrevIcon = ({ disabled }) => (
+  <button disabled={disabled}>&lt; Prev</button>
+)
+
+const NextIcon = ({ disabled }) => (
+  <button disabled={disabled}>Next &gt;</button>
+)
+
+const Ellipsis = () => <a>...</a>
 
 const Pagination = ({ total, page, setPage }) => {
-  const pageCount = Math.ceil(total / perPage)
-
-  const nextClick = () => {
-    setPage(prevState => prevState + 1)
-  }
-
-  const prevClick = () => {
-    setPage(prevState => prevState - 1)
-  }
-
-  // if current page - 1 is greater than 3 truncate left side
-  // if total page - current page is greater than 3 truncate right side
+  const pageCount = Math.ceil(total / limit)
+  const handlePageChange = p => setPage(p)
 
   return (
-    <StyledPagination>
-      {page > 1 ? <button onClick={prevClick}>⬅ Prev</button> : ''}
-      <button>1</button>
-      <button>{pageCount}</button>
-      {page < pageCount ? <button onClick={nextClick}>Next ➡</button> : ''}
-    </StyledPagination>
+    <StyledPagination
+      total={total}
+      current={page}
+      defaultPageSize={limit}
+      onChange={handlePageChange}
+      showTitle={false}
+      prevIcon={<PrevIcon disabled={page === 1} />}
+      nextIcon={<NextIcon disabled={page === pageCount} />}
+      jumpPrevIcon={<Ellipsis />}
+      jumpNextIcon={<Ellipsis />}
+    />
   )
 }
 

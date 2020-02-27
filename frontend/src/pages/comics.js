@@ -15,14 +15,15 @@ const ComicsMain = ({ path: endpoint }) => {
   const [comics, setComics] = useState(null)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState(null)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     setComics(null)
     const ComicsPromise = search ? Comics.byTitle : Comics.getAll
-    ComicsPromise({ page: null, isAscending, search })
+    ComicsPromise({ page, isAscending, search })
       .then(setComics)
       .catch(setError)
-  }, [isAscending, search])
+  }, [page, isAscending, search])
 
   return (
     <Layout>
@@ -36,7 +37,13 @@ const ComicsMain = ({ path: endpoint }) => {
           total={comics && comics.total}
         />
         <ErrorBoundary error={error}>
-          <ItemsList items={comics && comics.results} endpoint={endpoint} />
+          <ItemsList
+            page={page}
+            setPage={setPage}
+            endpoint={endpoint}
+            total={comics && comics.total}
+            items={comics && comics.results}
+          />
         </ErrorBoundary>
       </MaxWidth>
     </Layout>

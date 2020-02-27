@@ -1,6 +1,13 @@
 import React from 'react'
 
-export const Input = ({ onChange, onKeyPress, type, value, name }) => {
+export const Input = ({
+  onChange,
+  onKeyPress,
+  type,
+  value,
+  name,
+  placeholder
+}) => {
   const handleChange = e => {
     onChange(e.target.value)
   }
@@ -11,9 +18,10 @@ export const Input = ({ onChange, onKeyPress, type, value, name }) => {
   return (
     <input
       type={type}
-      onChange={handleChange}
-      onKeyPress={handleEnterPress}
       value={value}
+      onChange={handleChange}
+      placeholder={placeholder}
+      onKeyPress={handleEnterPress}
     />
   )
 }

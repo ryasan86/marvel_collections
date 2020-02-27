@@ -18,6 +18,7 @@ const Controls = ({ isAscending, setIsAscending, setSearch, total }) => {
         <img src={MagnifierSVG} alt='search-icon' />
         <Input
           type='text'
+          placeholder='SEARCH'
           value={input}
           onChange={setInput}
           onKeyPress={setSearch}
