@@ -1,6 +1,6 @@
 import React from 'react'
 import localeInfo from 'rc-pagination/lib/locale/en_US'
-import StyledPagination from '../styles/PaginationStyles'
+import StyledPagination from '../styles/pagination.styles'
 import { limit } from '../client'
 
 const itemRender = (current, type, element) => {

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import StyledControls, { StyledTotal } from '../styles/ControlsStyles'
-import SortBy from './SortBy'
-import { Input } from './common/Input'
-import { Row } from './common/Row'
+import StyledControls, { StyledTotal } from '../styles/controls.styles'
+import SortBy from './sort-by'
+import { Input, Row } from './common'
 import { MagnifierSVG } from '../images'
 
 const Total = ({ children }) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import SEO from '../components/SEO'
+import SEO from './seo'
 import StyledCharacterDetails, {
   Banner,
   Description,
@@ -8,14 +8,13 @@ import StyledCharacterDetails, {
   LeftColumn,
   RightColumn,
   ContentContainer
-} from '../styles/CharacterDetailsStyles'
-import Layout from './Layout'
-import ItemsList from './ItemsList'
-import SortBy, { sortMap } from './SortBy'
-import ErrorBoundary from './ErrorBoundary'
-import { MaxWidth, Row } from './common'
+} from '../styles/character-details.styles'
+import Layout from './layout'
+import ItemsList from './items-list'
+import SortBy, { sortMap } from './sort-by'
+import ErrorBoundary from './error-boundary'
+import { MaxWidth, Row, BackgroundImage } from './common'
 import { Comics, Characters } from '../client'
-import { BackgroundImage } from './common/BackgroundImage'
 
 const BannerSection = ({ state }) => {
   const bg = state.thumbnail.path + '/portrait_incredible.jpg'
@@ -96,11 +95,11 @@ const CharacterDetails = ({ location: { state } }) => {
         <ContentContainer>
           <DescriptionSection state={state}></DescriptionSection>
           <CharacterComicsSection
-            orderBy={orderBy}
             error={error}
+            comics={comics}
             page={page}
             setPage={setPage}
-            comics={comics}
+            orderBy={orderBy}
             setOrderBy={setOrderBy}
           />
         </ContentContainer>

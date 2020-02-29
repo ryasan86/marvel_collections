@@ -1,13 +1,13 @@
 import React from 'react'
 import moment from 'moment'
-import Layout from './Layout'
+import Layout from './layout'
 import StyledComicDetails, {
   ContentContainer,
   TextContainer,
   MetaItem
-} from '../styles/ComicDetailsStyles'
+} from '../styles/comic-details.styles'
 import { capitalize } from '../utils/capitalize'
-import { BackgroundImage } from './common/BackgroundImage'
+import { BackgroundImage } from './common'
 
 const TextContent = ({ state }) => {
   const { description, modified, prices, creators, title } = state

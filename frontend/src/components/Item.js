@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-import ItemStyles from '../styles/ItemStyles'
+import ItemStyles from '../styles/item.styles'
 
 const CharacterItem = ({ c, path }) => {
   const [isVisible, setIsVisible] = useState(false)

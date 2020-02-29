@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import StyledHeader, { StyledNavItem } from '../styles/HeaderStyles'
+import StyledHeader, { StyledNavItem } from '../styles/header.styles'
 import { MarvelSVG } from '../images'
 
 const activeStyle = {

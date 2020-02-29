@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Router } from '@reach/router'
 import PropTypes from 'prop-types'
-import Layout from '../components/Layout'
-import SEO from '../components/SEO'
-import Controls from '../components/Controls'
-import ItemsList from '../components/ItemsList'
-import ErrorBoundary from '../components/ErrorBoundary'
-import ComicDetails from '../components/ComicDetails'
-import { MaxWidth } from '../components/common/MaxWidth'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+import Controls from '../components/controls'
+import ItemsList from '../components/items-list'
+import ErrorBoundary from '../components/error-boundary'
+import ComicDetails from '../components/comic-details'
+import { MaxWidth } from '../components/common/max-width'
 import { Comics } from '../client'
-import { sortMap } from '../components/SortBy'
+import { sortMap } from '../components/sort-by'
 
 const ComicsMain = ({ path }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)

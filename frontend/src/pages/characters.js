@@ -1,55 +1,57 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
-import { useQuery } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
 import PropTypes from 'prop-types'
-import Layout from '../components/Layout'
-import ItemsList from '../components/ItemsList'
-import CharacterDetails from '../components/CharacterDetails'
-import SEO from '../components/SEO'
-import ErrorBoundary from '../components/ErrorBoundary'
-import Controls from '../components/Controls'
-import DelayMessage from '../components/DelayMessage'
+import Layout from '../components/layout'
+import ItemsList from '../components/items-list'
+import CharacterDetails from '../components/character-details'
+import SEO from '../components/seo'
+import ErrorBoundary from '../components/error-boundary'
+import Controls from '../components/controls'
+import DelayMessage from '../components/delay-message'
 import { MaxWidth } from '../components/common'
-import { Characters } from '../client'
-import { sortMap } from '../components/SortBy'
+import { sortMap } from '../components/sort-by'
+import { useCharacters, useCharactersByName } from '../graphql/characters.hook'
 
-const ALL_CHARACTERS = gql`
-  query allCharacters($orderBy: String, $page: Int!) {
-    characters(orderBy: $orderBy, page: $page) {
-      totalCount
-      edges {
-        node {
-          id
-          name
-          description
-          thumbnail
-        }
-      }
-    }
-  }
-`
-
-const CharactersMain = ({ path }) => {
-  const [orderBy, setOrderBy] = useState(sortMap.characters.ascending_alpha)
-  const [search, setSearch] = useState(null)
+const CharactersList = ({ path, orderBy, search, setTotalCount }) => {
   const [page, setPage] = useState(1)
-  const { data, loading, error } = useQuery(ALL_CHARACTERS, {
-    variables: { page, orderBy, search }
-  })
+  const charactersPromise = search ? useCharactersByName : useCharacters
+  const characters = charactersPromise({ page, orderBy, search })
+  const { data, loading, error, refetch } = characters
+
+  useEffect(() => {
+    refetch()
+  }, [page, orderBy, search])
+
   if (loading) {
     return <DelayMessage text='LOADING...' />
   }
-  const { characters: { totalCount, edges } } = data
 
-  // useEffect(() => {
-  //   setCharacters(null)
-  //   // const charactersPromise = search ? Characters.byName : Characters.getAll
-  //   // charactersPromise({ page, orderBy, search })
-  //   //   .then(setCharacters)
-  //   //   .catch(err => console.log(err))
-    
-  // }, [page, orderBy, search])
+  const { totalCount, edges } = search
+    ? data.characterNameStartsWith
+    : data.characters
+
+  setTotalCount(totalCount)
+
+  return (
+    <>
+      <ErrorBoundary error={error}>
+        <ItemsList
+          path={path}
+          error={error}
+          items={edges}
+          total={totalCount}
+          page={page}
+          setPage={setPage}
+        />
+      </ErrorBoundary>
+    </>
+  )
+}
+
+const CharactersMain = ({ path }) => {
+  const [orderBy, setOrderBy] = useState(sortMap.characters.ascending_alpha)
+  const [totalCount, setTotalCount] = useState(null)
+  const [search, setSearch] = useState(null)
 
   return (
     <Layout>
@@ -58,25 +60,22 @@ const CharactersMain = ({ path }) => {
         <h3>CHARACTERS LIST</h3>
         <Controls
           path={path}
+          total={totalCount}
           setSearch={setSearch}
           setOrderBy={setOrderBy}
-          total={totalCount}
         />
-        <ErrorBoundary error={error}>
-          <ItemsList
-            page={page}
-            setPage={setPage}
-            path={path}
-            total={totalCount}
-            items={edges}
-          />
-        </ErrorBoundary>
+        <CharactersList
+          orderBy={orderBy}
+          search={search}
+          path={path}
+          setTotalCount={setTotalCount}
+        />
       </MaxWidth>
     </Layout>
   )
 }
 
-Characters.propTypes = {
+CharactersMain.propTypes = {
   path: PropTypes.string
 }
 

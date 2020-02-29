@@ -1,17 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import StyledList from '../styles/ItemsListStyles'
-import Item from './Item'
-import DelayMessage from './DelayMessage'
-import Pagination from './Pagination'
+import StyledList from '../styles/items-list.styles'
+import Item from './item'
+import DelayMessage from './delay-message'
+import Pagination from './pagination'
 import { capitalize } from '../utils'
 
-const ItemsList = ({ items, path, page, setPage, total }) => {
+const ItemsList = ({ items, path, page, setPage, total, loading }) => {
   const itemType = capitalize(path.slice(1))
-
-  if (!items) {
-    return <DelayMessage text='LOADING...' />
-  }
 
   if (items.length === 0) {
     return <DelayMessage text={`0 ${itemType} FOUND 😮`} />
