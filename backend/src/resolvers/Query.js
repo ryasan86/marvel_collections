@@ -51,6 +51,18 @@ const Query = {
         totalCount: total,
         edges: createEdges(results)
       })),
+  characterNameStartsWith: (parent, args, ctx, info) =>
+    request
+      .get(charsEndpoint, {
+        limit: limit,
+        orderBy: args.orderBy,
+        nameStartsWith: args.search,
+        offset: offset(args.page, limit)
+      })
+      .then(({ total, results }) => console.log(total) || ({
+        totalCount: total,
+        edges: createEdges(results)
+      })),
   character: () => ({ id: 1, name: 'Bob' })
 }
 

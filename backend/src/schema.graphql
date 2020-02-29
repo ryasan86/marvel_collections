@@ -1,27 +1,24 @@
-### queries ##
 type Query {
   characters(page: Int, orderBy: String): CharacterConnection!
-  character: [Character]!
+  characterNameStartsWith(page: Int, orderBy: String, search: String): CharacterConnection!
+  character: Character
 }
 
-### mutations ##
 type Mutation {
   comments: String
 }
 
-### interfaces ##
-# An object with an ID
 interface Node {
-    # The id of the object.
   id: ID!
+  description: String
+  thumbnail: String
 }
 
-# types
 type Character implements Node {
   id: ID!
+  description: String
+  thumbnail: String
   name: String!
-  description: String!
-  thumbnail: String!
 }
 
 type CharacterConnection {
@@ -36,8 +33,8 @@ type CharacterEdge {
 type Comic {
   id: Int!
   title: String!
-  description: String!
-  modified: String!
+  description: String
+  modified: String
   prices: [Price!]!
   creators: [Creator!]!
 }
