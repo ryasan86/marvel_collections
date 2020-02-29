@@ -15,7 +15,7 @@ const CharacterItem = ({ c, path }) => {
         <img
           onLoad={handleOnLoad}
           onError={handleError}
-          src={c.thumbnail.path + '/portrait_incredible.jpg'}
+          src={c.thumbnail}
           alt={c.name}
         />
       </Link>

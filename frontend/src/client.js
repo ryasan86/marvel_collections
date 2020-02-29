@@ -1,10 +1,12 @@
 import { checkStatus, responseData, handleError } from './utils'
 import agent from 'superagent'
 
+export const devEndpoint = 'http://localhost:5000'
+export const prodEndpoint = 'FIGURE_OUT_LATER'
 export const limit = 36 // how many items to show per page
 const apiRoot = 'https://gateway.marvel.com/'
-const charsEndpoint = `v1/public/characters`
-const comicsEndpoint = `v1/public/comics`
+const charsEndpoint = 'v1/public/characters'
+const comicsEndpoint = 'v1/public/comics'
 
 const authParams = {
   ts: 1,
@@ -57,23 +59,22 @@ export const Comics = {
       offset: offset(page, limit)
     }),
   byCharacter: ({ page, orderBy, charId, name }) =>
-    request
-      .get(`v1/public/characters/${charId}/comics`, {
-        limit: 12,
-        orderBy: orderBy,
-        offset: offset(page, 12)
-      })
-      // .then(marvelRes => {
-      //   const token = process.env.GATSBY_ACCESS_TOKEN
-      //   return agent
-      //     .get(`https://superheroapi.com/api/${token}/search/name`)
-      //     .then(checkStatus)
-      //     .then(responseData)
-      //     .then(superHeroRes => ({
-      //       ...marvelRes,
-      //       details: superHeroRes.results
-      //     }))
-      //     .catch(handleError)
-      // })
+    request.get(`v1/public/characters/${charId}/comics`, {
+      limit: 12,
+      orderBy: orderBy,
+      offset: offset(page, 12)
+    })
+  // .then(marvelRes => {
+  //   const token = process.env.GATSBY_ACCESS_TOKEN
+  //   return agent
+  //     .get(`https://superheroapi.com/api/${token}/search/name`)
+  //     .then(checkStatus)
+  //     .then(responseData)
+  //     .then(superHeroRes => ({
+  //       ...marvelRes,
+  //       details: superHeroRes.results
+  //     }))
+  //     .catch(handleError)
+  // })
 }
 // https://superheroapi.com/api/access-token/search/name

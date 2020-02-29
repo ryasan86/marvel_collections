@@ -20,8 +20,8 @@ const ItemsList = ({ items, path, page, setPage, total }) => {
   return (
     <>
       <StyledList>
-        {items.map((c, i) => (
-          <Item key={c.id} c={c} path={path}></Item>
+        {items.map(({ node }, i) => (
+          <Item key={node.id} c={node} path={path}></Item>
         ))}
       </StyledList>
       <Pagination page={page} setPage={setPage} total={total} />

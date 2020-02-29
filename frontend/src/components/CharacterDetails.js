@@ -16,9 +16,6 @@ import ErrorBoundary from './ErrorBoundary'
 import { MaxWidth, Row } from './common'
 import { Comics, Characters } from '../client'
 import { BackgroundImage } from './common/BackgroundImage'
-import agent from 'superagent'
-import { checkStatus, responseData, handleError } from '../utils'
-import axios from 'axios'
 
 const BannerSection = ({ state }) => {
   const bg = state.thumbnail.path + '/portrait_incredible.jpg'

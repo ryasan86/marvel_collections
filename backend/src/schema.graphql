@@ -1,0 +1,53 @@
+### queries ##
+type Query {
+  characters(page: Int, orderBy: String): CharacterConnection!
+  character: [Character]!
+}
+
+### mutations ##
+type Mutation {
+  comments: String
+}
+
+### interfaces ##
+# An object with an ID
+interface Node {
+    # The id of the object.
+  id: ID!
+}
+
+# types
+type Character implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  thumbnail: String!
+}
+
+type CharacterConnection {
+  totalCount: Int!
+  edges: [CharacterEdge!]!
+}
+
+type CharacterEdge {
+  node: Character!
+}
+
+type Comic {
+  id: Int!
+  title: String!
+  description: String!
+  modified: String!
+  prices: [Price!]!
+  creators: [Creator!]!
+}
+
+type Price {
+  type: String!
+  price: Int!
+}
+
+type Creator {
+  name: String!
+  role: String!
+}
