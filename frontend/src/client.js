@@ -56,10 +56,24 @@ export const Comics = {
       titleStartsWith: search,
       offset: offset(page, limit)
     }),
-  byCharacter: ({ page, orderBy, charId }) =>
-    request.get(`v1/public/characters/${charId}/comics`, {
-      limit: 12,
-      orderBy: orderBy,
-      offset: offset(page, 12)
-    })
+  byCharacter: ({ page, orderBy, charId, name }) =>
+    request
+      .get(`v1/public/characters/${charId}/comics`, {
+        limit: 12,
+        orderBy: orderBy,
+        offset: offset(page, 12)
+      })
+      // .then(marvelRes => {
+      //   const token = process.env.GATSBY_ACCESS_TOKEN
+      //   return agent
+      //     .get(`https://superheroapi.com/api/${token}/search/name`)
+      //     .then(checkStatus)
+      //     .then(responseData)
+      //     .then(superHeroRes => ({
+      //       ...marvelRes,
+      //       details: superHeroRes.results
+      //     }))
+      //     .catch(handleError)
+      // })
 }
+// https://superheroapi.com/api/access-token/search/name

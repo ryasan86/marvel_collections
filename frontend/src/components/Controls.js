@@ -13,7 +13,7 @@ const Total = ({ children }) => {
   return <StyledTotal isVisible={isVisible}>{children}</StyledTotal>
 }
 
-const Controls = ({ setSearch, total, setOrderBy, endpoint }) => {
+const Controls = ({ setSearch, total, setOrderBy, path }) => {
   const [input, setInput] = useState('')
 
   return (
@@ -30,7 +30,7 @@ const Controls = ({ setSearch, total, setOrderBy, endpoint }) => {
       </Row>
       <Row>
         <Total>{total ? `${total} RESULTS` : ''}</Total>
-        <SortBy setOrderBy={setOrderBy} endpoint={endpoint} />
+        <SortBy setOrderBy={setOrderBy} path={path} />
       </Row>
     </StyledControls>
   )

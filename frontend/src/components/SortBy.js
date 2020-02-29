@@ -1,6 +1,5 @@
 import React from 'react'
 import StyledSortBy from '../styles/SortByStyles'
-import { Location } from '@reach/router'
 
 export const sortMap = {
   characters: {
@@ -24,9 +23,9 @@ const options = [
   { name: 'LATEST', value: 'descending_modified' }
 ]
 
-const SortBy = ({ className, setOrderBy, endpoint }) => {
-  const location = endpoint.slice(1)
-  const handleChange = e => setOrderBy(sortMap[location][e.target.value])
+const SortBy = ({ className, setOrderBy, path }) => {
+  const category = path.slice(1)
+  const handleChange = e => setOrderBy(sortMap[category][e.target.value])
 
   return (
     <StyledSortBy className={className}>
@@ -42,12 +41,4 @@ const SortBy = ({ className, setOrderBy, endpoint }) => {
   )
 }
 
-const withRouter = Component => props => {
-  return (
-    <Location>
-      {({ location }) => <Component {...props} location={location} />}
-    </Location>
-  )
-}
-
-export default withRouter(SortBy)
+export default SortBy

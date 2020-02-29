@@ -13,27 +13,32 @@ import Layout from './Layout'
 import ItemsList from './ItemsList'
 import SortBy, { sortMap } from './SortBy'
 import ErrorBoundary from './ErrorBoundary'
-import { Row } from './common/Row'
-import { MaxWidth } from './common'
+import { MaxWidth, Row } from './common'
 import { Comics, Characters } from '../client'
-import { MarvelBg } from '../images'
+import { BackgroundImage } from './common/BackgroundImage'
+import agent from 'superagent'
+import { checkStatus, responseData, handleError } from '../utils'
+import axios from 'axios'
 
-const BannerSection = ({ state }) => (
-  <Banner bg={MarvelBg}>
-    <div className='background-image' />
-    <MaxWidth>
-      <LeftColumn>
-        <img
-          src={state.thumbnail.path + '/portrait_incredible.jpg'}
-          alt={state.name}
-        />
-      </LeftColumn>
-      <RightColumn>
-        <h1>{state.name}</h1>
-      </RightColumn>
-    </MaxWidth>
-  </Banner>
-)
+const BannerSection = ({ state }) => {
+  const bg = state.thumbnail.path + '/portrait_incredible.jpg'
+  return (
+    <Banner bg={bg}>
+      <BackgroundImage bg={bg} />
+      <MaxWidth className='banner-content'>
+        <LeftColumn>
+          <img
+            src={state.thumbnail.path + '/portrait_incredible.jpg'}
+            alt={state.name}
+          />
+        </LeftColumn>
+        <RightColumn>
+          <h1>{state.name}</h1>
+        </RightColumn>
+      </MaxWidth>
+    </Banner>
+  )
+}
 
 const DescriptionSection = ({ state }) => (
   <Description>
@@ -58,7 +63,7 @@ const CharacterComicsSection = ({
       <LeftColumn>
         <h3>COMICS LIST</h3>
       </LeftColumn>
-      <SortBy setOrderBy={setOrderBy} endpoint='/comics' />
+      <SortBy setOrderBy={setOrderBy} path='/comics' />
     </Row>
     <ErrorBoundary error={error}>
       <ItemsList
@@ -66,7 +71,7 @@ const CharacterComicsSection = ({
         setPage={setPage}
         total={comics && comics.total}
         items={comics && comics.results}
-        endpoint='/comics'
+        path='/comics'
       />
     </ErrorBoundary>
   </CharacterComics>
@@ -77,10 +82,11 @@ const CharacterDetails = ({ location: { state } }) => {
   const [comics, setComics] = useState(null)
   const [error, setError] = useState(null)
   const [page, setPage] = useState(1)
+  const { id: charId, name } = state
 
   useEffect(() => {
     setComics(null)
-    Comics.byCharacter({ page, orderBy, charId: state.id })
+    Comics.byCharacter({ page, orderBy, charId, name })
       .then(setComics)
       .catch(setError)
   }, [page, orderBy])

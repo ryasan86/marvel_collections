@@ -16,7 +16,7 @@ const StyledPagination = styled(ReactPaginate)`
     }
     &:focus {
       outline: none;
-      box-shadow: 0 0 2px 1px var(--light-gray);
+      box-shadow: var(--focus-shadow);
     }
     a,
     button {
@@ -31,10 +31,10 @@ const StyledPagination = styled(ReactPaginate)`
       &.next {
         display: ${props => (props.nextDisabled ? 'none' : 'initial')};
       }
-    }
-    button:focus {
-      outline: none;
-      box-shadow: 0 0 2px 1px var(--light-gray);
+      &:focus {
+        outline: none;
+        box-shadow: var(--focus-shadow);
+      }
     }
   }
 `

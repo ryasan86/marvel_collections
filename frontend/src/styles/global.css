@@ -10,6 +10,7 @@
   --regular-font: 1.4rem;
   --large-font: 1.7rem;
   --max-width: 120rem;
+  --focus-shadow: 0 0 2px 1px var(--light-gray);
 }
 
 /*  global */
@@ -17,6 +18,7 @@
 *:before,
 *:after {
   box-sizing: border-box;
+  /* outline: 1px solid red; */
 }
 
 html,

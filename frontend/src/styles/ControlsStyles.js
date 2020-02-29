@@ -4,9 +4,10 @@ const StyledControls = styled.div`
   font-size: var(--regular-font);
   font-weight: normal;
   color: var(--gray);
+  margin-bottom: 1rem;
   & > div {
     position: relative;
-    margin: 2rem 0;
+    margin-top: 2rem;
   }
   input {
     width: 50%;

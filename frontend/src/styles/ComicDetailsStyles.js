@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const StyledComicDetails = styled.div`
   flex: 1 1 auto;
@@ -7,28 +7,6 @@ const StyledComicDetails = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
-  .background {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform: scale(1.2);
-    filter: blur(12px);
-    background-size: cover;
-    background-position: top center;
-    background-repeat: no-repeat;
-    ${props =>
-      props.bg
-        ? css`
-            background-image: linear-gradient(
-                rgba(0, 0, 0, 0.85),
-                rgba(0, 0, 0, 0.85)
-              ),
-              url(${props.bg});
-          `
-        : css`
-            background-image: initial;
-          `};
-  }
 `
 
 const ContentContainer = styled.div`
@@ -48,7 +26,8 @@ const TextContainer = styled.div`
   color: white;
   padding-left: 8rem;
   h3 {
-    margin: 0;
+    margin: 0 0 1rem 0;
+    font-size: 4rem;
   }
   .meta-info {
     display: flex;

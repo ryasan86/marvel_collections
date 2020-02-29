@@ -3,7 +3,7 @@ import localeInfo from 'rc-pagination/lib/locale/en_US'
 import StyledPagination from '../styles/PaginationStyles'
 import { limit } from '../client'
 
-const buttonItemRender = (current, type, element) => {
+const itemRender = (current, type, element) => {
   switch (type) {
     case 'prev':
       return <button className='prev'>&#8678; Prev</button>
@@ -27,10 +27,11 @@ const Pagination = ({ total, page, setPage }) => {
       current={page}
       defaultPageSize={limit}
       onChange={handlePageChange}
-      itemRender={buttonItemRender}
-      prevDisabled={page === 1}
-      nextDisabled={page === pageCount}
+      itemRender={itemRender}
       locale={localeInfo}
+      nextDisabled={page === pageCount}
+      prevDisabled={page === 1}
+      hideOnSinglePage
       showTitle
     />
   )

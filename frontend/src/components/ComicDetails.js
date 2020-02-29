@@ -7,6 +7,7 @@ import StyledComicDetails, {
   MetaItem
 } from '../styles/ComicDetailsStyles'
 import { capitalize } from '../utils/capitalize'
+import { BackgroundImage } from './common/BackgroundImage'
 
 const TextContent = ({ state }) => {
   const comicMetas = [
@@ -57,8 +58,8 @@ const ComicDetails = ({ location: { state } }) => {
   const portrait = state.thumbnail.path + '/portrait_incredible.jpg'
   return (
     <Layout>
-      <StyledComicDetails bg={portrait}>
-        <div className='background'></div>
+      <StyledComicDetails>
+        <BackgroundImage bg={portrait} />
         <ContentContainer>
           <img src={portrait} alt={state.title} />
           <TextContent state={state} />

@@ -1,12 +1,17 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+const opacityCSS = isVisible => css`
+  transition: opacity 0.7s;
+  transition-delay: 0.5s;
+  opacity: ${isVisible ? 1 : 0};
+`
 
 const ItemStyles = styled.li`
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: opacity 0.7s;
-  transition-delay: 0.5s;
-  opacity: ${props => props.isVisible ? '1' : '0'};
+  ${props => opacityCSS(props.isVisible)}
   img {
     width: 100%;
     cursor: pointer;
@@ -17,9 +22,13 @@ const ItemStyles = styled.li`
     }
   }
   .text-row {
-    padding: 2rem 0;
+    margin-top: 2rem;
     font-size: var(--small-font);
     font-weight: bold;
+  }
+  a {
+    text-decoration: none;
+    color: initial;
   }
 `
 

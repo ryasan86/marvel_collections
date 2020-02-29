@@ -11,7 +11,7 @@ import { MaxWidth } from '../components/common/MaxWidth'
 import { Comics } from '../client'
 import { sortMap } from '../components/SortBy'
 
-const ComicsMain = ({ path: endpoint }) => {
+const ComicsMain = ({ path }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [comics, setComics] = useState(null)
   const [error, setError] = useState(null)
@@ -32,7 +32,7 @@ const ComicsMain = ({ path: endpoint }) => {
       <MaxWidth>
         <h3>COMICS LIST</h3>
         <Controls
-          endpoint={endpoint}
+          path={path}
           setSearch={setSearch}
           setOrderBy={setOrderBy}
           total={comics && comics.total}
@@ -41,7 +41,7 @@ const ComicsMain = ({ path: endpoint }) => {
           <ItemsList
             page={page}
             setPage={setPage}
-            endpoint={endpoint}
+            path={path}
             total={comics && comics.total}
             items={comics && comics.results}
           />
@@ -52,7 +52,7 @@ const ComicsMain = ({ path: endpoint }) => {
 }
 
 ComicsMain.propTypes = {
-  endpoint: PropTypes.string
+  path: PropTypes.string
 }
 
 const ComicsPage = () => (
