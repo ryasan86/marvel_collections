@@ -29,7 +29,6 @@ const CharactersList = ({ path, orderBy, search, setTotalCount }) => {
   const { totalCount, edges } = search
     ? data.characterNameStartsWith
     : data.characters
-
   setTotalCount(totalCount)
 
   return (

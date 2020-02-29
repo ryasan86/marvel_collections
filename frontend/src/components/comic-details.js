@@ -37,7 +37,7 @@ const TextContent = ({ state }) => {
   }
 
   const renderCreators = () => {
-    return creators.items.map((creator, i) => (
+    return creators.map((creator, i) => (
       <MetaItem key={i}>
         <strong>{capitalize(creator.role)}:</strong>
         <p>{creator.name}</p>
@@ -57,13 +57,12 @@ const TextContent = ({ state }) => {
 }
 
 const ComicDetails = ({ location: { state } }) => {
-  const portrait = state.thumbnail.path + '/portrait_incredible.jpg'
   return (
     <Layout>
       <StyledComicDetails>
-        <BackgroundImage bg={portrait} />
+        <BackgroundImage bg={state.thumbnail} />
         <ContentContainer>
-          <img src={portrait} alt={state.title} />
+          <img src={state.thumbnail} alt={state.title} />
           <TextContent state={state} />
         </ContentContainer>
       </StyledComicDetails>

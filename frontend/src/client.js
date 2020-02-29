@@ -58,7 +58,7 @@ export const Comics = {
       titleStartsWith: search,
       offset: offset(page, limit)
     }),
-  byCharacter: ({ page, orderBy, charId, name }) =>
+  byCharacter: ({ page, orderBy, charId }) =>
     request.get(`v1/public/characters/${charId}/comics`, {
       limit: 12,
       orderBy: orderBy,

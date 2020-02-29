@@ -13,23 +13,22 @@ import Layout from './layout'
 import ItemsList from './items-list'
 import SortBy, { sortMap } from './sort-by'
 import ErrorBoundary from './error-boundary'
+import DelayMessage from './delay-message'
 import { MaxWidth, Row, BackgroundImage } from './common'
-import { Comics, Characters } from '../client'
+import { useComicsByCharacter } from '../graphql/comics.hook'
 
 const BannerSection = ({ state }) => {
-  const bg = state.thumbnail.path + '/portrait_incredible.jpg'
+  const { thumbnail: bg, name } = state
+
   return (
     <Banner bg={bg}>
       <BackgroundImage bg={bg} />
       <MaxWidth className='banner-content'>
         <LeftColumn>
-          <img
-            src={state.thumbnail.path + '/portrait_incredible.jpg'}
-            alt={state.name}
-          />
+          <img src={bg} alt={name} />
         </LeftColumn>
         <RightColumn>
-          <h1>{state.name}</h1>
+          <h1>{name}</h1>
         </RightColumn>
       </MaxWidth>
     </Banner>
@@ -47,69 +46,65 @@ const DescriptionSection = ({ state }) => (
   </Description>
 )
 
-const CharacterComicsSection = ({
-  setOrderBy,
-  error,
-  page,
-  setPage,
-  comics
-}) => (
-  <CharacterComics>
-    <Row className='comics-list-row'>
-      <LeftColumn>
-        <h3>COMICS LIST</h3>
-      </LeftColumn>
-      <SortBy setOrderBy={setOrderBy} path='/comics' />
-    </Row>
+const CharacterComicsList = ({ charId, orderBy }) => {
+  const [page, setPage] = useState(1)
+  const comics = useComicsByCharacter({ page, orderBy, charId })
+  const { data, loading, error, refetch } = comics
+
+  useEffect(() => {
+    refetch()
+  }, [page, orderBy])
+
+  if (loading) {
+    return <DelayMessage text='LOADING...' />
+  }
+
+  const { totalCount, edges } = data.comicsByCharacter
+
+  return (
     <ErrorBoundary error={error}>
       <ItemsList
         page={page}
         setPage={setPage}
-        total={comics && comics.total}
-        items={comics && comics.results}
+        total={totalCount}
+        items={edges}
         path='/comics'
       />
     </ErrorBoundary>
-  </CharacterComics>
-)
-
-const CharacterDetails = ({ location: { state } }) => {
-  const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
-  const [comics, setComics] = useState(null)
-  const [error, setError] = useState(null)
-  const [page, setPage] = useState(1)
-  const { id: charId, name } = state
-
-  useEffect(() => {
-    setComics(null)
-    Comics.byCharacter({ page, orderBy, charId, name })
-      .then(setComics)
-      .catch(setError)
-  }, [page, orderBy])
-
-  return (
-    <Layout>
-      <StyledCharacterDetails>
-        <SEO title={state.name} />
-        <BannerSection state={state} />
-        <ContentContainer>
-          <DescriptionSection state={state}></DescriptionSection>
-          <CharacterComicsSection
-            error={error}
-            comics={comics}
-            page={page}
-            setPage={setPage}
-            orderBy={orderBy}
-            setOrderBy={setOrderBy}
-          />
-        </ContentContainer>
-      </StyledCharacterDetails>
-    </Layout>
   )
 }
 
-Characters.propTypes = {
-  state: PropTypes.object.isRequired
+const CharacterComicsSection = ({ comics, charId }) => {
+  const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
+
+  return (
+    <CharacterComics>
+      <Row className='comics-list-row'>
+        <LeftColumn>
+          <h3>COMICS LIST</h3>
+        </LeftColumn>
+        <SortBy setOrderBy={setOrderBy} path='/comics' />
+      </Row>
+      <CharacterComicsList orderBy={orderBy} charId={charId} />
+    </CharacterComics>
+  )
+}
+
+const CharacterDetails = ({ location: { state } }) => (
+  <Layout>
+    <StyledCharacterDetails>
+      <SEO title={state.name} />
+      <BannerSection state={state} />
+      <ContentContainer>
+        <DescriptionSection state={state}></DescriptionSection>
+        <CharacterComicsSection charId={state.id} />
+      </ContentContainer>
+    </StyledCharacterDetails>
+  </Layout>
+)
+
+CharacterDetails.propTypes = {
+  state: PropTypes.object
 }
 
 export default CharacterDetails

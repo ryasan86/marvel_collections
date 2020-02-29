@@ -1,7 +1,18 @@
 type Query {
   characters(page: Int, orderBy: String): CharacterConnection!
-  characterNameStartsWith(page: Int, orderBy: String, search: String): CharacterConnection!
+  characterNameStartsWith(
+    page: Int
+    orderBy: String
+    search: String
+  ): CharacterConnection!
   character: Character
+  comics(page: Int, orderBy: String): ComicConnection!
+  comicTitleStartsWith(
+    page: Int
+    orderBy: String
+    search: String
+  ): ComicConnection!
+  comicsByCharacter(page: Int, orderBy: String, charId: ID!): ComicConnection!
 }
 
 type Mutation {
@@ -30,21 +41,36 @@ type CharacterEdge {
   node: Character!
 }
 
-type Comic {
-  id: Int!
+type Comic implements Node {
+  id: ID!
   title: String!
   description: String
   modified: String
+  thumbnail: String
   prices: [Price!]!
   creators: [Creator!]!
 }
 
+type ComicConnection {
+  totalCount: Int!
+  edges: [ComicEdge!]!
+}
+
+type ComicEdge {
+  node: Comic!
+}
+
 type Price {
   type: String!
-  price: Int!
+  price: String!
 }
 
 type Creator {
   name: String!
   role: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
 }

@@ -1,11 +1,14 @@
 import agent from 'superagent'
-import utils from '../utils/index.js'
+import { checkStatus, responseData, handleError } from '../utils.js'
+import { apiRoot, charsEndpoint, comicsEndpoint, limit } from '../constants.js'
 
-const { checkStatus, responseData, handleError, offset, createEdges } = utils
-const apiRoot = 'https://gateway.marvel.com/'
-const charsEndpoint = 'v1/public/characters'
-const comicsEndpoint = 'v1/public/comics'
-const limit = 36
+const offset = (page, perPage) => (page - 1) * perPage || 0
+
+const authParams = {
+  ts: 1,
+  hash: process.env.MARVEL_MD5_HASH,
+  apikey: process.env.MARVEL_API_KEY
+}
 
 const request = {
   get: (url, query) =>
@@ -17,40 +20,29 @@ const request = {
       .catch(handleError)
 }
 
-const authParams = {
-  ts: 1,
-  hash: process.env.MARVEL_MD5_HASH,
-  apikey: process.env.MARVEL_API_KEY
+const sendConnection = ({ total, results }) => {
+  return {
+    totalCount: total,
+    edges: results.map(node => ({
+      node: {
+        ...node,
+        creators: node.creators ? node.creators.items : null,
+        thumbnail: `${node.thumbnail.path}/portrait_incredible.${node.thumbnail.extension}`
+      }
+    }))
+  }
 }
 
-// const Characters = {
-//   getAll: ({ page, orderBy }) =>
-//     request.get(charsEndpoint, {
-//       limit: limit,
-//       orderBy: orderBy,
-//       offset: offset(page, limit)
-//     }),
-//   byName: ({ page, orderBy, search }) =>
-//     request.get(charsEndpoint, {
-//       limit: limit,
-//       orderBy: orderBy,
-//       nameStartsWith: search,
-//       offset: offset(page, limit)
-//     })
-// }
-
 const Query = {
-  characters: async (parent, args, ctx, info) =>
+  characters: (parent, args, ctx, info) =>
     request
       .get(charsEndpoint, {
         limit: limit,
         orderBy: args.orderBy,
         offset: offset(args.page, limit)
       })
-      .then(({ total, results }) => ({
-        totalCount: total,
-        edges: createEdges(results)
-      })),
+      .then(sendConnection)
+      .catch(handleError),
   characterNameStartsWith: (parent, args, ctx, info) =>
     request
       .get(charsEndpoint, {
@@ -59,11 +51,36 @@ const Query = {
         nameStartsWith: args.search,
         offset: offset(args.page, limit)
       })
-      .then(({ total, results }) => console.log(total) || ({
-        totalCount: total,
-        edges: createEdges(results)
-      })),
-  character: () => ({ id: 1, name: 'Bob' })
+      .then(sendConnection)
+      .catch(handleError),
+  character: () => ({ id: 1, name: 'Bob' }),
+  comics: (parent, args, ctx, info) =>
+    request
+      .get(comicsEndpoint, {
+        limit: limit,
+        orderBy: args.orderBy,
+        offset: offset(args.page, limit)
+      })
+      .then(sendConnection)
+      .catch(handleError),
+  comicTitleStartsWith: (parent, args, ctx, info) =>
+    request
+      .get(comicsEndpoint, {
+        limit: limit,
+        orderBy: args.orderBy,
+        offset: offset(args.page, limit)
+      })
+      .then(sendConnection)
+      .catch(handleError),
+  comicsByCharacter: (parent, args, ctx, info) =>
+    request
+      .get(`v1/public/characters/${args.charId}/comics`, {
+        limit: 12,
+        orderBy: args.orderBy,
+        offset: offset(args.page, 12)
+      })
+      .then(sendConnection)
+      .catch(handleError)
 }
 
 export default Query
