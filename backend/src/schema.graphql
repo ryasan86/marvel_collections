@@ -1,27 +1,35 @@
-### queries ##
 type Query {
   characters(page: Int, orderBy: String): CharacterConnection!
-  character: [Character]!
+  characterNameStartsWith(
+    page: Int
+    orderBy: String
+    search: String
+  ): CharacterConnection!
+  character: Character
+  comics(page: Int, orderBy: String): ComicConnection!
+  comicTitleStartsWith(
+    page: Int
+    orderBy: String
+    search: String
+  ): ComicConnection!
+  comicsByCharacter(page: Int, orderBy: String, charId: ID!): ComicConnection!
 }
 
-### mutations ##
 type Mutation {
   comments: String
 }
 
-### interfaces ##
-# An object with an ID
 interface Node {
-    # The id of the object.
   id: ID!
+  description: String
+  thumbnail: String
 }
 
-# types
 type Character implements Node {
   id: ID!
+  description: String
+  thumbnail: String
   name: String!
-  description: String!
-  thumbnail: String!
 }
 
 type CharacterConnection {
@@ -33,21 +41,36 @@ type CharacterEdge {
   node: Character!
 }
 
-type Comic {
-  id: Int!
+type Comic implements Node {
+  id: ID!
   title: String!
-  description: String!
-  modified: String!
+  description: String
+  modified: String
+  thumbnail: String
   prices: [Price!]!
   creators: [Creator!]!
 }
 
+type ComicConnection {
+  totalCount: Int!
+  edges: [ComicEdge!]!
+}
+
+type ComicEdge {
+  node: Comic!
+}
+
 type Price {
   type: String!
-  price: Int!
+  price: String!
 }
 
 type Creator {
   name: String!
   role: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
 }

@@ -1,11 +1,8 @@
-import agent from 'superagent'
-import utils from '../utils/index.js'
+const agent = require('superagent')
+const { checkStatus, responseData, handleError } = require('../utils.js')
+const { apiRoot, charsEndpoint, limit } = require('../constants.js')
 
-const { checkStatus, responseData, handleError, offset, createEdges } = utils
-const apiRoot = 'https://gateway.marvel.com/'
-const charsEndpoint = 'v1/public/characters'
-const comicsEndpoint = 'v1/public/comics'
-const limit = 36
+const offset = (page, perPage) => (page - 1) * perPage || 0
 
 const request = {
   get: (url, query) =>
@@ -39,6 +36,19 @@ const authParams = {
 //     })
 // }
 
+const sendConnection = ({ total, results }) => {
+  return {
+    totalCount: total,
+    edges: results.map(node => ({
+      node: {
+        ...node,
+        creators: node.creators ? node.creators.items : null,
+        thumbnail: `${node.thumbnail.path}/portrait_incredible.${node.thumbnail.extension}`
+      }
+    }))
+  }
+}
+
 const Query = {
   characters: async (parent, args, ctx, info) =>
     request
@@ -47,11 +57,9 @@ const Query = {
         orderBy: args.orderBy,
         offset: offset(args.page, limit)
       })
-      .then(({ total, results }) => ({
-        totalCount: total,
-        edges: createEdges(results)
-      })),
+      .then(sendConnection)
+      .catch(handleError),
   character: () => ({ id: 1, name: 'Bob' })
 }
 
-export default Query
+module.exports = Query

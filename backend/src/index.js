@@ -1,10 +1,10 @@
-import express from 'express'
-import cookieParser from 'cookie-parser'
-import logger from 'morgan'
+const express = require('express')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const dotenv = require('dotenv')
 
-import './env.js'
-import createServer from './createServer.js'
-
+dotenv.config({ path: '.env' })
+const createServer = require('./createServer.js')
 const server = createServer()
 
 server.use(logger('dev'))

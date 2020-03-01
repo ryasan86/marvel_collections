@@ -10,4 +10,8 @@ const checkStatus = response => {
   }
 }
 
-export default checkStatus
+const handleError = err => console.error(err)
+
+const responseData = res => res.body.data
+
+module.exports = { checkStatus, handleError, responseData }
