@@ -1,25 +1,32 @@
 const express = require('express')
-const app = express()
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const dotenv = require('dotenv')
 
+const app = express()
 const port = 5000
 
-// Body parser
-app.use(express.urlencoded({ extended: false }))
+dotenv.config({ path: '.env' })
+const createServer = require('./src/createServer.js')
+const server = createServer()
 
-// Home route
-app.get('/', (req, res) => {
+server.use(logger('dev'))
+server.use(express.json())
+server.use(express.urlencoded({ extended: false }))
+server.use(cookieParser())
+
+server.get('/', (req, res) => {
   res.send('Welcome to a basic express App')
 })
 
-// Mock APIs
-app.get('/users', (req, res) => {
+server.get('/users', (req, res) => {
   res.json([
     { name: 'William', location: 'Abu Dhabi' },
     { name: 'Chris', location: 'Vegas' }
   ])
 })
 
-app.post('/user', (req, res) => {
+server.post('/user', (req, res) => {
   const { name, location } = req.body
 
   res.send({ status: 'User created', name, location })
