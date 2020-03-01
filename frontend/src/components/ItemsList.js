@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import StyledList from '../styles/items-list.styles'
-import Item from './item'
-import DelayMessage from './delay-message'
-import Pagination from './pagination'
+import StyledList from '../styles/ItemsList.Styles'
+import Item from './Item'
+import DelayMessage from './DelayMessage'
+import Pagination from './Pagination'
 import { capitalize } from '../utils'
 
 const ItemsList = ({ items, path, page, setPage, total, loading }) => {

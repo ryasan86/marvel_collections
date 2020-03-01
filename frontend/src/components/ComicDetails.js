@@ -1,11 +1,11 @@
 import React from 'react'
 import moment from 'moment'
-import Layout from './layout'
+import Layout from './Layout'
 import StyledComicDetails, {
   ContentContainer,
   TextContainer,
   MetaItem
-} from '../styles/comic-details.styles'
+} from '../styles/ComicDetailsStyles'
 import { capitalize } from '../utils/capitalize'
 import { BackgroundImage } from './common'
 

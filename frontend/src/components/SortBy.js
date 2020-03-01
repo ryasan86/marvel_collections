@@ -1,5 +1,5 @@
 import React from 'react'
-import StyledSortBy from '../styles/sort-by.styles'
+import StyledSortBy from '../styles/SortByStyles'
 
 export const sortMap = {
   characters: {

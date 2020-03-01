@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
 import PropTypes from 'prop-types'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
-import Controls from '../components/controls'
-import ItemsList from '../components/items-list'
-import ErrorBoundary from '../components/error-boundary'
-import ComicDetails from '../components/comic-details'
-import DelayMessage from '../components/delay-message'
-import { MaxWidth } from '../components/common/max-width'
-import { sortMap } from '../components/sort-by'
-import { useComics, useComicsByTitle } from '../graphql/comics.hook'
+import Layout from '../components/Layout'
+import SEO from '../components/SEO'
+import Controls from '../components/Controls'
+import ItemsList from '../components/ItemsList'
+import ErrorBoundary from '../components/ErrorBoundary'
+import ComicDetails from '../components/ComicDetails'
+import DelayMessage from '../components/DelayMessage'
+import { MaxWidth } from '../components/common'
+import { sortMap } from '../components/SortBy'
+import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
 const ComicsList = ({ path, orderBy, search, setTotalCount }) => {
   const [page, setPage] = useState(1)
@@ -18,9 +18,9 @@ const ComicsList = ({ path, orderBy, search, setTotalCount }) => {
   const comics = comicsPromise({ page, orderBy, search })
   const { data, loading, error, refetch } = comics
 
-  // useEffect(() => {
-  //   refetch()
-  // }, [page, orderBy, search])
+  useEffect(() => {
+    refetch()
+  }, [page, orderBy, search])
 
   if (error) {
     return <ErrorBoundary error={error}></ErrorBoundary>

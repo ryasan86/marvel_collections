@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import SEO from './seo'
+import SEO from './SEO'
 import StyledCharacterDetails, {
   Banner,
   Description,
@@ -8,14 +8,14 @@ import StyledCharacterDetails, {
   LeftColumn,
   RightColumn,
   ContentContainer
-} from '../styles/character-details.styles'
-import Layout from './layout'
-import ItemsList from './items-list'
-import SortBy, { sortMap } from './sort-by'
-import ErrorBoundary from './error-boundary'
-import DelayMessage from './delay-message'
+} from '../styles/CharacterDetailsStyles'
+import Layout from './Layout'
+import ItemsList from './ItemsList'
+import SortBy, { sortMap } from './SortBy'
+import ErrorBoundary from './ErrorBoundary'
+import DelayMessage from './DelayMessage'
 import { MaxWidth, Row, BackgroundImage } from './common'
-import { useComicsByCharacter } from '../graphql/comics.hook'
+import { useComicsByCharacter } from '../graphql/ComicsHooks'
 
 const BannerSection = ({ state }) => {
   const { thumbnail: bg, name } = state

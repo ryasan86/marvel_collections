@@ -1,5 +1,5 @@
 import { gql } from "apollo-boost"
-import { CHARACTER_FRAGMENT } from "./fragments"
+import { CHARACTER_FRAGMENT } from "./Fragments"
 
 export const ALL_CHARACTERS = gql`
   query allCharacters($orderBy: String!, $page: Int!) {

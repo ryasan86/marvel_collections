@@ -1,4 +1,4 @@
-import { ALL_CHARACTERS, CHARACTER_NAME_STARTS_WITH } from './characters.query'
+import { ALL_CHARACTERS, CHARACTER_NAME_STARTS_WITH } from './CharactersQuery'
 import { useQuery } from '@apollo/react-hooks'
 
 export const useCharacters = ({ page, orderBy }) => {

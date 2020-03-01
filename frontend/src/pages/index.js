@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import StyledHomePage from '../styles/home-page.styles'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
+import StyledHomePage from '../styles/HomePageStyles'
+import Layout from '../components/Layout'
+import SEO from '../components/SEO'
 
 const IndexPage = () => (
   <Layout>

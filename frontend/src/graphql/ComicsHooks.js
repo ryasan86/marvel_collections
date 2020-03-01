@@ -3,7 +3,7 @@ import {
   ALL_COMICS,
   COMIC_TITLE_STARTS_WITH,
   COMICS_BY_CHARACTER
-} from './comics.query'
+} from './ComicsQuery'
 
 export const useComics = ({ page, orderBy }) => {
   return useQuery(ALL_COMICS, {

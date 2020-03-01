@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost'
-import { COMICS_FRAGMENT } from './fragments'
+import { COMICS_FRAGMENT } from './Fragments'
 
 export const ALL_COMICS = gql`
   query AllComics($orderBy: String!, $page: Int!) {
