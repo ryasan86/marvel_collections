@@ -1,7 +1,7 @@
 import { checkStatus, responseData, handleError } from './utils'
 import agent from 'superagent'
 
-export const devEndpoint = 'http://localhost:5000'
+export const devEndpoint = 'http://localhost:5000/graphql'
 export const prodEndpoint = 'FIGURE_OUT_LATER'
 export const limit = 36 // how many items to show per page
 const apiRoot = 'https://gateway.marvel.com/'

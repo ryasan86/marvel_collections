@@ -1,9 +1,8 @@
-import GraphqlYoga from 'graphql-yoga'
-import Mutation from './resolvers/Mutation.js'
-import Query from './resolvers/Query.js'
-const { GraphQLServer } = GraphqlYoga
+const { GraphQLServer } = require('graphql-yoga')
+const Mutation = require('./resolvers/Mutation.js')
+const Query = require('./resolvers/Query.js')
 
-export const createServer = () => {
+const createServer = () => {
   return new GraphQLServer({
     typeDefs: 'src/schema.graphql',
     resolvers: { Mutation, Query },
@@ -13,4 +12,4 @@ export const createServer = () => {
   })
 }
 
-export default createServer
+module.exports = createServer

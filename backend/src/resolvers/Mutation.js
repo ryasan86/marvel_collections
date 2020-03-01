@@ -2,4 +2,4 @@ const Mutation = {
   comments: () => 'comments'
 }
 
-export default Mutation
+module.exports = Mutation

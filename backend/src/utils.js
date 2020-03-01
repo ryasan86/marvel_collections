@@ -1,4 +1,4 @@
-export const checkStatus = response => {
+const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response
   } else {
@@ -10,6 +10,8 @@ export const checkStatus = response => {
   }
 }
 
-export const handleError = err => console.error(err)
+const handleError = err => console.error(err)
 
-export const responseData = res => res.body.data
+const responseData = res => res.body.data
+
+module.exports = { checkStatus, handleError, responseData }

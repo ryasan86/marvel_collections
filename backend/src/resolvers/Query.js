@@ -1,6 +1,11 @@
-import agent from 'superagent'
-import { checkStatus, responseData, handleError } from '../utils.js'
-import { apiRoot, charsEndpoint, comicsEndpoint, limit } from '../constants.js'
+const agent = require('superagent')
+const { checkStatus, responseData, handleError } = require('../utils.js')
+const {
+  apiRoot,
+  charsEndpoint,
+  comicsEndpoint,
+  limit
+} = require('../constants.js')
 
 const offset = (page, perPage) => (page - 1) * perPage || 0
 
@@ -83,4 +88,4 @@ const Query = {
       .catch(handleError)
 }
 
-export default Query
+module.exports = Query
