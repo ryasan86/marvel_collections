@@ -38,10 +38,18 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      resolve: `gatsby-plugin-global-styles`,
+      options: {
+        pathToConfigModule: `src/styles/GlobalStyles`,
+        props: {
+          theme: `src/styles/theme`,
+          other: {
+            light: true
+          }
+        }
+      }
     }
   ]
 }
-
-// this (optional) plugin enables Progressive Web App + Offline functionality
-// To learn more, visit: https://gatsby.dev/offline
-// `gatsby-plugin-offline`,
