@@ -58,7 +58,7 @@ const globalStyles = css`
   }
 
   p {
-    /* font-size: var(--large-font); */
+    font-size: var(--large-font);
   }
 `
 
