@@ -72,10 +72,11 @@ const globalStyles = css`
     font-size: var(--large-font);
     border: 2px solid var(--red);
     cursor: pointer;
-    .home-links:hover {
-      color: var(--dark);
-      border-color: var(--dark);
-    }
+  }
+
+  .home-links:hover {
+    color: var(--dark);
+    border-color: var(--dark);
   }
 `
 
