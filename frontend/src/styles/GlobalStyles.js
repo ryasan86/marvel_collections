@@ -1,6 +1,6 @@
-import { css } from '@nfront/global-styles'
+import { createGlobalStyle } from '@nfront/global-styles'
 
-const GlobalStyles = css`
+const GlobalStyles = createGlobalStyle`
   /* theme */
   :root {
     --dark: #1f1f1f;
