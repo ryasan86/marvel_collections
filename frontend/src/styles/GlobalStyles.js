@@ -60,10 +60,6 @@ const globalStyles = css`
   p {
     /* font-size: var(--large-font); */
   }
-
-  a {
-    color: red;
-  }
 `
 
 const GlobalStyles = createGlobalStyle`
