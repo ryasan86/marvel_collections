@@ -17,10 +17,10 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <Home>
-      <Link className=".home-link" to="characters">
+      <Link className="home-link" to="characters">
         CHARACTERS
       </Link>
-      <Link className=".home-link" to="comics">
+      <Link className="home-link" to="comics">
         COMICS
       </Link>
     </Home>
