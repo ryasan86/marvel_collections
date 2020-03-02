@@ -1,6 +1,6 @@
-import { createGlobalStyle } from '@nfront/global-styles'
+import { createGlobalStyle, css } from '@nfront/global-styles'
 
-const GlobalStyles = createGlobalStyle`
+const globalStyles = css`
   /* theme */
   :root {
     --dark: #1f1f1f;
@@ -58,8 +58,16 @@ const GlobalStyles = createGlobalStyle`
   }
 
   p {
-    font-size: var(--large-font);
+    /* font-size: var(--large-font); */
   }
+
+  a {
+    color: red;
+  }
+`
+
+const GlobalStyles = createGlobalStyle`
+  ${globalStyles}
 `
 
 export default GlobalStyles
