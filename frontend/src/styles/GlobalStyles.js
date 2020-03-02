@@ -1,7 +1,27 @@
 import { createGlobalStyle, css } from '@nfront/global-styles'
+import StyledHeader, { StyledNavItem } from './HeaderStyles'
+import StyledFooter from './FooterStyles'
 
-const globalStyles = css`
-  /* theme */
+const StyledHomeLink = css`
+  .home-link {
+    text-decoration: none;
+    border-radius: 3px;
+    padding: 1rem 0;
+    width: 15rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--red);
+    font-size: var(--large-font);
+    border: 2px solid var(--red);
+    cursor: pointer;
+  }
+  .home-links:hover {
+    color: var(--dark);
+    border-color: var(--dark);
+  }
+`
+
+const StyledRoot = css`
   :root {
     --dark: #1f1f1f;
     --darker: #141414;
@@ -15,15 +35,14 @@ const globalStyles = css`
     --max-width: 120rem;
     --focus-shadow: 0 0 2px 1px var(--light-gray);
   }
-
-  /*  global */
   *,
   *:before,
   *:after {
     box-sizing: border-box;
-    /* outline: 1px solid red; */
   }
+`
 
+const StyledHtml = css`
   html,
   body {
     font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
@@ -60,28 +79,15 @@ const globalStyles = css`
   p {
     font-size: var(--large-font);
   }
-
-  .home-link {
-    text-decoration: none;
-    border-radius: 3px;
-    padding: 1rem 0;
-    width: 15rem;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: var(--red);
-    font-size: var(--large-font);
-    border: 2px solid var(--red);
-    cursor: pointer;
-  }
-
-  .home-links:hover {
-    color: var(--dark);
-    border-color: var(--dark);
-  }
 `
-
+// temporary because styled components causes flicker
 const GlobalStyles = createGlobalStyle`
-  ${globalStyles}
+  ${StyledRoot}
+  ${StyledHtml}
+  ${StyledHomeLink}
+  ${StyledHeader}
+  ${StyledNavItem}
+  ${StyledFooter}
 `
 
 export default GlobalStyles

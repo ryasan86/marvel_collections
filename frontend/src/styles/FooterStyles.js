@@ -1,14 +1,16 @@
-import styled from 'styled-components'
+import { css } from '@nfront/global-styles'
 
-const StyledFooter = styled.footer`
-  padding: 2rem 0;
-  background: var(--dark);
-  color: var(--off-white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--small-font);
-  div {
+const StyledFooter = css`
+  .footer {
+    padding: 2rem 0;
+    background: var(--dark);
+    color: var(--off-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--small-font);
+  }
+  .footer div {
     width: 100%;
     text-align: right;
     max-width: var(--max-width);
@@ -16,9 +18,9 @@ const StyledFooter = styled.footer`
   }
   a {
     color: var(--off-white);
-    &:hover {
-      color: white;
-    }
+  }
+  a:hover {
+    color: white;
   }
 `
 

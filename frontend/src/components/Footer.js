@@ -1,5 +1,4 @@
 import React from 'react'
-import StyledFooter from '../styles/FooterStyles'
 import { useStaticQuery, graphql } from 'gatsby'
 
 const Footer = () => {
@@ -16,7 +15,7 @@ const Footer = () => {
   )
 
   return (
-    <StyledFooter>
+    <div className='footer'>
       <div>
         © {new Date().getFullYear()}
         {` `}
@@ -27,7 +26,7 @@ const Footer = () => {
           GITHUB REPO
         </a>
       </div>
-    </StyledFooter>
+    </div>
   )
 }
 
