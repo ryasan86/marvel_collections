@@ -12,7 +12,7 @@ const StyledLayout = styled.div`
   display: flex;
   flex-direction: column;
 `
-
+// layout
 const Layout = ({ children }) => (
   <StyledLayout>
     <Header />

@@ -6,7 +6,7 @@ import { MarvelSVG } from '../images'
 const activeStyle = {
   color: 'white'
 }
-
+// header
 const Header = () => (
   <StyledHeader>
     <StyledNavItem className='logo'>
