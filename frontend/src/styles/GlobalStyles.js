@@ -61,7 +61,7 @@ const globalStyles = css`
     font-size: var(--large-font);
   }
 
-  .home-links {
+  .home-link {
     text-decoration: none;
     border-radius: 3px;
     padding: 1rem 0;
