@@ -7,11 +7,13 @@
     "start": "node src/index.js"
   },
   "dependencies": {
+    "@nfront/global-styles": "^1.2.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "express-graphql": "^0.9.0",
+    "gatsby-plugin-global-styles": "^1.0.17",
     "graphql": "^14.6.0",
     "graphql-yoga": "^1.18.3",
     "http-errors": "~1.6.3",
