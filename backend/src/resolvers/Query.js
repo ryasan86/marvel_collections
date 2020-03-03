@@ -1,8 +1,19 @@
 const agent = require('superagent')
 const { checkStatus, responseData, handleError } = require('../utils.js')
-const { apiRoot, charsEndpoint, limit } = require('../constants.js')
+const {
+  apiRoot,
+  charsEndpoint,
+  comicsEndpoint,
+  limit
+} = require('../constants.js')
 
 const offset = (page, perPage) => (page - 1) * perPage || 0
+
+const authParams = {
+  ts: 1,
+  hash: process.env.MARVEL_MD5_HASH,
+  apikey: process.env.MARVEL_API_KEY
+}
 
 const request = {
   get: (url, query) =>
@@ -13,28 +24,6 @@ const request = {
       .then(responseData)
       .catch(handleError)
 }
-
-const authParams = {
-  ts: 1,
-  hash: process.env.MARVEL_MD5_HASH,
-  apikey: process.env.MARVEL_API_KEY
-}
-
-// const Characters = {
-//   getAll: ({ page, orderBy }) =>
-//     request.get(charsEndpoint, {
-//       limit: limit,
-//       orderBy: orderBy,
-//       offset: offset(page, limit)
-//     }),
-//   byName: ({ page, orderBy, search }) =>
-//     request.get(charsEndpoint, {
-//       limit: limit,
-//       orderBy: orderBy,
-//       nameStartsWith: search,
-//       offset: offset(page, limit)
-//     })
-// }
 
 const sendConnection = ({ total, results }) => {
   return {
@@ -50,7 +39,7 @@ const sendConnection = ({ total, results }) => {
 }
 
 const Query = {
-  characters: async (parent, args, ctx, info) =>
+  characters: (parent, args, ctx, info) =>
     request
       .get(charsEndpoint, {
         limit: limit,
@@ -59,7 +48,44 @@ const Query = {
       })
       .then(sendConnection)
       .catch(handleError),
-  character: () => ({ id: 1, name: 'Bob' })
+  characterNameStartsWith: (parent, args, ctx, info) =>
+    request
+      .get(charsEndpoint, {
+        limit: limit,
+        orderBy: args.orderBy,
+        nameStartsWith: args.search,
+        offset: offset(args.page, limit)
+      })
+      .then(sendConnection)
+      .catch(handleError),
+  character: () => ({ id: 1, name: 'Bob' }),
+  comics: (parent, args, ctx, info) =>
+    request
+      .get(comicsEndpoint, {
+        limit: limit,
+        orderBy: args.orderBy,
+        offset: offset(args.page, limit)
+      })
+      .then(sendConnection)
+      .catch(handleError),
+  comicTitleStartsWith: (parent, args, ctx, info) =>
+    request
+      .get(comicsEndpoint, {
+        limit: limit,
+        orderBy: args.orderBy,
+        offset: offset(args.page, limit)
+      })
+      .then(sendConnection)
+      .catch(handleError),
+  comicsByCharacter: (parent, args, ctx, info) =>
+    request
+      .get(`v1/public/characters/${args.charId}/comics`, {
+        limit: 12,
+        orderBy: args.orderBy,
+        offset: offset(args.page, 12)
+      })
+      .then(sendConnection)
+      .catch(handleError)
 }
 
 module.exports = Query
