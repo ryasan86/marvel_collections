@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
@@ -16,14 +15,7 @@ const Home = styled.div`
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <Home>
-      <Link className="home-link" to="characters">
-        CHARACTERS
-      </Link>
-      <Link className="home-link" to="comics">
-        COMICS
-      </Link>
-    </Home>
+    <Home></Home>
   </Layout>
 )
 

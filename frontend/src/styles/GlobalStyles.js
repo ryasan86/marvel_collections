@@ -2,25 +2,6 @@ import { createGlobalStyle, css } from '@nfront/global-styles'
 import StyledHeader, { StyledNavItem } from './HeaderStyles'
 import StyledFooter from './FooterStyles'
 
-const StyledHomeLink = css`
-  .home-link {
-    text-decoration: none;
-    border-radius: 3px;
-    padding: 1rem 0;
-    width: 15rem;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: var(--red);
-    font-size: var(--large-font);
-    border: 2px solid var(--red);
-    cursor: pointer;
-  }
-  .home-links:hover {
-    color: var(--dark);
-    border-color: var(--dark);
-  }
-`
-
 const StyledRoot = css`
   :root {
     --dark: #1f1f1f;
@@ -39,6 +20,7 @@ const StyledRoot = css`
   *:before,
   *:after {
     box-sizing: border-box;
+    /* outline: 1px solid red; */
   }
 `
 
@@ -84,7 +66,6 @@ const StyledHtml = css`
 const GlobalStyles = createGlobalStyle`
   ${StyledRoot}
   ${StyledHtml}
-  ${StyledHomeLink}
   ${StyledHeader}
   ${StyledNavItem}
   ${StyledFooter}

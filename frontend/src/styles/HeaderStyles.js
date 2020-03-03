@@ -35,8 +35,9 @@ const StyledNavItem = css`
     border: 2px solid transparent;
     font-size: var(--regular-font);
   }
-  a.logo {
+  .logo > a {
     border: none;
+    height: 100%;
   }
   img {
     display: block;

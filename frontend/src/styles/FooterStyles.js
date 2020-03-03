@@ -10,14 +10,17 @@ const StyledFooter = css`
     align-items: center;
     font-size: var(--small-font);
   }
-  .footer div {
+  .max-width {
     width: 100%;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     max-width: var(--max-width);
     color: var(--gray);
   }
   a {
     color: var(--off-white);
+    margin: 0;
   }
   a:hover {
     color: white;

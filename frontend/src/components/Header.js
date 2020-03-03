@@ -7,7 +7,7 @@ const activeStyle = {
 }
 
 const Header = () => (
-  <div className='header'>
+  <header className='header'>
     <div className="nav-item logo">
       <Link to="/">
         <img src={MarvelSVG} alt="marvel" />
@@ -23,7 +23,7 @@ const Header = () => (
         COMICS
       </Link>
     </div>
-  </div>
+  </header>
 )
 
 export default Header

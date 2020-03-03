@@ -15,18 +15,17 @@ const Footer = () => {
   )
 
   return (
-    <div className='footer'>
-      <div>
-        © {new Date().getFullYear()}
-        {` `}
+    <footer className="footer">
+      <div className="max-width">
+        <div>© {new Date().getFullYear()}</div>
         <a
           href={site.siteMetadata.repo_url}
-          target='_blank'
-          rel='noopener noreferrer'>
-          GITHUB REPO
+          target="_blank"
+          rel="noopener noreferrer">
+          github repo
         </a>
       </div>
-    </div>
+    </footer>
   )
 }
 
