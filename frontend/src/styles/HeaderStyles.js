@@ -8,6 +8,8 @@ const StyledHeader = css`
     margin: 0;
     padding: 0;
     background: var(--dark);
+    position: relative;
+    z-index: 10;
   }
 `
 

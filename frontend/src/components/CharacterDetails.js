@@ -1,49 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import SEO from './SEO'
-import StyledCharacterDetails, {
-  Banner,
-  Description,
-  CharacterComics,
+import Content, {
+  StyledBanner,
+  StyledDescription,
+  StyledCharacterComics,
   LeftColumn,
-  RightColumn,
-  ContentContainer
+  RightColumn
 } from '../styles/CharacterDetailsStyles'
 import Layout from './Layout'
 import ItemsList from './ItemsList'
 import SortBy, { sortMap } from './SortBy'
 import ErrorBoundary from './ErrorBoundary'
 import DelayMessage from './DelayMessage'
-import { MaxWidth, Row, BackgroundImage } from './common'
+import { MaxWidth, Row } from './common'
+import { BackgroundImage } from './common/BackgroundImage'
 import { useComicsByCharacter } from '../graphql/ComicsHooks'
 
-const BannerSection = ({ state }) => {
+const Banner = ({ state }) => {
   const { thumbnail: bg, name } = state
 
   return (
-    <Banner bg={bg}>
-      <BackgroundImage bg={bg} />
-      <MaxWidth className='banner-content'>
-        <LeftColumn>
-          <img src={bg} alt={name} />
-        </LeftColumn>
-        <RightColumn>
-          <h1>{name}</h1>
-        </RightColumn>
-      </MaxWidth>
-    </Banner>
+    <StyledBanner bg={bg}>
+      <BackgroundImage bg={bg} className='bg' />
+      <LeftColumn>
+        <img src={bg} alt={name} />
+      </LeftColumn>
+      <RightColumn>
+        <h1>{name}</h1>
+      </RightColumn>
+    </StyledBanner>
   )
 }
 
-const DescriptionSection = ({ state }) => (
-  <Description>
+const Description = ({ state }) => (
+  <StyledDescription>
     <LeftColumn>
       <h3>DESCRIPTION</h3>
     </LeftColumn>
     <RightColumn>
       <p>{state.description ? state.description : 'DESCRIPTION UNAVAILABLE'}</p>
     </RightColumn>
-  </Description>
+  </StyledDescription>
 )
 
 const CharacterComicsList = ({ charId, orderBy }) => {
@@ -56,7 +54,7 @@ const CharacterComicsList = ({ charId, orderBy }) => {
   }, [page, orderBy])
 
   if (loading) {
-    return <DelayMessage text='LOADING...' />
+    return <DelayMessage text="LOADING..." />
   }
 
   const { totalCount, edges } = data.comicsByCharacter
@@ -68,38 +66,38 @@ const CharacterComicsList = ({ charId, orderBy }) => {
         setPage={setPage}
         total={totalCount}
         items={edges}
-        slug='/comics'
+        slug="/comics"
       />
     </ErrorBoundary>
   )
 }
 
-const CharacterComicsSection = ({ comics, charId }) => {
+const CharacterComics = ({ comics, charId }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
 
   return (
-    <CharacterComics>
-      <Row className='comics-list-row'>
+    <StyledCharacterComics>
+      <Row className="comics-list-row">
         <LeftColumn>
           <h3>COMICS LIST</h3>
         </LeftColumn>
-        <SortBy setOrderBy={setOrderBy} slug='/comics' />
+        <SortBy setOrderBy={setOrderBy} slug="/comics" />
       </Row>
       <CharacterComicsList orderBy={orderBy} charId={charId} />
-    </CharacterComics>
+    </StyledCharacterComics>
   )
 }
 
 const CharacterDetails = ({ location: { state } }) => (
   <Layout>
-    <StyledCharacterDetails>
-      <SEO title={state.name} />
-      <BannerSection state={state} />
-      <ContentContainer>
-        <DescriptionSection state={state}></DescriptionSection>
-        <CharacterComicsSection charId={state.id} />
-      </ContentContainer>
-    </StyledCharacterDetails>
+    <SEO title={state.name} />
+    <MaxWidth>
+      <Content>
+        <Banner state={state} />
+        <Description state={state}></Description>
+        <CharacterComics charId={state.id} />
+      </Content>
+    </MaxWidth>
   </Layout>
 )
 

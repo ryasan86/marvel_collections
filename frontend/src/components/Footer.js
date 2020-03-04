@@ -17,6 +17,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="max-width">
+        <div>*not official Marvel site &nbsp;</div>
         <div>© {new Date().getFullYear()}&nbsp;</div>
         <a
           href={site.siteMetadata.repo_url}

@@ -34,6 +34,7 @@ const StyledControls = styled.div`
 const StyledTotal = styled.div`
   transition: opacity 0.7s;
   transition-delay: 0.5s;
+  margin-left: 1.2rem;
   opacity: ${props => props.isVisible ? '1' : '0'};
 `
 

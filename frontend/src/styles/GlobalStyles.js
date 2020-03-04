@@ -13,7 +13,7 @@ const StyledRoot = css`
     --small-font: 1.2rem;
     --regular-font: 1.4rem;
     --large-font: 1.7rem;
-    --max-width: 120rem;
+    --max-width: 118rem;
     --focus-shadow: 0 0 2px 1px var(--light-gray);
   }
   *,

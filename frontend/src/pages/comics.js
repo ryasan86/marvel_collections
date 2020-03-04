@@ -8,7 +8,7 @@ import ItemsList from '../components/ItemsList'
 import ErrorBoundary from '../components/ErrorBoundary'
 import ComicDetails from '../components/ComicDetails'
 import DelayMessage from '../components/DelayMessage'
-import { MaxWidth } from '../components/common'
+import { MaxWidth, H3 } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
@@ -23,7 +23,7 @@ const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
   }, [page, orderBy, search])
 
   if (loading) {
-    return <DelayMessage text='LOADING COMICS...' />
+    return <DelayMessage text="LOADING COMICS..." />
   }
 
   const { totalCount, edges } = search ? data.comicTitleStartsWith : data.comics
@@ -45,16 +45,16 @@ const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
   )
 }
 
-const ComicsMain = ({ path :slug }) => {
+const ComicsMain = ({ path: slug }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
 
   return (
     <Layout>
-      <SEO title='Comics' />
+      <SEO title="Comics" />
       <MaxWidth>
-        <h3>COMICS LIST</h3>
+        <H3>COMICS LIST</H3>
         <Controls
           slug={slug}
           total={totalCount}
@@ -78,8 +78,8 @@ ComicsMain.propTypes = {
 
 const ComicsPage = () => (
   <Router>
-    <ComicsMain path='/comics' />
-    <ComicDetails path='/comics/:title' />
+    <ComicsMain path="/comics" />
+    <ComicDetails path="/comics/:title" />
   </Router>
 )
 

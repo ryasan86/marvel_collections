@@ -29,7 +29,7 @@ const SortBy = ({ className, setOrderBy, slug }) => {
 
   return (
     <StyledSortBy className={className}>
-      <div>SORT BY</div>
+      <span>SORT BY</span>
       <select onChange={handleChange}>
         {options.map((opt, i) => (
           <option key={i} value={opt.value}>

@@ -16,6 +16,8 @@ const StyledLayout = styled.div`
   background-size: contain, initial;
   background-position: center -20%, left top;
   background-attachment: fixed, fixed;
+  /* position: relative; */
+  /* z-index: -1000; */
 `
 
 const Layout = ({ children }) => (

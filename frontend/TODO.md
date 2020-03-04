@@ -9,4 +9,4 @@
 7. downshift
 8. Make focus outline consistent
 9. Try SASS with Styled Components
-10. Try out using built in graphql sort.
+10. Try out using built in graphql sort. Try from cache.

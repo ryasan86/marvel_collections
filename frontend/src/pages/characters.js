@@ -8,7 +8,7 @@ import SEO from '../components/SEO'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Controls from '../components/Controls'
 import DelayMessage from '../components/DelayMessage'
-import { MaxWidth } from '../components/common'
+import { MaxWidth, H3 } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
@@ -56,7 +56,7 @@ const CharactersMain = ({ path: slug }) => {
     <Layout>
       <SEO title='Characters' />
       <MaxWidth>
-        <h3>CHARACTERS LIST</h3>
+        <H3>CHARACTERS LIST</H3>
         <Controls
           slug={slug}
           total={totalCount}
