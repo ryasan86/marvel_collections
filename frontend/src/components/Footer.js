@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="max-width">
-        <div>© {new Date().getFullYear()}</div>
+        <div>© {new Date().getFullYear()}&nbsp;</div>
         <a
           href={site.siteMetadata.repo_url}
           target="_blank"
