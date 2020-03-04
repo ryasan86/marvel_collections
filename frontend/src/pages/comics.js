@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
@@ -7,24 +7,48 @@ import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
 import ErrorBoundary from '../components/ErrorBoundary'
 import ComicDetails from '../components/ComicDetails'
-import { MaxWidth } from '../components/common/MaxWidth'
-import { Comics } from '../client'
+import DelayMessage from '../components/DelayMessage'
+import { MaxWidth } from '../components/common'
 import { sortMap } from '../components/SortBy'
+import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
+
+const ComicsList = ({ path, orderBy, search, setTotalCount }) => {
+  const [page, setPage] = useState(1)
+  const comicsPromise = search ? useComicsByTitle : useComics
+  const comics = comicsPromise({ page, orderBy, search })
+  const { data, loading, error, refetch } = comics
+
+  useEffect(() => {
+    refetch()
+  }, [page, orderBy, search])
+
+  if (loading) {
+    return <DelayMessage text='LOADING COMICS...' />
+  }
+
+  const { totalCount, edges } = search ? data.comicTitleStartsWith : data.comics
+  setTotalCount(totalCount)
+
+  return (
+    <>
+      <ErrorBoundary error={error}>
+        <ItemsList
+          path={path}
+          error={error}
+          items={edges}
+          total={totalCount}
+          page={page}
+          setPage={setPage}
+        />
+      </ErrorBoundary>
+    </>
+  )
+}
 
 const ComicsMain = ({ path }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
-  const [comics, setComics] = useState(null)
-  const [error, setError] = useState(null)
+  const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
-  const [page, setPage] = useState(1)
-
-  useEffect(() => {
-    setComics(null)
-    const ComicsPromise = search ? Comics.byTitle : Comics.getAll
-    ComicsPromise({ page, orderBy, search })
-      .then(setComics)
-      .catch(setError)
-  }, [page, orderBy, search])
 
   return (
     <Layout>
@@ -33,19 +57,16 @@ const ComicsMain = ({ path }) => {
         <h3>COMICS LIST</h3>
         <Controls
           path={path}
+          total={totalCount}
           setSearch={setSearch}
           setOrderBy={setOrderBy}
-          total={comics && comics.total}
         />
-        <ErrorBoundary error={error}>
-          <ItemsList
-            page={page}
-            setPage={setPage}
-            path={path}
-            total={comics && comics.total}
-            items={comics && comics.results}
-          />
-        </ErrorBoundary>
+        <ComicsList
+          orderBy={orderBy}
+          search={search}
+          path={path}
+          setTotalCount={setTotalCount}
+        />
       </MaxWidth>
     </Layout>
   )

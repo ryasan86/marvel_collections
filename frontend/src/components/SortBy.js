@@ -19,8 +19,8 @@ export const sortMap = {
 const options = [
   { name: 'A-Z', value: 'ascending_alpha' },
   { name: 'Z-A', value: 'descending_alpha' },
-  { name: 'EARLIEST', value: 'ascending_modified' },
-  { name: 'LATEST', value: 'descending_modified' }
+  { name: 'LATEST', value: 'ascending_modified' },
+  { name: 'NEWEST', value: 'descending_modified' }
 ]
 
 const SortBy = ({ className, setOrderBy, path }) => {

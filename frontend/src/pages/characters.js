@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
@@ -7,24 +7,50 @@ import CharacterDetails from '../components/CharacterDetails'
 import SEO from '../components/SEO'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Controls from '../components/Controls'
+import DelayMessage from '../components/DelayMessage'
 import { MaxWidth } from '../components/common'
-import { Characters } from '../client'
 import { sortMap } from '../components/SortBy'
+import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
+
+const CharactersList = ({ path, orderBy, search, setTotalCount }) => {
+  const [page, setPage] = useState(1)
+  const charactersPromise = search ? useCharactersByName : useCharacters
+  const characters = charactersPromise({ page, orderBy, search })
+  let { data, loading, error, refetch } = characters
+
+  useEffect(() => {
+    refetch()
+  }, [page, orderBy, search])
+
+  if (loading) {
+    return <DelayMessage text='LOADING CHARACTERS...' />
+  }
+
+  const { totalCount, edges } = search
+    ? data.characterNameStartsWith
+    : data.characters
+  setTotalCount(totalCount)
+
+  return (
+    <>
+      <ErrorBoundary error={error}>
+        <ItemsList
+          path={path}
+          error={error}
+          items={edges && edges}
+          total={totalCount}
+          page={page}
+          setPage={setPage}
+        />
+      </ErrorBoundary>
+    </>
+  )
+}
 
 const CharactersMain = ({ path }) => {
   const [orderBy, setOrderBy] = useState(sortMap.characters.ascending_alpha)
-  const [characters, setCharacters] = useState(null)
-  const [error, setError] = useState(null)
+  const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
-  const [page, setPage] = useState(1)
-
-  useEffect(() => {
-    setCharacters(null)
-    const charactersPromise = search ? Characters.byName : Characters.getAll
-    charactersPromise({ page, orderBy, search })
-      .then(setCharacters)
-      .catch(setError)
-  }, [page, orderBy, search])
 
   return (
     <Layout>
@@ -33,25 +59,22 @@ const CharactersMain = ({ path }) => {
         <h3>CHARACTERS LIST</h3>
         <Controls
           path={path}
+          total={totalCount}
           setSearch={setSearch}
           setOrderBy={setOrderBy}
-          total={characters && characters.total}
         />
-        <ErrorBoundary error={error}>
-          <ItemsList
-            page={page}
-            setPage={setPage}
-            path={path}
-            total={characters && characters.total}
-            items={characters && characters.results}
-          />
-        </ErrorBoundary>
+        <CharactersList
+          orderBy={orderBy}
+          search={search}
+          path={path}
+          setTotalCount={setTotalCount}
+        />
       </MaxWidth>
     </Layout>
   )
 }
 
-Characters.propTypes = {
+CharactersMain.propTypes = {
   path: PropTypes.string
 }
 

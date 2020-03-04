@@ -15,7 +15,7 @@ const CharacterItem = ({ c, path }) => {
         <img
           onLoad={handleOnLoad}
           onError={handleError}
-          src={c.thumbnail.path + '/portrait_incredible.jpg'}
+          src={c.thumbnail}
           alt={c.name}
         />
       </Link>
@@ -28,17 +28,16 @@ const CharacterItem = ({ c, path }) => {
 
 const ComicItem = ({ c, path }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const handleOnLoad = () => setIsVisible(true)
-  const handleError = () => setIsVisible(true)
+  const loadImg = () => setIsVisible(true)
   const linkProps = { to: `${path}/${c.name}`, state: c }
 
   return (
     <ItemStyles isVisible={isVisible}>
       <Link {...linkProps}>
         <img
-          onLoad={handleOnLoad}
-          onError={handleError}
-          src={c.thumbnail.path + '/portrait_incredible.jpg'}
+          onLoad={loadImg}
+          onError={loadImg}
+          src={c.thumbnail}
           alt={c.title}
         />
       </Link>

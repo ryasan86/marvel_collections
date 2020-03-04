@@ -2,8 +2,8 @@ import { checkStatus, responseData, handleError } from './utils'
 import agent from 'superagent'
 
 export const limit = 36 // how many items to show per page
-export const devEndpoint = 'http://localhost:5000/graphql'
-export const prodEndpoint = 'FIGURE_OUT_LATER'
+export const devEndpoint = 'http://localhost:5000'
+export const prodEndpoint = 'https://marvel-collections-backend.herokuapp.com/'
 const apiRoot = 'https://gateway.marvel.com/'
 const charsEndpoint = `v1/public/characters`
 const comicsEndpoint = `v1/public/comics`

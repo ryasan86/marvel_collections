@@ -7,26 +7,28 @@ import StyledComicDetails, {
   MetaItem
 } from '../styles/ComicDetailsStyles'
 import { capitalize } from '../utils/capitalize'
-import { BackgroundImage } from './common/BackgroundImage'
+import { BackgroundImage } from './common'
 
 const TextContent = ({ state }) => {
-  const comicMetas = [
+  const { description, modified, prices, creators, title } = state
+
+  const comicMeta = [
     {
       label: 'Description',
-      value: state.description ? state.description : 'DESCRIPTION UNAVAILABLE'
+      value: description || 'DESCRIPTION UNAVAILABLE'
     },
     {
       label: 'Last Modified',
-      value: moment(state.modified).format('LL')
+      value: moment(modified).format('LL')
     },
     {
       label: 'Price',
-      value: state.prices.map(p => p.price).join(', ')
+      value: prices.map(p => p.price).join(', ')
     }
   ]
 
-  const renderComicMetas = () => {
-    return comicMetas.map((meta, i) => (
+  const renderComicMeta = () => {
+    return comicMeta.map((meta, i) => (
       <MetaItem key={i}>
         <strong>{meta.label}:</strong>
         <p>{meta.value}</p>
@@ -35,7 +37,7 @@ const TextContent = ({ state }) => {
   }
 
   const renderCreators = () => {
-    return state.creators.items.map((creator, i) => (
+    return creators.map((creator, i) => (
       <MetaItem key={i}>
         <strong>{capitalize(creator.role)}:</strong>
         <p>{creator.name}</p>
@@ -45,9 +47,9 @@ const TextContent = ({ state }) => {
 
   return (
     <TextContainer>
-      <h3>{state.title}</h3>
+      <h3>{title}</h3>
       <ul className='meta-info'>
-        {renderComicMetas()}
+        {renderComicMeta()}
         {renderCreators()}
       </ul>
     </TextContainer>
@@ -55,13 +57,12 @@ const TextContent = ({ state }) => {
 }
 
 const ComicDetails = ({ location: { state } }) => {
-  const portrait = state.thumbnail.path + '/portrait_incredible.jpg'
   return (
     <Layout>
       <StyledComicDetails>
-        <BackgroundImage bg={portrait} />
+        <BackgroundImage bg={state.thumbnail} />
         <ContentContainer>
-          <img src={portrait} alt={state.title} />
+          <img src={state.thumbnail} alt={state.title} />
           <TextContent state={state} />
         </ContentContainer>
       </StyledComicDetails>
