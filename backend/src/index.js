@@ -12,14 +12,19 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
 server.use(cookieParser())
 
+const { DEV_FRONTEND_URL, PROD_FRONTEND_URL } = process.env
 const options = {
   cors: {
     credentials: true,
-    origin: process.env.PROD_FRONTEND_URL
+    origin:
+      process.env.NODE_ENV === 'development'
+        ? DEV_FRONTEND_URL
+        : PROD_FRONTEND_URL
   },
   endpoint: '/',
   playground: '/playground'
 }
+console.log(process.env.NODE_ENV)
 
 server.start(options, deets =>
   console.log('Server is running on port: ', deets.port)

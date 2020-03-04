@@ -24,7 +24,7 @@ const StyledNavItem = css`
     color: white;
     border-bottom-color: var(--red);
   }
-  a {
+  .nav-item a {
     color: var(--light-gray);
     text-decoration: none;
     display: flex;
@@ -35,11 +35,11 @@ const StyledNavItem = css`
     border: 2px solid transparent;
     font-size: var(--regular-font);
   }
-  .logo > a {
+  .nav-item.logo > a {
     border: none;
     height: 100%;
   }
-  img {
+  .nav-item img {
     display: block;
     height: 100%;
   }

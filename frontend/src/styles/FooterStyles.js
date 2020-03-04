@@ -18,7 +18,7 @@ const StyledFooter = css`
     max-width: var(--max-width);
     color: var(--gray);
   }
-  a {
+  .footer a {
     color: var(--off-white);
     margin: 0;
   }
