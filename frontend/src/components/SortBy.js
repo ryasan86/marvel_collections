@@ -23,8 +23,8 @@ const options = [
   { name: 'NEWEST', value: 'descending_modified' }
 ]
 
-const SortBy = ({ className, setOrderBy, path }) => {
-  const category = path.slice(1)
+const SortBy = ({ className, setOrderBy, slug }) => {
+  const category = slug.slice(1)
   const handleChange = e => setOrderBy(sortMap[category][e.target.value])
 
   return (

@@ -5,8 +5,8 @@ import Item from './Item'
 import DelayMessage from './DelayMessage'
 import Pagination from './Pagination'
 
-const ItemsList = ({ items, path, page, setPage, total, loading }) => {
-  const itemType = path.toUpperCase()
+const ItemsList = ({ items, slug, page, setPage, total, loading }) => {
+  const itemType = slug.toUpperCase()
 
   if (!items) {
     return <DelayMessage text={`LOADING ${itemType}S...`} />
@@ -20,7 +20,7 @@ const ItemsList = ({ items, path, page, setPage, total, loading }) => {
     <>
       <StyledList>
         {items.map(({ node }, i) => (
-          <Item key={node.id} c={node} path={path}></Item>
+          <Item key={node.id} c={node} slug={slug}></Item>
         ))}
       </StyledList>
       <Pagination page={page} setPage={setPage} total={total} />
@@ -30,7 +30,7 @@ const ItemsList = ({ items, path, page, setPage, total, loading }) => {
 
 ItemsList.propTypes = {
   total: PropTypes.number,
-  path: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   setPage: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.object)

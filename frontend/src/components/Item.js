@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import ItemStyles from '../styles/ItemStyles'
 
-const CharacterItem = ({ c, path }) => {
+const CharacterItem = ({ c, slug }) => {
   const [isVisible, setIsVisible] = useState(false)
   const handleOnLoad = e => setIsVisible(true)
   const handleError = () => setIsVisible(true)
-  const linkProps = { to: `${path}/${c.name}`, state: c }
+  const props = { to: `${slug}/${c.name}`, state: c }
 
   return (
     <ItemStyles isVisible={isVisible}>
-      <Link {...linkProps}>
+      <Link {...props}>
         <img
           onLoad={handleOnLoad}
           onError={handleError}
@@ -19,21 +19,21 @@ const CharacterItem = ({ c, path }) => {
           alt={c.name}
         />
       </Link>
-      <Link {...linkProps}>
+      <Link {...props}>
         <div className='text-row'>{c.name}</div>
       </Link>
     </ItemStyles>
   )
 }
 
-const ComicItem = ({ c, path }) => {
+const ComicItem = ({ c, slug }) => {
   const [isVisible, setIsVisible] = useState(false)
   const loadImg = () => setIsVisible(true)
-  const linkProps = { to: `${path}/${c.name}`, state: c }
+  const props = { to: `${slug}/${c.name}`, state: c }
 
   return (
     <ItemStyles isVisible={isVisible}>
-      <Link {...linkProps}>
+      <Link {...props}>
         <img
           onLoad={loadImg}
           onError={loadImg}
@@ -41,7 +41,7 @@ const ComicItem = ({ c, path }) => {
           alt={c.title}
         />
       </Link>
-      <Link {...linkProps}>
+      <Link {...props}>
         <div className='text-row'>{c.title}</div>
       </Link>
     </ItemStyles>
@@ -49,7 +49,7 @@ const ComicItem = ({ c, path }) => {
 }
 
 const Item = props => {
-  switch (props.path) {
+  switch (props.slug) {
     case '/characters':
       return <CharacterItem {...props} />
     case '/comics':
@@ -59,7 +59,7 @@ const Item = props => {
 
 CharacterItem.propTypes = {
   c: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired
+  slug: PropTypes.string.isRequired
 }
 
 export default Item

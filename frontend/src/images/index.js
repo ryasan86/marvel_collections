@@ -1,5 +1,6 @@
 import MarvelSVG from './marvel-logo.svg'
 import MagnifierSVG from './magnifying-glass.svg'
-import MarvelBg from './marvel-bg.jpg'
+import CityBG from './city-bg.png'
+import MeshPattern from './mesh-pattern.png'
 
-export { MarvelBg, MarvelSVG, MagnifierSVG }
+export { MarvelSVG, MagnifierSVG, CityBG, MeshPattern }

@@ -68,7 +68,7 @@ const CharacterComicsList = ({ charId, orderBy }) => {
         setPage={setPage}
         total={totalCount}
         items={edges}
-        path='/comics'
+        slug='/comics'
       />
     </ErrorBoundary>
   )
@@ -83,7 +83,7 @@ const CharacterComicsSection = ({ comics, charId }) => {
         <LeftColumn>
           <h3>COMICS LIST</h3>
         </LeftColumn>
-        <SortBy setOrderBy={setOrderBy} path='/comics' />
+        <SortBy setOrderBy={setOrderBy} slug='/comics' />
       </Row>
       <CharacterComicsList orderBy={orderBy} charId={charId} />
     </CharacterComics>

@@ -12,7 +12,7 @@ import { MaxWidth } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
-const ComicsList = ({ path, orderBy, search, setTotalCount }) => {
+const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
   const [page, setPage] = useState(1)
   const comicsPromise = search ? useComicsByTitle : useComics
   const comics = comicsPromise({ page, orderBy, search })
@@ -33,7 +33,7 @@ const ComicsList = ({ path, orderBy, search, setTotalCount }) => {
     <>
       <ErrorBoundary error={error}>
         <ItemsList
-          path={path}
+          slug={slug}
           error={error}
           items={edges}
           total={totalCount}
@@ -45,7 +45,7 @@ const ComicsList = ({ path, orderBy, search, setTotalCount }) => {
   )
 }
 
-const ComicsMain = ({ path }) => {
+const ComicsMain = ({ path :slug }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
@@ -56,7 +56,7 @@ const ComicsMain = ({ path }) => {
       <MaxWidth>
         <h3>COMICS LIST</h3>
         <Controls
-          path={path}
+          slug={slug}
           total={totalCount}
           setSearch={setSearch}
           setOrderBy={setOrderBy}
@@ -64,7 +64,7 @@ const ComicsMain = ({ path }) => {
         <ComicsList
           orderBy={orderBy}
           search={search}
-          path={path}
+          slug={slug}
           setTotalCount={setTotalCount}
         />
       </MaxWidth>
@@ -73,7 +73,7 @@ const ComicsMain = ({ path }) => {
 }
 
 ComicsMain.propTypes = {
-  path: PropTypes.string
+  slug: PropTypes.string
 }
 
 const ComicsPage = () => (

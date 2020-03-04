@@ -12,7 +12,7 @@ import { MaxWidth } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
-const CharactersList = ({ path, orderBy, search, setTotalCount }) => {
+const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
   const [page, setPage] = useState(1)
   const charactersPromise = search ? useCharactersByName : useCharacters
   const characters = charactersPromise({ page, orderBy, search })
@@ -35,7 +35,7 @@ const CharactersList = ({ path, orderBy, search, setTotalCount }) => {
     <>
       <ErrorBoundary error={error}>
         <ItemsList
-          path={path}
+          slug={slug}
           error={error}
           items={edges && edges}
           total={totalCount}
@@ -47,7 +47,7 @@ const CharactersList = ({ path, orderBy, search, setTotalCount }) => {
   )
 }
 
-const CharactersMain = ({ path }) => {
+const CharactersMain = ({ path: slug }) => {
   const [orderBy, setOrderBy] = useState(sortMap.characters.ascending_alpha)
   const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
@@ -58,7 +58,7 @@ const CharactersMain = ({ path }) => {
       <MaxWidth>
         <h3>CHARACTERS LIST</h3>
         <Controls
-          path={path}
+          slug={slug}
           total={totalCount}
           setSearch={setSearch}
           setOrderBy={setOrderBy}
@@ -66,7 +66,7 @@ const CharactersMain = ({ path }) => {
         <CharactersList
           orderBy={orderBy}
           search={search}
-          path={path}
+          slug={slug}
           setTotalCount={setTotalCount}
         />
       </MaxWidth>
@@ -75,7 +75,7 @@ const CharactersMain = ({ path }) => {
 }
 
 CharactersMain.propTypes = {
-  path: PropTypes.string
+  slug: PropTypes.string
 }
 
 const CharactersPage = () => (
