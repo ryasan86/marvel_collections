@@ -35,6 +35,9 @@ const StyledPagination = styled(ReactPaginate)`
         outline: none;
         box-shadow: var(--focus-shadow);
       }
+      &:hover {
+        color: var(--red);
+      }
     }
   }
 `
