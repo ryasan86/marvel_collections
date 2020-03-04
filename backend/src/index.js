@@ -12,13 +12,10 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
 server.use(cookieParser())
 
-const { PROD_FRONTEND_URL } = process.env
-server.express.set('Access-Control-Allow-Origin', PROD_FRONTEND_URL)
-
 const options = {
   cors: {
     credentials: true,
-    origin: PROD_FRONTEND_URL
+    origin: process.env.PROD_FRONTEND_URL
   },
   endpoint: '/',
   playground: '/playground'
