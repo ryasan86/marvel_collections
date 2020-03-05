@@ -1,6 +1,4 @@
 import { createGlobalStyle, css } from '@nfront/global-styles'
-import StyledHeader, { StyledNavItem } from './HeaderStyles'
-import StyledFooter from './FooterStyles'
 
 const StyledRoot = css`
   :root {
@@ -87,9 +85,6 @@ const StyledHtml = css`
 const GlobalStyles = createGlobalStyle`
   ${StyledRoot}
   ${StyledHtml}
-  ${StyledHeader}
-  ${StyledNavItem}
-  ${StyledFooter}
 `
 
 export default GlobalStyles

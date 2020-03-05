@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
+import Footer from '../styles/FooterStyles'
 
 const FooterComponent = () => {
   const { site } = useStaticQuery(
@@ -15,18 +16,18 @@ const FooterComponent = () => {
   )
 
   return (
-    <footer className="footer">
-      <div className="max-width">
+    <Footer>
+      <Footer.MaxWidth>
         <div>*not official Marvel site &nbsp;</div>
         <div>© {new Date().getFullYear()}&nbsp;</div>
-        <a
+        <Footer.A
           href={site.siteMetadata.repo_url}
           target="_blank"
           rel="noopener noreferrer">
           github repo
-        </a>
-      </div>
-    </footer>
+        </Footer.A>
+      </Footer.MaxWidth>
+    </Footer>
   )
 }
 
