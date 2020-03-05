@@ -54,8 +54,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-nprogress`,
       options: {
-        color: `#ec1c24`,
-        minimum: 0.4
+        // Setting a color is optional.
+        color: `tomato`,
       }
     }
   ]
