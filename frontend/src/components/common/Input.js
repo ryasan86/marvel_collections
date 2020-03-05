@@ -6,7 +6,8 @@ export const Input = ({
   type,
   value,
   name,
-  placeholder
+  placeholder,
+  className
 }) => {
   const handleChange = e => {
     onChange(e.target.value)
@@ -19,6 +20,7 @@ export const Input = ({
     <input
       type={type}
       value={value}
+      className={className}
       onChange={handleChange}
       placeholder={placeholder}
       onKeyPress={handleEnterPress}

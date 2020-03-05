@@ -24,7 +24,6 @@ const options = {
   endpoint: '/',
   playground: '/playground'
 }
-console.log(process.env.NODE_ENV)
 
 server.start(options, deets =>
   console.log('Server is running on port: ', deets.port)

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
-import ItemStyles from '../styles/ItemStyles'
+import Item from '../styles/ItemStyles'
 
 const CharacterItem = ({ c, slug }) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -10,45 +9,45 @@ const CharacterItem = ({ c, slug }) => {
   const props = { to: `${slug}/${c.name}`, state: c }
 
   return (
-    <ItemStyles isVisible={isVisible}>
-      <Link {...props}>
-        <img
+    <Item isVisible={isVisible}>
+      <Item.Link {...props}>
+        <Item.Image
           onLoad={handleOnLoad}
           onError={handleError}
           src={c.thumbnail}
           alt={c.name}
         />
-      </Link>
-      <Link {...props}>
-        <div className='text-row'>{c.name}</div>
-      </Link>
-    </ItemStyles>
+      </Item.Link>
+      <Item.Link {...props}>
+        <Item.Row>{c.name}</Item.Row>
+      </Item.Link>
+    </Item>
   )
 }
 
 const ComicItem = ({ c, slug }) => {
   const [isVisible, setIsVisible] = useState(false)
   const loadImg = () => setIsVisible(true)
-  const props = { to: `${slug}/${c.name}`, state: c }
+  const props = { to: `${slug}/${c.title}`, state: c }
 
   return (
-    <ItemStyles isVisible={isVisible}>
-      <Link {...props}>
-        <img
+    <Item isVisible={isVisible}>
+      <Item.Link {...props}>
+        <Item.Image
           onLoad={loadImg}
           onError={loadImg}
           src={c.thumbnail}
           alt={c.title}
         />
-      </Link>
-      <Link {...props}>
-        <div className='text-row'>{c.title}</div>
-      </Link>
-    </ItemStyles>
+      </Item.Link>
+      <Item.Link {...props}>
+        <Item.Row>{c.title}</Item.Row>
+      </Item.Link>
+    </Item>
   )
 }
 
-const Item = props => {
+const ItemComponent = props => {
   switch (props.slug) {
     case '/characters':
       return <CharacterItem {...props} />
@@ -57,9 +56,9 @@ const Item = props => {
   }
 }
 
-CharacterItem.propTypes = {
+ItemComponent.propTypes = {
   c: PropTypes.object.isRequired,
   slug: PropTypes.string.isRequired
 }
 
-export default Item
+export default ItemComponent

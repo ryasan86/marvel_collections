@@ -1,5 +1,5 @@
 import React from 'react'
-import StyledSortBy from '../styles/SortByStyles'
+import SortBy from '../styles/SortByStyles'
 
 export const sortMap = {
   characters: {
@@ -23,12 +23,12 @@ const options = [
   { name: 'NEWEST', value: 'descending_modified' }
 ]
 
-const SortBy = ({ className, setOrderBy, slug }) => {
+const SortByComponent = ({ className, setOrderBy, slug }) => {
   const category = slug.slice(1)
   const handleChange = e => setOrderBy(sortMap[category][e.target.value])
 
   return (
-    <StyledSortBy className={className}>
+    <SortBy className={className}>
       <span>SORT BY</span>
       <select onChange={handleChange}>
         {options.map((opt, i) => (
@@ -37,8 +37,8 @@ const SortBy = ({ className, setOrderBy, slug }) => {
           </option>
         ))}
       </select>
-    </StyledSortBy>
+    </SortBy>
   )
 }
 
-export default SortBy
+export default SortByComponent

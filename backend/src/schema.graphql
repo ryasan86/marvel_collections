@@ -27,9 +27,9 @@ interface Node {
 
 type Character implements Node {
   id: ID!
+  name: String!
   description: String
   thumbnail: String
-  name: String!
 }
 
 type CharacterConnection {

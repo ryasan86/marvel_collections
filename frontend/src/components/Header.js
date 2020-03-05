@@ -6,7 +6,7 @@ const activeStyle = {
   color: 'white'
 }
 
-const Header = () => (
+const HeaderComponent = () => (
   <header className='header'>
     <div className="nav-item logo">
       <Link to="/">
@@ -26,4 +26,4 @@ const Header = () => (
   </header>
 )
 
-export default Header
+export default HeaderComponent

@@ -7,8 +7,7 @@ import CharacterDetails from '../components/CharacterDetails'
 import SEO from '../components/SEO'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Controls from '../components/Controls'
-import DelayMessage from '../components/DelayMessage'
-import { MaxWidth, H3 } from '../components/common'
+import { MaxWidth, H3, DelayMessage } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
@@ -23,7 +22,7 @@ const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
   }, [page, orderBy, search])
 
   if (loading) {
-    return <DelayMessage text='LOADING CHARACTERS...' />
+    return <DelayMessage text="LOADING CHARACTERS..." />
   }
 
   const { totalCount, edges } = search
@@ -54,9 +53,9 @@ const CharactersMain = ({ path: slug }) => {
 
   return (
     <Layout>
-      <SEO title='Characters' />
+      <SEO title="Characters" />
       <MaxWidth>
-        <H3>CHARACTERS LIST</H3>
+        <H3>CHARACTERS</H3>
         <Controls
           slug={slug}
           total={totalCount}
@@ -80,8 +79,8 @@ CharactersMain.propTypes = {
 
 const CharactersPage = () => (
   <Router>
-    <CharactersMain path='/characters' />
-    <CharacterDetails path='/characters/:name' />
+    <CharactersMain path="/characters" />
+    <CharacterDetails path="/characters/:name" />
   </Router>
 )
 

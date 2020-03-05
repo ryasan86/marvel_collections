@@ -1,48 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import SEO from './SEO'
-import Content, {
-  StyledBanner,
-  StyledDescription,
-  StyledCharacterComics,
-  LeftColumn,
-  RightColumn
+import CharacterDetails, {
+  Banner,
+  Description,
+  CharacterComics
 } from '../styles/CharacterDetailsStyles'
 import Layout from './Layout'
 import ItemsList from './ItemsList'
-import SortBy, { sortMap } from './SortBy'
 import ErrorBoundary from './ErrorBoundary'
-import DelayMessage from './DelayMessage'
-import { MaxWidth, Row } from './common'
-import { BackgroundImage } from './common/BackgroundImage'
+import { sortMap } from './SortBy'
+import { MaxWidth, DelayMessage } from './common'
 import { useComicsByCharacter } from '../graphql/ComicsHooks'
-
-const Banner = ({ state }) => {
-  const { thumbnail: bg, name } = state
-
-  return (
-    <StyledBanner bg={bg}>
-      <BackgroundImage bg={bg} className='bg' />
-      <LeftColumn>
-        <img src={bg} alt={name} />
-      </LeftColumn>
-      <RightColumn>
-        <h1>{name}</h1>
-      </RightColumn>
-    </StyledBanner>
-  )
-}
-
-const Description = ({ state }) => (
-  <StyledDescription>
-    <LeftColumn>
-      <h3>DESCRIPTION</h3>
-    </LeftColumn>
-    <RightColumn>
-      <p>{state.description ? state.description : 'DESCRIPTION UNAVAILABLE'}</p>
-    </RightColumn>
-  </StyledDescription>
-)
 
 const CharacterComicsList = ({ charId, orderBy }) => {
   const [page, setPage] = useState(1)
@@ -72,37 +41,42 @@ const CharacterComicsList = ({ charId, orderBy }) => {
   )
 }
 
-const CharacterComics = ({ comics, charId }) => {
+const CharacterDetailsComponent = ({ location: { state } }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
 
   return (
-    <StyledCharacterComics>
-      <Row className="comics-list-row">
-        <LeftColumn>
-          <h3>COMICS LIST</h3>
-        </LeftColumn>
-        <SortBy setOrderBy={setOrderBy} slug="/comics" />
-      </Row>
-      <CharacterComicsList orderBy={orderBy} charId={charId} />
-    </StyledCharacterComics>
+    <Layout>
+      <SEO title={state.name} />
+      <MaxWidth>
+        <CharacterDetails>
+          <Banner bg={state.thumbnail}>
+            <Banner.BackgroundImage bg={state.thumbnail} />
+            <Banner.Image src={state.thumbnail} alt={state.name} />
+            <Banner.H1>{state.name}</Banner.H1>
+          </Banner>
+          <Description>
+            <Description.H3>DESCRIPTION</Description.H3>
+            <Description.P>
+              {state.description
+                ? state.description
+                : 'DESCRIPTION UNAVAILABLE'}
+            </Description.P>
+          </Description>
+          <CharacterComics>
+            <CharacterComics.H3>COMICS</CharacterComics.H3>
+            <CharacterComics.SortBy setOrderBy={setOrderBy} slug="/comics" />
+            <CharacterComics.List>
+              <CharacterComicsList orderBy={orderBy} charId={state.id} />
+            </CharacterComics.List>
+          </CharacterComics>
+        </CharacterDetails>
+      </MaxWidth>
+    </Layout>
   )
 }
 
-const CharacterDetails = ({ location: { state } }) => (
-  <Layout>
-    <SEO title={state.name} />
-    <MaxWidth>
-      <Content>
-        <Banner state={state} />
-        <Description state={state}></Description>
-        <CharacterComics charId={state.id} />
-      </Content>
-    </MaxWidth>
-  </Layout>
-)
-
-CharacterDetails.propTypes = {
+CharacterDetailsComponent.propTypes = {
   state: PropTypes.object
 }
 
-export default CharacterDetails
+export default CharacterDetailsComponent

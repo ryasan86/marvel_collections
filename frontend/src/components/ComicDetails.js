@@ -1,18 +1,14 @@
 import React from 'react'
 import moment from 'moment'
 import Layout from './Layout'
-import StyledComicDetails, {
-  ContentContainer,
-  TextContainer,
-  MetaItem
-} from '../styles/ComicDetailsStyles'
+import ComicDetails from '../styles/ComicDetailsStyles'
 import { capitalize } from '../utils/capitalize'
-import { BackgroundImage } from './common'
+import SEO from './SEO'
 
-const TextContent = ({ state }) => {
-  const { description, modified, prices, creators, title } = state
+const ComicDetailsComponent = ({ location: { state } }) => {
+  const { description, modified, prices, creators, title, thumbnail } = state
 
-  const comicMeta = [
+  const info = [
     {
       label: 'Description',
       value: description || 'DESCRIPTION UNAVAILABLE'
@@ -27,47 +23,28 @@ const TextContent = ({ state }) => {
     }
   ]
 
-  const renderComicMeta = () => {
-    return comicMeta.map((meta, i) => (
-      <MetaItem key={i}>
-        <strong>{meta.label}:</strong>
-        <p>{meta.value}</p>
-      </MetaItem>
-    ))
-  }
-
-  const renderCreators = () => {
-    return creators.map((creator, i) => (
-      <MetaItem key={i}>
-        <strong>{capitalize(creator.role)}:</strong>
-        <p>{creator.name}</p>
-      </MetaItem>
-    ))
-  }
-
-  return (
-    <TextContainer>
-      <h3>{title}</h3>
-      <ul className='meta-info'>
-        {renderComicMeta()}
-        {renderCreators()}
-      </ul>
-    </TextContainer>
-  )
-}
-
-const ComicDetails = ({ location: { state } }) => {
   return (
     <Layout>
-      <StyledComicDetails>
-        <BackgroundImage bg={state.thumbnail} />
-        <ContentContainer>
-          <img src={state.thumbnail} alt={state.title} />
-          <TextContent state={state} />
-        </ContentContainer>
-      </StyledComicDetails>
+      <SEO title={title} />
+      <ComicDetails>
+        <ComicDetails.BackgroundImage bg={thumbnail} />
+        <ComicDetails.Content>
+          <img src={thumbnail} alt={title} />
+          <ComicDetails.TextContainer>
+            <h3>{title}</h3>
+            <ComicDetails.MetaItemsList>
+              {[...info, ...creators].map((meta, i) => (
+                <ComicDetails.MetaItem key={i}>
+                  <strong>{capitalize(meta.label || meta.role)}:</strong>
+                  <p>{meta.value || meta.name}</p>
+                </ComicDetails.MetaItem>
+              ))}
+            </ComicDetails.MetaItemsList>
+          </ComicDetails.TextContainer>
+        </ComicDetails.Content>
+      </ComicDetails>
     </Layout>
   )
 }
 
-export default ComicDetails
+export default ComicDetailsComponent

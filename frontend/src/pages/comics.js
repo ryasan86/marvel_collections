@@ -7,8 +7,7 @@ import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
 import ErrorBoundary from '../components/ErrorBoundary'
 import ComicDetails from '../components/ComicDetails'
-import DelayMessage from '../components/DelayMessage'
-import { MaxWidth, H3 } from '../components/common'
+import { MaxWidth, H3, DelayMessage } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
@@ -54,7 +53,7 @@ const ComicsMain = ({ path: slug }) => {
     <Layout>
       <SEO title="Comics" />
       <MaxWidth>
-        <H3>COMICS LIST</H3>
+        <H3>COMICS</H3>
         <Controls
           slug={slug}
           total={totalCount}

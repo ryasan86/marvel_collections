@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import { BackgroundImage } from '../components/common'
 
-const StyledComicDetails = styled.div`
+const ComicDetails = styled.div`
   flex: 1 1 auto;
   width: 100%;
   position: relative;
@@ -9,7 +10,9 @@ const StyledComicDetails = styled.div`
   overflow: hidden;
 `
 
-const ContentContainer = styled.div`
+ComicDetails.BackgroundImage = BackgroundImage
+
+ComicDetails.Content = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
@@ -21,7 +24,7 @@ const ContentContainer = styled.div`
   }
 `
 
-const TextContainer = styled.div`
+ComicDetails.TextContainer = styled.div`
   width: 70%;
   color: white;
   padding-left: 8rem;
@@ -29,17 +32,18 @@ const TextContainer = styled.div`
     margin: 0 0 1rem 0;
     font-size: 4rem;
   }
-  .meta-info {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    max-height: 50rem;
-  }
 `
 
-const MetaItem = styled.li`
+ComicDetails.MetaItemsList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-height: 50rem;
+`
+
+ComicDetails.MetaItem = styled.li`
   margin-top: 1.5rem;
   max-width: 30rem;
   strong {
@@ -51,5 +55,4 @@ const MetaItem = styled.li`
   }
 `
 
-export { ContentContainer, TextContainer, MetaItem }
-export default StyledComicDetails
+export default ComicDetails

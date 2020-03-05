@@ -8,11 +8,9 @@ const H4 = styled.h4`
   opacity: ${props => (props.isVisible ? '1' : '0')};
 `
 
-const DelayMessage = ({ text }) => {
+export const DelayMessage = ({ text }) => {
   const [isVisible, setIsVisible] = useState(false)
   useEffect(() => setIsVisible(true), [])
 
   return <H4 isVisible={isVisible}>{text}</H4>
 }
-
-export default DelayMessage

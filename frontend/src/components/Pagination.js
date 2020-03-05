@@ -1,7 +1,8 @@
 import React from 'react'
 import localeInfo from 'rc-pagination/lib/locale/en_US'
-import StyledPagination from '../styles/PaginationStyles'
-import { limit } from '../client'
+import Pagination from '../styles/PaginationStyles'
+
+const limit = 35 // how many items to show per page
 
 const itemRender = (current, type, element) => {
   switch (type) {
@@ -17,12 +18,12 @@ const itemRender = (current, type, element) => {
   }
 }
 
-const Pagination = ({ total, page, setPage }) => {
+const PaginationComponent = ({ total, page, setPage }) => {
   const pageCount = Math.ceil(total / limit)
   const handlePageChange = p => setPage(p)
 
   return (
-    <StyledPagination
+    <Pagination
       total={total}
       current={page}
       defaultPageSize={limit}
@@ -37,4 +38,4 @@ const Pagination = ({ total, page, setPage }) => {
   )
 }
 
-export default Pagination
+export default PaginationComponent

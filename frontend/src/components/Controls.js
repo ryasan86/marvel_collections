@@ -1,45 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import StyledControls, { StyledTotal } from '../styles/ControlsStyles'
+import Controls from '../styles/ControlsStyles'
 import SortBy from './SortBy'
-import { Input } from './common/Input'
-import { Row } from './common/Row'
 import { MagnifierSVG } from '../images'
 
 const Total = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false)
   useEffect(() => setIsVisible(true), [])
-  
-  return <StyledTotal isVisible={isVisible}>{children}</StyledTotal>
+
+  return <Controls.Total isVisible={isVisible}>{children}</Controls.Total>
 }
 
-const Controls = ({ setSearch, total, setOrderBy, slug }) => {
+const ControlsComponent = ({ setSearch, total, setOrderBy, slug }) => {
   const [input, setInput] = useState('')
 
   return (
-    <StyledControls>
-      <Row>
-        <img src={MagnifierSVG} alt='search-icon' />
-        <Input
-          type='text'
-          placeholder='SEARCH'
+    <Controls>
+      <Controls.Row className="top">
+        <Controls.Image src={MagnifierSVG} alt="search-icon" />
+        <Controls.Input
+          type="text"
+          placeholder="SEARCH"
           value={input}
           onChange={setInput}
           onKeyPress={setSearch}
         />
-      </Row>
-      <Row>
+      </Controls.Row>
+      <Controls.Row>
         <Total>{total ? `${total} RESULTS` : ''}</Total>
         <SortBy setOrderBy={setOrderBy} slug={slug} />
-      </Row>
-    </StyledControls>
+      </Controls.Row>
+    </Controls>
   )
 }
 
-Controls.propTypes = {
+ControlsComponent.propTypes = {
   setOrderBy: PropTypes.func.isRequired,
   setSearch: PropTypes.func.isRequired,
   total: PropTypes.number
 }
 
-export default Controls
+export default ControlsComponent

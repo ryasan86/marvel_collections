@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledSortBy = styled.div`
+const SortBy = styled.div`
   display: flex;
   align-items: center;
   font-size: var(--regular-font);
@@ -17,4 +17,4 @@ const StyledSortBy = styled.div`
   }
 `
 
-export default StyledSortBy
+export default SortBy

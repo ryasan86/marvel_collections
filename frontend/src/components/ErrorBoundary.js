@@ -1,22 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import StyledErrorBoundary from '../styles/ErrorBoundaryStyles'
+import ErrorBoundary from '../styles/ErrorBoundaryStyles'
 
-const ErrorBoundary = ({ error, children }) => {
+const ErrorBoundaryComponent = ({ error, children }) => {
   if (error) {
     return (
-      <StyledErrorBoundary>
+      <ErrorBoundary>
         {error.name}: {error.message}
-      </StyledErrorBoundary>
+      </ErrorBoundary>
     )
   }
 
   return children
 }
 
-ErrorBoundary.propTypes = {
+ErrorBoundaryComponent.propTypes = {
   error: PropTypes.object,
   children: PropTypes.node
 }
 
-export default ErrorBoundary
+export default ErrorBoundaryComponent

@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import StyledList from '../styles/ItemsListStyles'
+import ItemsList from '../styles/ItemsListStyles'
 import Item from './Item'
-import DelayMessage from './DelayMessage'
 import Pagination from './Pagination'
+import { DelayMessage } from './common'
 
-const ItemsList = ({ items, slug, page, setPage, total, loading }) => {
+const ItemsListComponent = ({ items, slug, page, setPage, total, loading }) => {
   const itemType = slug.toUpperCase()
 
   if (!items) {
@@ -18,17 +18,17 @@ const ItemsList = ({ items, slug, page, setPage, total, loading }) => {
 
   return (
     <>
-      <StyledList>
+      <ItemsList>
         {items.map(({ node }, i) => (
           <Item key={node.id} c={node} slug={slug}></Item>
         ))}
-      </StyledList>
+      </ItemsList>
       <Pagination page={page} setPage={setPage} total={total} />
     </>
   )
 }
 
-ItemsList.propTypes = {
+ItemsListComponent.propTypes = {
   total: PropTypes.number,
   slug: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
@@ -36,4 +36,4 @@ ItemsList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object)
 }
 
-export default ItemsList
+export default ItemsListComponent

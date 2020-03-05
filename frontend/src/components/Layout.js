@@ -6,7 +6,7 @@ import Footer from './Footer'
 import Main from '../styles/MainStyles'
 import { CityBG, MeshPattern } from '../images'
 
-const StyledLayout = styled.div`
+const Layout = styled.div`
   height: 100%;
   min-height: 100vh;
   display: flex;
@@ -16,20 +16,18 @@ const StyledLayout = styled.div`
   background-size: contain, initial;
   background-position: center -20%, left top;
   background-attachment: fixed, fixed;
-  /* position: relative; */
-  /* z-index: -1000; */
 `
 
-const Layout = ({ children }) => (
-  <StyledLayout>
+const LayoutComponent = ({ children }) => (
+  <Layout>
     <Header />
     <Main>{children}</Main>
     <Footer />
-  </StyledLayout>
+  </Layout>
 )
 
-Layout.propTypes = {
+LayoutComponent.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default Layout
+export default LayoutComponent
