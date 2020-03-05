@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import Header from '../styles/HeaderStyles'
 import { MarvelSVG } from '../images'
 
 const activeStyle = {
@@ -7,23 +8,23 @@ const activeStyle = {
 }
 
 const HeaderComponent = () => (
-  <header className='header'>
-    <div className="nav-item logo">
+  <Header>
+    <Header.NavItem className='logo'>
       <Link to="/">
         <img src={MarvelSVG} alt="marvel" />
       </Link>
-    </div>
-    <div className="nav-item">
+    </Header.NavItem>
+    <Header.NavItem>
       <Link to="/characters" activeStyle={activeStyle}>
         CHARACTERS
       </Link>
-    </div>
-    <div className="nav-item">
+    </Header.NavItem>
+    <Header.NavItem>
       <Link to="/comics" activeStyle={activeStyle}>
         COMICS
       </Link>
-    </div>
-  </header>
+    </Header.NavItem>
+  </Header>
 )
 
 export default HeaderComponent
