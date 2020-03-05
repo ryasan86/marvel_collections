@@ -25,6 +25,10 @@ const StyledRoot = css`
 `
 
 const StyledHtml = css`
+  html {
+    overflow-y: scroll;
+  }
+
   html,
   body {
     font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
@@ -60,6 +64,23 @@ const StyledHtml = css`
 
   p {
     font-size: var(--large-font);
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--off-white);
+    border-radius: 1rem;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--off-white);
   }
 `
 // temporary because styled components causes flicker

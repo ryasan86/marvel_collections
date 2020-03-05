@@ -1,6 +1,3 @@
-const devEndpoint = 'http://localhost:5000'
-const prodEndpoint = 'https://marvel-collections-backend.herokuapp.com/'
-
 module.exports = {
   siteMetadata: {
     title: `Marvel Collections`,
@@ -52,12 +49,7 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        typeName: 'MARVEL',
-        fieldName: 'marvel',
-        url: process.env.NODE_ENV === 'development' ? devEndpoint : prodEndpoint
-      }
+      resolve: `gatsby-plugin-styled-components`
     }
   ]
 }
