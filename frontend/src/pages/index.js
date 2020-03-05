@@ -2,21 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import { MaxWidth } from '../components/common'
+// import '../styles/lib/nprogress.css'
 
-const Home = styled.div`
-  flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
+const Home = styled(Layout)``
+Home.MaxWidth = MaxWidth
 
 const IndexPage = () => (
-  <Layout>
+  <Home>
     <SEO title="Home" />
-    <Home></Home>
-  </Layout>
+    <Home.MaxWidth>Home Page</Home.MaxWidth>
+  </Home>
 )
 
 export default IndexPage
