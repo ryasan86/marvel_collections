@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Header from '../styles/HeaderStyles'
 import { MarvelSVG } from '../images'
 
@@ -10,19 +9,19 @@ const activeStyle = {
 const HeaderComponent = () => (
   <Header>
     <Header.NavItem className='logo'>
-      <Link to="/">
+      <Header.Link to="/">
         <img src={MarvelSVG} alt="marvel" />
-      </Link>
+      </Header.Link>
     </Header.NavItem>
     <Header.NavItem>
-      <Link to="/characters" activeStyle={activeStyle}>
+      <Header.Link to="/characters" activeStyle={activeStyle}>
         CHARACTERS
-      </Link>
+      </Header.Link>
     </Header.NavItem>
     <Header.NavItem>
-      <Link to="/comics" activeStyle={activeStyle}>
+      <Header.Link to="/comics" activeStyle={activeStyle}>
         COMICS
-      </Link>
+      </Header.Link>
     </Header.NavItem>
   </Header>
 )
