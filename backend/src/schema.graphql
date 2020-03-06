@@ -1,12 +1,12 @@
 type Query {
-  characters(page: Int, orderBy: String): CharacterConnection!
+  characters(page: Int, orderBy: String, limit: Int): CharacterConnection!
   characterNameStartsWith(
     page: Int
     orderBy: String
     search: String
   ): CharacterConnection!
   character: Character
-  comics(page: Int, orderBy: String): ComicConnection!
+  comics(page: Int, orderBy: String, limit: Int): ComicConnection!
   comicTitleStartsWith(
     page: Int
     orderBy: String

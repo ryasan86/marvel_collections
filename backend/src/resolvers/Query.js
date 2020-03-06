@@ -42,7 +42,7 @@ const Query = {
   characters: (parent, args, ctx, info) =>
     request
       .get(charsEndpoint, {
-        limit: limit,
+        limit: args.limit,
         orderBy: args.orderBy,
         offset: offset(args.page, limit)
       })
@@ -61,7 +61,7 @@ const Query = {
   comics: (parent, args, ctx, info) =>
     request
       .get(comicsEndpoint, {
-        limit: limit,
+        limit: args.limit,
         orderBy: args.orderBy,
         offset: offset(args.page, limit)
       })
@@ -80,9 +80,9 @@ const Query = {
   comicsByCharacter: (parent, args, ctx, info) =>
     request
       .get(`v1/public/characters/${args.charId}/comics`, {
-        limit: 12,
+        limit: 10,
         orderBy: args.orderBy,
-        offset: offset(args.page, 12)
+        offset: offset(args.page, 10)
       })
       .then(sendConnection)
       .catch(handleError)
