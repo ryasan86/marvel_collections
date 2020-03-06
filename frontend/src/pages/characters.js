@@ -7,7 +7,7 @@ import CharacterDetails from '../components/CharacterDetails'
 import SEO from '../components/SEO'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Controls from '../components/Controls'
-import { MaxWidth, H3, DelayMessage } from '../components/common'
+import { MaxWidth, H4, DelayMessage } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
@@ -21,6 +21,9 @@ const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
     refetch()
   }, [page, orderBy, search])
 
+  if (error) {
+    return <ErrorBoundary error={error} />
+  }
   if (loading) {
     return <DelayMessage text="LOADING CHARACTERS..." />
   }
@@ -31,18 +34,14 @@ const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
   setTotalCount(totalCount)
 
   return (
-    <>
-      <ErrorBoundary error={error}>
-        <ItemsList
-          slug={slug}
-          error={error}
-          items={edges && edges}
-          total={totalCount}
-          page={page}
-          setPage={setPage}
-        />
-      </ErrorBoundary>
-    </>
+    <ItemsList
+      slug={slug}
+      error={error}
+      items={edges}
+      total={totalCount}
+      page={page}
+      setPage={setPage}
+    />
   )
 }
 
@@ -55,7 +54,7 @@ const CharactersMain = ({ path: slug }) => {
     <Layout>
       <SEO title="Characters" />
       <MaxWidth>
-        <H3>CHARACTERS</H3>
+        <H4>CHARACTERS</H4>
         <Controls
           slug={slug}
           total={totalCount}

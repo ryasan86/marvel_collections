@@ -6,6 +6,7 @@ const SigninComponent = () => {
   return (
     <Signin>
       <Signin.Image src={MarvelSVG} alt="marvel logo" />
+      <Signin.H4>Collections</Signin.H4>
       <Signin.UsernameInput type="text" placeholder="Username" />
       <Signin.PasswordInput type="password" placeholder="Password" />
       <Signin.Submit>Submit</Signin.Submit>

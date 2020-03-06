@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const H3 = styled.h3`
+export const H4 = styled.h4`
   background: var(--red);
   color: white;
   padding: 1rem;

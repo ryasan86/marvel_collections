@@ -3,15 +3,37 @@ import PropTypes from 'prop-types'
 import ErrorBoundary from '../styles/ErrorBoundaryStyles'
 
 const ErrorBoundaryComponent = ({ error, children }) => {
-  if (error) {
+  if (
+    error.networkError &&
+    error.networkError.result &&
+    error.networkError.result.errors.length
+  ) {
     return (
       <ErrorBoundary>
-        {error.name}: {error.message}
+        {error.networkError.result.errors.map((error, i) => (
+          <p key={i}>
+            <span>! &nbsp;</span>
+            {error.message}
+          </p>
+        ))}
+      </ErrorBoundary>
+    )
+  }
+
+  if (error.message) {
+    return (
+      <ErrorBoundary>
+        <span>!&nbsp;</span>
+        {error.title}: {error.message}
       </ErrorBoundary>
     )
   }
 
   return children
+}
+
+ErrorBoundaryComponent.defaultProps = {
+  error: {}
 }
 
 ErrorBoundaryComponent.propTypes = {

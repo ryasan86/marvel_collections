@@ -2,8 +2,8 @@ import gql from 'graphql-tag'
 import { COMIC_FRAGMENT } from './Fragments'
 
 export const ALL_COMICS = gql`
-  query AllComics($orderBy: String!, $page: Int!) {
-    comics(orderBy: $orderBy, page: $page) {
+  query AllComics($orderBy: String!, $page: Int!, $limit: Int = 35) {
+    comics(orderBy: $orderBy, page: $page, limit: $limit) {
       totalCount
       edges {
         node {

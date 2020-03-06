@@ -2,8 +2,8 @@ import gql from 'graphql-tag'
 import { CHARACTER_FRAGMENT } from './Fragments'
 
 export const ALL_CHARACTERS = gql`
-  query allCharacters($orderBy: String!, $page: Int!) {
-    characters(orderBy: $orderBy, page: $page) {
+  query allCharacters($orderBy: String!, $page: Int!, $limit: Int = 35) {
+    characters(orderBy: $orderBy, page: $page, limit: $limit) {
       totalCount
       edges {
         node {

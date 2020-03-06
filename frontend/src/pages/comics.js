@@ -7,7 +7,7 @@ import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
 import ErrorBoundary from '../components/ErrorBoundary'
 import ComicDetails from '../components/ComicDetails'
-import { MaxWidth, H3, DelayMessage } from '../components/common'
+import { MaxWidth, H4, DelayMessage } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
@@ -21,6 +21,9 @@ const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
     refetch()
   }, [page, orderBy, search])
 
+  if (error) {
+    return <ErrorBoundary error={error} />
+  }
   if (loading) {
     return <DelayMessage text="LOADING COMICS..." />
   }
@@ -29,18 +32,14 @@ const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
   setTotalCount(totalCount)
 
   return (
-    <>
-      <ErrorBoundary error={error}>
-        <ItemsList
-          slug={slug}
-          error={error}
-          items={edges}
-          total={totalCount}
-          page={page}
-          setPage={setPage}
-        />
-      </ErrorBoundary>
-    </>
+    <ItemsList
+      slug={slug}
+      error={error}
+      items={edges}
+      total={totalCount}
+      page={page}
+      setPage={setPage}
+    />
   )
 }
 
@@ -53,7 +52,7 @@ const ComicsMain = ({ path: slug }) => {
     <Layout>
       <SEO title="Comics" />
       <MaxWidth>
-        <H3>COMICS</H3>
+        <H4>COMICS</H4>
         <Controls
           slug={slug}
           total={totalCount}

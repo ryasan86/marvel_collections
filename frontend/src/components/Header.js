@@ -19,13 +19,18 @@ const HeaderComponent = () => (
       </Header.Link>
     </Header.NavItem>
     <Header.NavItem>
-      <Header.Link to="/characters" activeStyle={activeStyle}>
-        CHARACTERS
+      <Header.Link to="/" activeStyle={activeStyle}>
+        HOME
       </Header.Link>
     </Header.NavItem>
     <Header.NavItem>
       <Header.Link to="/comics" activeStyle={activeStyle}>
         COMICS
+      </Header.Link>
+    </Header.NavItem>
+    <Header.NavItem>
+      <Header.Link to="/characters" activeStyle={activeStyle}>
+        CHARACTERS
       </Header.Link>
     </Header.NavItem>
   </Header>

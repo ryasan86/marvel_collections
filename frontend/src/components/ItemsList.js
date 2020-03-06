@@ -30,9 +30,9 @@ const ItemsListComponent = ({ items, slug, page, setPage, total, loading }) => {
 
 ItemsListComponent.propTypes = {
   total: PropTypes.number,
-  slug: PropTypes.string.isRequired,
+  setPage: PropTypes.func,
   page: PropTypes.number.isRequired,
-  setPage: PropTypes.func.isRequired,
+  slug: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.object)
 }
 

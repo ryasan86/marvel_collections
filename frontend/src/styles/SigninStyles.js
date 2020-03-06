@@ -30,6 +30,12 @@ Signin.Image = styled.img`
   transform: scale(0.8);
 `
 
+Signin.H4 = styled.h4`
+  color: var(--red);
+  text-align: center;
+  margin: 0;
+`
+
 Signin.UsernameInput = styled(Input)`
   margin-top: 5rem;
 `

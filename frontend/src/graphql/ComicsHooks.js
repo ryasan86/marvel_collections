@@ -5,9 +5,9 @@ import {
   COMICS_BY_CHARACTER
 } from './ComicsQuery'
 
-export const useComics = ({ page, orderBy }) => {
+export const useComics = ({ page, orderBy, limit }) => {
   return useQuery(ALL_COMICS, {
-    variables: { page, orderBy }
+    variables: { page, orderBy, limit }
   })
 }
 

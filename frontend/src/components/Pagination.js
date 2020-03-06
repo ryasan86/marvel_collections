@@ -1,8 +1,7 @@
 import React from 'react'
 import localeInfo from 'rc-pagination/lib/locale/en_US'
 import Pagination from '../styles/PaginationStyles'
-
-const limit = 35 // how many items to show per page
+import { limit } from '../constants'
 
 const itemRender = (current, type, element) => {
   switch (type) {
