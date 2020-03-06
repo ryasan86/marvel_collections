@@ -19,7 +19,6 @@ const Layout = styled.div`
   background-attachment: fixed, fixed;
 `
 
-
 const LayoutComponent = ({ children }) => (
   <Layout>
     <Header />
