@@ -48,6 +48,7 @@ const Query = {
       })
       .then(sendConnection)
       .catch(handleError),
+
   characterNameStartsWith: (parent, args, ctx, info) =>
     request
       .get(charsEndpoint, {
@@ -58,6 +59,7 @@ const Query = {
       })
       .then(sendConnection)
       .catch(handleError),
+
   comics: (parent, args, ctx, info) =>
     request
       .get(comicsEndpoint, {
@@ -77,6 +79,7 @@ const Query = {
       })
       .then(sendConnection)
       .catch(handleError),
+
   comicsByCharacter: (parent, args, ctx, info) =>
     request
       .get(`v1/public/characters/${args.charId}/comics`, {

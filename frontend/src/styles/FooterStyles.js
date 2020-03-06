@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 const Footer = styled.footer`
-  margin-top: 5rem;
   padding: 2rem 0;
   background: var(--dark);
   color: var(--off-white);

@@ -25,13 +25,16 @@ const HomeCharacters = () => {
   const { edges } = data.characters
 
   return (
-    <ItemsList
-      slug="/characters"
-      error={error}
-      items={edges}
-      total={10}
-      page={1}
-    />
+    <Home.MaxWidth>
+      <H4>LATEST CHARACTERS</H4>
+      <ItemsList
+        slug="/characters"
+        error={error}
+        items={edges}
+        total={10}
+        page={1}
+      />
+    </Home.MaxWidth>
   )
 }
 
@@ -52,23 +55,26 @@ const HomeComics = () => {
   const { edges } = data.comics
 
   return (
-    <ItemsList slug="/comics" error={error} items={edges} total={10} page={1} />
+    <Home.MaxWidth>
+      <H4>LATEST COMICS</H4>
+      <ItemsList
+        slug="/comics"
+        error={error}
+        items={edges}
+        total={10}
+        page={1}
+      />
+    </Home.MaxWidth>
   )
 }
 
 const HomePage = () => {
   return (
     <Layout>
-      <SEO title="Layout" />
+      <SEO title="Home" />
       <Home>
-        <Home.MaxWidth>
-          <H4>LATEST COMICS</H4>
-          <HomeComics />
-        </Home.MaxWidth>
-        <Home.MaxWidth>
-          <H4>LATEST CHARACTERS</H4>
-          <HomeCharacters />
-        </Home.MaxWidth>
+        <HomeComics />
+        <HomeCharacters />
       </Home>
     </Layout>
   )

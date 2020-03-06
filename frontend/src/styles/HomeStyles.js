@@ -7,6 +7,7 @@ const Home = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 5rem;
 `
 
 Home.H4 = styled.h4`
