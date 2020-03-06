@@ -8,7 +8,7 @@ const Header = styled.div`
   margin: 0;
   padding: 0;
   background: var(--dark);
-  position: sticky;
+  position: relative;
   z-index: 10;
 `
 
@@ -22,6 +22,13 @@ Header.NavItem = styled.div`
   &:hover a {
     color: white;
     border-bottom-color: var(--red);
+  }
+  &.login {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
   }
   &.logo a {
     border: none;
