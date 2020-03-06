@@ -3,7 +3,7 @@ module.exports = {
     title: `Marvel Collections`,
     description: `Collection builder using Marvel's API and graphql.`,
     author: `Ryan Santos`,
-    repo_url: `https://github.com/ryasan86/marvel_collections`
+    repoUrl: `https://github.com/ryasan86/marvel_collections`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

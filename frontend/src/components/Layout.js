@@ -5,6 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 import Main from '../styles/MainStyles'
 import { CityBG, MeshPattern } from '../images'
+import { GithubCornerIcon } from './icons';
 
 const Layout = styled.div`
   height: 100%;
@@ -18,9 +19,11 @@ const Layout = styled.div`
   background-attachment: fixed, fixed;
 `
 
+
 const LayoutComponent = ({ children }) => (
   <Layout>
     <Header />
+    <GithubCornerIcon />
     <Main>{children}</Main>
     <Footer />
   </Layout>
