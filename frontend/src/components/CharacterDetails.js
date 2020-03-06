@@ -43,30 +43,29 @@ const CharacterComicsList = ({ charId, orderBy }) => {
 
 const CharacterDetailsComponent = ({ location: { state } }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
+  const { id, name, thumbnail, description } = state
 
   return (
     <Layout>
-      <SEO title={state.name} />
+      <SEO title={name} />
       <MaxWidth>
         <CharacterDetails>
-          <Banner bg={state.thumbnail}>
-            <Banner.BackgroundImage bg={state.thumbnail} />
-            <Banner.Image src={state.thumbnail} alt={state.name} />
-            <Banner.H1>{state.name}</Banner.H1>
+          <Banner bg={thumbnail}>
+            <Banner.BackgroundImage bg={thumbnail} />
+            <Banner.Image src={thumbnail} alt={name} />
+            <Banner.H1>{name}</Banner.H1>
           </Banner>
           <Description>
             <Description.H3>DESCRIPTION</Description.H3>
             <Description.P>
-              {state.description
-                ? state.description
-                : 'DESCRIPTION UNAVAILABLE'}
+              {description || 'DESCRIPTION UNAVAILABLE'}
             </Description.P>
           </Description>
           <CharacterComics>
             <CharacterComics.H3>COMICS</CharacterComics.H3>
             <CharacterComics.SortBy setOrderBy={setOrderBy} slug="/comics" />
             <CharacterComics.List>
-              <CharacterComicsList orderBy={orderBy} charId={state.id} />
+              <CharacterComicsList orderBy={orderBy} charId={id} />
             </CharacterComics.List>
           </CharacterComics>
         </CharacterDetails>
