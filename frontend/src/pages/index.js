@@ -3,23 +3,21 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import Home from '../styles/HomeStyles'
 import ItemsList from '../components/ItemsList'
-import ErrorBoundary from '../components/ErrorBoundary'
+import PleaseWait from '../components/PleaseWait'
 import { DelayMessage, H4 } from '../components/common'
 import { useCharacters } from '../graphql/CharactersHooks'
 import { useComics } from '../graphql/ComicsHooks'
+import { limit } from '../constants'
 
 const HomeCharacters = () => {
   const { data, error, loading } = useCharacters({
-    page: 1,
+    page: Math.ceil(1493 / limit),
     orderBy: '-modified',
     limit: 10
   })
 
-  if (error) {
-    return <ErrorBoundary error={error} />
-  }
-  if (loading) {
-    return <DelayMessage text="LOADING CHARACTERS..." />
+  if (loading || error) {
+    return <PleaseWait loading={loading} error={error} itemType="characters" />
   }
 
   const { edges } = data.characters
@@ -40,23 +38,20 @@ const HomeCharacters = () => {
 
 const HomeComics = () => {
   const { data, error, loading } = useComics({
-    page: 1,
+    page: Math.ceil(46793 / limit),
     orderBy: '-modified',
     limit: 10
   })
 
-  if (error) {
-    return <ErrorBoundary error={error} />
-  }
-  if (loading) {
-    return <DelayMessage text="LOADING COMICS..." />
+  if (loading || error) {
+    return <PleaseWait loading={loading} error={error} itemType="comics" />
   }
 
   const { edges } = data.comics
 
   return (
     <Home.MaxWidth>
-      <H4>LATEST COMICS</H4>
+      <H4>RECENT ADDITIONS</H4>
       <ItemsList
         slug="/comics"
         error={error}
@@ -68,16 +63,14 @@ const HomeComics = () => {
   )
 }
 
-const HomePage = () => {
-  return (
-    <Layout>
-      <SEO title="Home" />
-      <Home>
-        <HomeComics />
-        <HomeCharacters />
-      </Home>
-    </Layout>
-  )
-}
+const HomePage = () => (
+  <Layout>
+    <SEO title="Home" />
+    <Home>
+      <HomeComics />
+      <HomeCharacters />
+    </Home>
+  </Layout>
+)
 
 export default HomePage

@@ -8,6 +8,13 @@ const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   font-size: var(--small-font);
+  a {
+    color: var(--off-white);
+    margin: 0;
+    &:hover {
+      color: white;
+    }
+  }
 `
 
 Footer.MaxWidth = styled.div`
@@ -19,12 +26,6 @@ Footer.MaxWidth = styled.div`
   color: var(--gray);
 `
 
-Footer.A = styled.a`
-  color: var(--off-white);
-  margin: 0;
-  &:hover {
-    color: white;
-  }
-`
+Footer.A = styled.a``
 
 export default Footer

@@ -8,36 +8,34 @@ import CharacterDetails, {
 } from '../styles/CharacterDetailsStyles'
 import Layout from './Layout'
 import ItemsList from './ItemsList'
-import ErrorBoundary from './ErrorBoundary'
+import PleaseWait from './PleaseWait'
 import { sortMap } from './SortBy'
-import { MaxWidth, DelayMessage } from './common'
+import { MaxWidth } from './common'
 import { useComicsByCharacter } from '../graphql/ComicsHooks'
 
 const CharacterComicsList = ({ charId, orderBy }) => {
   const [page, setPage] = useState(1)
   const comics = useComicsByCharacter({ page, orderBy, charId })
-  const { data, loading, error, refetch } = comics
+  let { data, loading, error, refetch } = comics
 
   useEffect(() => {
     refetch()
   }, [page, orderBy])
 
-  if (loading) {
-    return <DelayMessage text="LOADING COMICS..." />
+  if (loading || error) {
+    return <PleaseWait loading={loading} error={error} itemType="comics" />
   }
 
   const { totalCount, edges } = data.comicsByCharacter
 
   return (
-    <ErrorBoundary error={error}>
-      <ItemsList
-        page={page}
-        setPage={setPage}
-        total={totalCount}
-        items={edges}
-        slug="/comics"
-      />
-    </ErrorBoundary>
+    <ItemsList
+      page={page}
+      setPage={setPage}
+      total={totalCount}
+      items={edges}
+      slug="/comics"
+    />
   )
 }
 

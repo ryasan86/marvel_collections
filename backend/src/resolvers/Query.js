@@ -25,18 +25,16 @@ const request = {
       .catch(handleError)
 }
 
-const sendConnection = ({ total, results }) => {
-  return {
-    totalCount: total,
-    edges: results.map(node => ({
-      node: {
-        ...node,
-        creators: node.creators ? node.creators.items : null,
-        thumbnail: `${node.thumbnail.path}/portrait_incredible.${node.thumbnail.extension}`
-      }
-    }))
-  }
-}
+const sendConnection = ({ total, results }) => ({
+  totalCount: total,
+  edges: results.map(node => ({
+    node: {
+      ...node,
+      creators: node.creators ? node.creators.items : null,
+      thumbnail: `${node.thumbnail.path}/portrait_incredible.${node.thumbnail.extension}`
+    }
+  }))
+})
 
 const Query = {
   characters: (parent, args, ctx, info) =>
@@ -75,6 +73,7 @@ const Query = {
       .get(comicsEndpoint, {
         limit: limit,
         orderBy: args.orderBy,
+        titleStartsWith: args.search,
         offset: offset(args.page, limit)
       })
       .then(sendConnection)

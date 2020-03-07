@@ -5,9 +5,9 @@ import Layout from '../components/Layout'
 import ItemsList from '../components/ItemsList'
 import CharacterDetails from '../components/CharacterDetails'
 import SEO from '../components/SEO'
-import ErrorBoundary from '../components/ErrorBoundary'
 import Controls from '../components/Controls'
-import { MaxWidth, H4, DelayMessage } from '../components/common'
+import PleaseWait from '../components/PleaseWait'
+import { MaxWidth, H4 } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
@@ -21,11 +21,8 @@ const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
     refetch()
   }, [page, orderBy, search])
 
-  if (error) {
-    return <ErrorBoundary error={error} />
-  }
-  if (loading) {
-    return <DelayMessage text="LOADING CHARACTERS..." />
+  if (loading || error) {
+    return <PleaseWait loading={loading} error={error} itemType="characters" />
   }
 
   const { totalCount, edges } = search

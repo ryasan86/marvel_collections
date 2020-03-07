@@ -5,7 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 import Main from '../styles/MainStyles'
 import { CityBG, MeshPattern } from '../images'
-import { GithubCornerIcon } from './icons';
+import { GithubCornerIcon } from './GithubCorner';
 
 const Layout = styled.div`
   height: 100%;

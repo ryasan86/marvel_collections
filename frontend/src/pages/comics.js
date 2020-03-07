@@ -5,9 +5,9 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
-import ErrorBoundary from '../components/ErrorBoundary'
 import ComicDetails from '../components/ComicDetails'
-import { MaxWidth, H4, DelayMessage } from '../components/common'
+import PleaseWait from '../components/PleaseWait'
+import { MaxWidth, H4 } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
@@ -21,11 +21,8 @@ const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
     refetch()
   }, [page, orderBy, search])
 
-  if (error) {
-    return <ErrorBoundary error={error} />
-  }
-  if (loading) {
-    return <DelayMessage text="LOADING COMICS..." />
+  if (loading || error) {
+    return <PleaseWait loading={loading} error={error} itemType="comics" />
   }
 
   const { totalCount, edges } = search ? data.comicTitleStartsWith : data.comics
