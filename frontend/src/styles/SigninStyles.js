@@ -1,28 +1,10 @@
 import styled from 'styled-components'
-import { Input as InputComponent } from '../components/common'
+import { Link } from 'gatsby'
+import Form from './FormStyles'
 
-const Signin = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 15%;
-  padding: 5rem;
-  background: white;
-`
+const Signin = Form
 
-const Input = styled(InputComponent)`
-  width: 30rem;
-  border-radius: 0.3rem;
-  height: 4rem;
-  outline: none;
-  border: 1px solid var(--gray);
-  font-size: var(--large-font);
-  padding: 0 1rem;
-  margin-bottom: 1rem;
-  &:focus {
-    border: 2px solid var(--dark);
-  }
-`
+Signin.Fieldset = Form.Fieldset
 
 Signin.Image = styled.img`
   height: auto;
@@ -36,11 +18,11 @@ Signin.H4 = styled.h4`
   margin: 0;
 `
 
-Signin.UsernameInput = styled(Input)`
+Signin.UsernameInput = styled(Form.Input)`
   margin-top: 5rem;
 `
 
-Signin.PasswordInput = Input
+Signin.PasswordInput = Form.Input
 
 Signin.Divider = styled.hr`
   color: var(--gray);
@@ -52,17 +34,10 @@ Signin.Divider = styled.hr`
   transform: translateX(-50%);
 `
 
-const Button = styled.button`
-  border: 0;
-  border-radius: 0.3rem;
-  height: 4rem;
-  outline: 0;
-  cursor: pointer;
-`
-
-Signin.Submit = styled(Button)`
+Signin.Submit = styled(Form.Button)`
   background: var(--red);
   color: white;
+  width: 100%;
   &:hover {
     background: transparent;
     border: 2px solid var(--red);
@@ -70,14 +45,20 @@ Signin.Submit = styled(Button)`
   }
 `
 
-Signin.CreateAccount = styled(Button)`
-  background: white;
-  color: var(--red);
-  border: 2px solid var(--red);
+Signin.CreateAccount = styled(Link)`
+  height: 4rem;
   width: 75%;
   position: relative;
   left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: translateX(-50%);
+  text-decoration: none;
+  color: var(--red);
+  background: white;
+  border: 2px solid var(--red);
+  border-radius: 0.3rem;
   &:hover {
     background: var(--red);
     color: white;

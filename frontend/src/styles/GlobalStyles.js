@@ -81,7 +81,7 @@ const StyledHtml = css`
     background: var(--off-white);
   }
 `
-// temporary because styled components causes flicker
+
 const GlobalStyles = createGlobalStyle`
   ${StyledRoot}
   ${StyledHtml}
