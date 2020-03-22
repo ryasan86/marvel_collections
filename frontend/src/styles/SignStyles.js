@@ -2,29 +2,27 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 import Form from './FormStyles'
 
-const Signin = Form
+const Sign = Form
 
-Signin.Fieldset = Form.Fieldset
+Sign.Fieldset = Form.Fieldset
 
-Signin.Image = styled.img`
+Sign.Image = styled.img`
   height: auto;
   width: 100%;
   transform: scale(0.8);
 `
 
-Signin.H4 = styled.h4`
+Sign.H4 = styled.h4`
   color: var(--red);
   text-align: center;
-  margin: 0;
+  margin: 0 0 5rem 0;
 `
 
-Signin.UsernameInput = styled(Form.Input)`
-  margin-top: 5rem;
-`
+Sign.UsernameInput = Form.Input
+Sign.EmailInput = Form.Input
+Sign.PasswordInput = Form.Input
 
-Signin.PasswordInput = Form.Input
-
-Signin.Divider = styled.hr`
+Sign.Divider = styled.hr`
   color: var(--gray);
   width: 70%;
   height: 1px;
@@ -34,7 +32,7 @@ Signin.Divider = styled.hr`
   transform: translateX(-50%);
 `
 
-Signin.Submit = styled(Form.Button)`
+Sign.Submit = styled(Form.Button)`
   background: var(--red);
   color: white;
   width: 100%;
@@ -45,7 +43,7 @@ Signin.Submit = styled(Form.Button)`
   }
 `
 
-Signin.CreateAccount = styled(Link)`
+Sign.CreateAccount = styled(Link)`
   height: 4rem;
   width: 75%;
   position: relative;
@@ -65,4 +63,4 @@ Signin.CreateAccount = styled(Link)`
   }
 `
 
-export default Signin
+export default Sign

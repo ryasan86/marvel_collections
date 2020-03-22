@@ -13,6 +13,7 @@ type Query {
     search: String
   ): ComicConnection!
   comicsByCharacter(page: Int, orderBy: String, charId: ID!): ComicConnection!
+  randomComicVineCharacter: ComicVineCharacter
 }
 
 type Mutation {
@@ -80,4 +81,16 @@ type User {
   email: String!
   name: String
   password: String!
+}
+
+type ComicVineCharacter {
+  id: ID!
+  aliases: String
+  deck: String
+  description: String
+  first_appeared_in_issue: String
+  image: String
+  real_name: String
+  name: String
+  publisher: String
 }

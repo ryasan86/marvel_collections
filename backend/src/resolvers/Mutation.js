@@ -1,3 +1,5 @@
+// Todo - Find DB hosting
+
 // Todo - Middleware to see if user is logged in
 // 1. use server.use
 // 2. check if request has a user associated to it

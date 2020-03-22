@@ -3,15 +3,37 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import Home from '../styles/HomeStyles'
 import ItemsList from '../components/ItemsList'
-import PleaseWait from '../components/PleaseWait'
+import HomePleaseWait from '../components/PleaseWait'
 import { H4 } from '../components/common'
-import { useCharacters } from '../graphql/CharactersHooks'
+import {
+  useCharacters,
+  useRandomComicVineCharacter
+} from '../graphql/CharactersHooks'
 import { useComics } from '../graphql/ComicsHooks'
-import { limit } from '../constants'
 
-const HomeCharacters = () => {
+const PleaseWait = props => (
+  <Home.Section>
+    <HomePleaseWait {...props} />
+  </Home.Section>
+)
+
+const ReadAboutRandomCharacter = () => {
+  const { data, error, loading } = useRandomComicVineCharacter()
+
+  if (loading || error) {
+    return (
+      <PleaseWait loading={loading} error={error} itemType="random character" />
+    )
+  }
+
+  console.log(data.randomComicVineCharacter)
+
+  return <Home.Section>character</Home.Section>
+}
+
+const LatestCharacters = () => {
   const { data, error, loading } = useCharacters({
-    page: Math.ceil(1493 / limit),
+    page: 1,
     orderBy: '-modified',
     limit: 10
   })
@@ -23,7 +45,7 @@ const HomeCharacters = () => {
   const { edges } = data.characters
 
   return (
-    <Home.MaxWidth>
+    <Home.Section>
       <H4>LATEST CHARACTERS</H4>
       <ItemsList
         slug="/characters"
@@ -32,13 +54,13 @@ const HomeCharacters = () => {
         total={10}
         page={1}
       />
-    </Home.MaxWidth>
+    </Home.Section>
   )
 }
 
-const HomeComics = () => {
+const LatestComics = () => {
   const { data, error, loading } = useComics({
-    page: Math.ceil(46793 / limit),
+    page: 1,
     orderBy: '-modified',
     limit: 10
   })
@@ -50,7 +72,7 @@ const HomeComics = () => {
   const { edges } = data.comics
 
   return (
-    <Home.MaxWidth>
+    <Home.Section>
       <H4>RECENT ADDITIONS</H4>
       <ItemsList
         slug="/comics"
@@ -59,7 +81,7 @@ const HomeComics = () => {
         total={10}
         page={1}
       />
-    </Home.MaxWidth>
+    </Home.Section>
   )
 }
 
@@ -67,8 +89,9 @@ const HomePage = () => (
   <Layout>
     <SEO title="Home" />
     <Home>
-      <HomeComics />
-      <HomeCharacters />
+      <ReadAboutRandomCharacter />
+      <LatestComics />
+      <LatestCharacters />
     </Home>
   </Layout>
 )

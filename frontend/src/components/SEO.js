@@ -13,7 +13,7 @@ function SEO({ description: desc, lang, meta, title }) {
         lang
       }}
       title={title}
-      titleTemplate={`%s | ${title}`}
+      titleTemplate={`%s | Marvel Collections`}
       meta={[
         {
           name: `description`,

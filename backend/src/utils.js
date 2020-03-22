@@ -18,4 +18,8 @@ const responseData = res => {
   return res.body.data
 }
 
-module.exports = { checkStatus, handleError, responseData }
+const getRandomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+module.exports = { checkStatus, handleError, responseData, getRandomInt }

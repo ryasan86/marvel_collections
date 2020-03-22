@@ -12,7 +12,7 @@ const ErrorBoundaryComponent = ({ error, children }) => {
       <ErrorBoundary>
         {error.networkError.result.errors.map((error, i) => (
           <p key={i}>
-            <span>! &nbsp;</span>
+            <span>!&nbsp;</span>
             {error.message}
           </p>
         ))}
@@ -23,8 +23,10 @@ const ErrorBoundaryComponent = ({ error, children }) => {
   if (error.message) {
     return (
       <ErrorBoundary>
-        <span>!&nbsp;</span>
-        {error.title}: {error.message}
+        <p>
+          <span>!&nbsp;</span>
+          {error.title}: {error.message}
+        </p>
       </ErrorBoundary>
     )
   }

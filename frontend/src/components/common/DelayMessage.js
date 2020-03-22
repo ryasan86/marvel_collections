@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const H4 = styled.h4`
   width: 100%;
   text-align: center;
+  background: white;
   transition: opacity 0.3s;
   opacity: ${props => (props.isVisible ? '1' : '0')};
 `

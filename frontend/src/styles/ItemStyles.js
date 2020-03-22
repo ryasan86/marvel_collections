@@ -28,6 +28,8 @@ Item.Row = styled.div`
 
 Item.Image = styled.img`
   width: 100%;
+  max-height: 32rem;
+  object-fit: cover;
   cursor: pointer;
   box-shadow: 0px 25px 18px -18px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease-in-out;

@@ -2,8 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Marvel Collections`,
     description: `Collection builder using Marvel's API and graphql.`,
-    author: `Ryan Santos`,
-    repoUrl: `https://github.com/ryasan86/marvel_collections`
+    author: `Ryan Santos`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -55,7 +54,7 @@ module.exports = {
       resolve: `gatsby-plugin-nprogress`,
       options: {
         // Setting a color is optional.
-        color: `#ec1c24`,
+        color: `#ec1c24`
       }
     }
   ]

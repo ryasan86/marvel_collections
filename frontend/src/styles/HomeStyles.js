@@ -1,23 +1,19 @@
 import styled from 'styled-components'
 import { MaxWidth } from '../components/common'
 
-const Home = styled.div`
+const Home = styled(MaxWidth)`
+  display: grid;
+  grid-gap: 5rem;
+  justify-items: center;
+  background: transparent;
+`
+
+Home.Section = styled.section`
   width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 5rem;
-`
-
-Home.H4 = styled.h4`
-  margin: 0;
+  display: block;
+  background: white;
   padding: 0;
-  background: var(--red);
-  color: white;
-  padding: 1.2rem;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
 `
-
-Home.MaxWidth = MaxWidth
 
 export default Home

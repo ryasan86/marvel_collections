@@ -9,7 +9,6 @@ export const useSiteMetadata = async () => {
             title
             description
             author
-            repoUrl
           }
         }
       }
