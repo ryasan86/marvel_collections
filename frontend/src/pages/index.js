@@ -5,10 +5,7 @@ import Home from '../styles/HomeStyles'
 import ItemsList from '../components/ItemsList'
 import HomePleaseWait from '../components/PleaseWait'
 import { H4 } from '../components/common'
-import {
-  useCharacters,
-  useRandomComicVineCharacter
-} from '../graphql/CharactersHooks'
+import { useCharacters } from '../graphql/CharactersHooks'
 import { useComics } from '../graphql/ComicsHooks'
 
 const PleaseWait = props => (
@@ -16,20 +13,6 @@ const PleaseWait = props => (
     <HomePleaseWait {...props} />
   </Home.Section>
 )
-
-const ReadAboutRandomCharacter = () => {
-  const { data, error, loading } = useRandomComicVineCharacter()
-
-  if (loading || error) {
-    return (
-      <PleaseWait loading={loading} error={error} itemType="random character" />
-    )
-  }
-
-  console.log(data.randomComicVineCharacter)
-
-  return <Home.Section>character</Home.Section>
-}
 
 const LatestCharacters = () => {
   const { data, error, loading } = useCharacters({
@@ -89,7 +72,6 @@ const HomePage = () => (
   <Layout>
     <SEO title="Home" />
     <Home>
-      <ReadAboutRandomCharacter />
       <LatestComics />
       <LatestCharacters />
     </Home>

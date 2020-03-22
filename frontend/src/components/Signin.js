@@ -12,7 +12,7 @@ const SigninComponent = () => {
         <Sign.PasswordInput type="password" placeholder="Password" />
         <Sign.Submit type="submit">Submit</Sign.Submit>
         <Sign.Divider />
-        <Sign.CreateAccount to="/signup">Create account</Sign.CreateAccount>
+        <Sign.CreateAccount to="signup">Create account</Sign.CreateAccount>
       </Sign.Fieldset>
     </Sign>
   )

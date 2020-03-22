@@ -73,8 +73,8 @@ ComicsMain.propTypes = {
 
 const ComicsPage = () => (
   <Router>
-    <ComicsMain path="/comics" />
-    <ComicDetails path="/comics/:title" />
+    <ComicsMain path="comics" />
+    <ComicDetails path="comics/:title" />
   </Router>
 )
 

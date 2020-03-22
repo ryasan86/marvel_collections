@@ -13,7 +13,7 @@ const SignupComponent = () => {
         <Sign.PasswordInput type="password" placeholder="Password" />
         <Sign.Submit type="submit">Submit</Sign.Submit>
         <Sign.Divider />
-        <Sign.CreateAccount to="/signup">
+        <Sign.CreateAccount to="signin">
           I already have an account
         </Sign.CreateAccount>
       </Sign.Fieldset>
