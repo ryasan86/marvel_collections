@@ -84,7 +84,7 @@ type User {
 }
 
 type ComicVendorInfo {
-  title: String!
-  price: String!
+  title: String
+  price: String
   imgSrc: String
 }

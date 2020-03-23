@@ -39,13 +39,13 @@ ComicDetails.TextContainer = styled.div`
     padding: 0.5rem 2rem;
     font-size: var(--large-font);
     background: transparent;
-    color: skyblue;
-    border: 2px solid skyblue;
+    color: #5dade2;
+    border: 2px solid #5dade2;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
     &:hover {
       color: white;
-      background: skyblue;
+      background: #5dade2;
     }
   }
 `
