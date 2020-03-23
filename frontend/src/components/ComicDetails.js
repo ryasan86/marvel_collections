@@ -31,7 +31,10 @@ const ComicDetailsComponent = ({ location: { state } }) => {
         <ComicDetails.Content>
           <img src={thumbnail} alt={title} />
           <ComicDetails.TextContainer>
-            <h3>{title}</h3>
+            <ComicDetails.Header>
+              <h3>{title}</h3>
+              <button>Shop</button>
+            </ComicDetails.Header>
             <ComicDetails.MetaItemsList>
               {[...info, ...creators].map((meta, i) => (
                 <ComicDetails.MetaItem key={i}>

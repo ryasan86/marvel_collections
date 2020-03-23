@@ -29,9 +29,31 @@ ComicDetails.TextContainer = styled.div`
   color: white;
   padding-left: 8rem;
   h3 {
-    margin: 0 0 1rem 0;
+    margin: 0;
     font-size: 4rem;
   }
+  button {
+    margin-left: 2rem;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 2rem;
+    font-size: var(--large-font);
+    background: transparent;
+    color: skyblue;
+    border: 2px solid skyblue;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    &:hover {
+      color: white;
+      background: skyblue;
+    }
+  }
+`
+
+ComicDetails.Header = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
 `
 
 ComicDetails.MetaItemsList = styled.ul`

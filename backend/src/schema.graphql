@@ -13,6 +13,7 @@ type Query {
     search: String
   ): ComicConnection!
   comicsByCharacter(page: Int, orderBy: String, charId: ID!): ComicConnection!
+  shopForComic(title: String!): ComicVendorInfo
 }
 
 type Mutation {
@@ -80,4 +81,10 @@ type User {
   email: String!
   name: String
   password: String!
+}
+
+type ComicVendorInfo {
+  title: String!
+  price: String!
+  imgSrc: String
 }
