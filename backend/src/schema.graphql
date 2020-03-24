@@ -13,7 +13,7 @@ type Query {
     search: String
   ): ComicConnection!
   comicsByCharacter(page: Int, orderBy: String, charId: ID!): ComicConnection!
-  shopForComic(title: String!): ComicVendorInfo
+  shopForComic(title: String!): [ComicVendorInfo!]!
 }
 
 type Mutation {
@@ -84,6 +84,7 @@ type User {
 }
 
 type ComicVendorInfo {
+  vendor: String
   title: String
   price: String
   image: String

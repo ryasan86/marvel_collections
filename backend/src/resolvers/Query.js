@@ -6,7 +6,7 @@ const {
   marvelComicsEndpoint,
   limit
 } = require('../constants.js')
-const scrapers = require('../scrapers.js')
+const { comixology, amazon } = require('../scrapers.js')
 
 const request = {
   get: (url, query) =>
@@ -18,14 +18,12 @@ const request = {
       .catch(handleError)
 }
 
-// authorization for Marvel API
 const authParams = {
   ts: 1,
   hash: process.env.MARVEL_MD5_HASH,
   apikey: process.env.MARVEL_API_KEY
 }
 
-// send collection of items with total count info
 const sendConnection = ({ total, results }) => ({
   totalCount: total,
   edges: results.map(node => ({
@@ -92,7 +90,8 @@ const Query = {
       .then(sendConnection)
       .catch(handleError),
 
-  shopForComic: (parent, args) => scrapers.comixology(args.title)
+  shopForComic: (parent, { title }) =>
+    Promise.all([comixology(title), amazon(title)]).catch(handleError)
 }
 
 module.exports = Query
