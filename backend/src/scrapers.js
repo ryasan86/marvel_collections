@@ -23,6 +23,7 @@ const scrapers = {
     const { title, price, image, description, url } = await page.evaluate(
       () => {
         const $ = document.querySelector.bind(document)
+
         const getMetaTag = name => {
           return (
             $(`meta[name=${name}]`).content ||
@@ -66,6 +67,7 @@ const scrapers = {
     const { title, price, image, description, url } = await page.evaluate(
       () => {
         const $ = document.querySelector.bind(document)
+
         const getMetaTag = name => {
           return (
             $(`meta[name=${name}]`).content ||
