@@ -7,14 +7,57 @@ const Modal = styled.div`
   position: fixed;
   top: 0;
   z-index: 9999;
-  display: flex;
   justify-content: center;
   align-items: center;
+  display: flex;
+  transition: all 0.5s ease;
+  position: fixed;
+  left: ${props => (props.isVisible ? '0' : '-100%')};
+  opacity: ${props => (props.isVisible ? '100%' : '60%')};
 `
 
-Modal.Inner = styled.div`
+Modal.Inner = styled.ul`
   width: var(--max-width);
   background: white;
+  max-height: 60rem;
+  overflow-y: scroll;
+`
+
+Modal.Item = styled.li`
+  display: flex;
+  align-items: center;
+  border-left: 1.5rem solid var(--gray);
+  height: 30rem;
+  padding-left: 2rem;
+  border-bottom: 2px solid var(--gray);
+  &:last-child {
+    border-bottom: none;
+  }
+`
+
+Modal.Text = styled.div`
+  width: 50%;
+  a {
+    color: black;
+    &:hover {
+      color: var(--gray);
+    }
+  }
+`
+
+Modal.Price = styled.h3`
+  flex-grow: 1;
+  text-align: center;
+`
+
+Modal.Image = styled.div`
+  width: 25rem;
+  height: 75%;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
 `
 
 export default Modal

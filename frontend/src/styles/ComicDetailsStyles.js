@@ -19,30 +19,32 @@ ComicDetails.Content = styled.div`
   max-width: var(--max-width);
   margin-top: 10rem;
   display: flex;
-  img {
-    width: 30%;
-  }
 `
 
-ComicDetails.TextContainer = styled.div`
-  width: 70%;
-  color: white;
-  padding-left: 8rem;
-  h3 {
-    margin: 0;
-    font-size: 4rem;
+ComicDetails.ImageContainer = styled.div`
+  width: 30%;
+  max-height: 40rem;
+  position: relative;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
   }
   button {
-    margin-left: 2rem;
+    margin-top: 1.2rem;
+    display: block;
     border: none;
     border-radius: 3px;
-    padding: 0.5rem 2rem;
+    padding: 0.75rem 2.5rem;
     font-size: var(--large-font);
     background: transparent;
     color: #5dade2;
     border: 2px solid #5dade2;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     &:hover {
       color: white;
       background: #5dade2;
@@ -50,10 +52,21 @@ ComicDetails.TextContainer = styled.div`
   }
 `
 
+ComicDetails.TextContainer = styled.div`
+  width: 70%;
+  color: white;
+  padding-left: 2rem;
+`
+
 ComicDetails.Header = styled.div`
   display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  h3 {
+    margin: 0;
+    font-size: 4rem;
+  }
 `
 
 ComicDetails.MetaItemsList = styled.ul`
@@ -66,7 +79,7 @@ ComicDetails.MetaItemsList = styled.ul`
 `
 
 ComicDetails.MetaItem = styled.li`
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   max-width: 30rem;
   strong {
     font-size: 2.5rem;

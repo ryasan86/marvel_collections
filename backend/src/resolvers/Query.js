@@ -92,7 +92,7 @@ const Query = {
       .then(sendConnection)
       .catch(handleError),
 
-  shopForComic: (parent, args) => scrapers.amazon(args.title)
+  shopForComic: (parent, args) => scrapers.comixology(args.title)
 }
 
 module.exports = Query
