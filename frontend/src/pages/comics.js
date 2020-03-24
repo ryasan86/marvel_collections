@@ -22,7 +22,13 @@ const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
   }, [page, orderBy, search])
 
   if (loading || error) {
-    return <PleaseWait loading={loading} error={error} itemType="comics" />
+    return (
+      <PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading comics"
+      />
+    )
   }
 
   const { totalCount, edges } = search ? data.comicTitleStartsWith : data.comics

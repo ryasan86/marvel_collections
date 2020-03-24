@@ -22,7 +22,13 @@ const LatestCharacters = () => {
   })
 
   if (loading || error) {
-    return <PleaseWait loading={loading} error={error} itemType="characters" />
+    return (
+      <PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading characters"
+      />
+    )
   }
 
   const { edges } = data.characters
@@ -49,7 +55,13 @@ const LatestComics = () => {
   })
 
   if (loading || error) {
-    return <PleaseWait loading={loading} error={error} itemType="comics" />
+    return (
+      <PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading comics"
+      />
+    )
   }
 
   const { edges } = data.comics

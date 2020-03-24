@@ -6,14 +6,10 @@ import Pagination from './Pagination'
 import { DelayMessage } from './common'
 
 const ItemsListComponent = ({ items, slug, page, setPage, total, loading }) => {
-  const itemType = slug.toUpperCase()
-
-  if (!items) {
-    return <DelayMessage text={`LOADING ${itemType}S...`} />
-  }
+  const itemType = slug.toUpperCase().slice(1)
 
   if (items.length === 0) {
-    return <DelayMessage text={`0 ${itemType}S FOUND 😮`} />
+    return <DelayMessage text={`0 ${itemType} FOUND 😮`} />
   }
 
   return (

@@ -40,7 +40,7 @@ const ComicDetailsComponent = ({ location: { state } }) => {
   return (
     <Layout>
       <SEO title={title} />
-      <ModalComponent isVisible={isVisible} modalRef={modalRef} />
+      <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
       <ComicDetails>
         <ComicDetails.BackgroundImage bg={thumbnail} />
         <ComicDetails.Content>

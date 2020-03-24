@@ -23,7 +23,7 @@ const CharacterComicsList = ({ charId, orderBy }) => {
   }, [page, orderBy])
 
   if (loading || error) {
-    return <PleaseWait loading={loading} error={error} itemType="comics" />
+    return <PleaseWait loading={loading} error={error} loadingText="loading comics" />
   }
 
   const { totalCount, edges } = data.comicsByCharacter

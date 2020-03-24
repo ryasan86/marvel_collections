@@ -2,7 +2,8 @@ import { useQuery } from '@apollo/react-hooks'
 import {
   ALL_COMICS,
   COMIC_TITLE_STARTS_WITH,
-  COMICS_BY_CHARACTER
+  COMICS_BY_CHARACTER,
+  SHOP_FOR_COMIC
 } from './ComicsQuery'
 
 export const useComics = ({ page, orderBy, limit }) => {
@@ -20,5 +21,11 @@ export const useComicsByTitle = ({ page, orderBy, search }) => {
 export const useComicsByCharacter = ({ page, orderBy, charId }) => {
   return useQuery(COMICS_BY_CHARACTER, {
     variables: { page, orderBy, charId }
+  })
+}
+
+export const useShopForComic = ({ title }) => {
+  return useQuery(SHOP_FOR_COMIC, {
+    variables: { title }
   })
 }

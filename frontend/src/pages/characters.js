@@ -22,7 +22,13 @@ const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
   }, [page, orderBy, search])
 
   if (loading || error) {
-    return <PleaseWait loading={loading} error={error} itemType="characters" />
+    return (
+      <PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading characters"
+      />
+    )
   }
 
   const { totalCount, edges } = search
