@@ -4,6 +4,7 @@ import Layout from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
 import { capitalize } from '../utils/capitalize'
 import SEO from './SEO'
+import ModalComponent from './Modal'
 
 const ComicDetailsComponent = ({ location: { state } }) => {
   const { description, modified, prices, creators, title, thumbnail } = state
@@ -26,6 +27,7 @@ const ComicDetailsComponent = ({ location: { state } }) => {
   return (
     <Layout>
       <SEO title={title} />
+      <ModalComponent />
       <ComicDetails>
         <ComicDetails.BackgroundImage bg={thumbnail} />
         <ComicDetails.Content>
