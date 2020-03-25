@@ -26,9 +26,9 @@ Modal.Inner = styled.ul`
 Modal.Item = styled.li`
   display: flex;
   align-items: center;
-  border-left: 1.5rem solid var(--gray);
   height: 30rem;
   padding-left: 2rem;
+  border-left: 1.5rem solid var(--gray);
   border-bottom: 2px solid var(--gray);
   &:last-child {
     border-bottom: none;
@@ -37,6 +37,9 @@ Modal.Item = styled.li`
 
 Modal.Text = styled.div`
   width: 50%;
+  p {
+    font-size: var(--regular-font);
+  }
   a {
     color: black;
     &:hover {

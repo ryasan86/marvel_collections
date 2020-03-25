@@ -11,3 +11,4 @@
 9. Try SASS with Styled Components
 10. Try out using built in graphql sort. Try from cache.
 11. Change sort by modify to sort by sale date.
+12. Refactor variable names.

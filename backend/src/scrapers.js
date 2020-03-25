@@ -32,9 +32,9 @@ const scrapers = {
 
       const getMetaTag = name => {
         return (
-          $(`meta[name=${name}]`).content ||
-          $(`meta[property=og:${name}]`).content ||
-          $(`meta[property=twitter:${name}]`).content
+          $(`meta[name="${name}"]`).content ||
+          $(`meta[property="og:${name}"]`).content ||
+          $(`meta[property="twitter:${name}"]`).content
         )
       }
 
@@ -57,7 +57,9 @@ const scrapers = {
     const page = await browser.newPage()
 
     // navigate to comic details page
-    await page.goto('https://www.amazon.com')
+    await page.goto(
+      'https://www.amazon.com/Comics-Graphic-Novels-Books/b?ie=UTF8&node=4366'
+    )
 
     await page.type('[name=field-keywords]', _title)
 
@@ -69,6 +71,7 @@ const scrapers = {
 
     await page.waitFor(5000)
 
+    await page.screenshot({ path: 'amazon.png' })
     // scrape title, price, and img source of first search result
     const {
       vendor,
@@ -82,16 +85,16 @@ const scrapers = {
 
       const getMetaTag = name => {
         return (
-          $(`meta[name=${name}]`).content ||
-          $(`meta[property=og:${name}]`).content ||
-          $(`meta[property=twitter:${name}]`).content
+          $(`meta[name="${name}"]`).content ||
+          $(`meta[property="og:${name}"]`).content ||
+          $(`meta[property="twitter:${name}"]`).content
         )
       }
 
       return {
         vendor: 'amazon',
         title: $('title').textContent,
-        image: $('.frontImage').src,
+        image: $('.image-2d img').src,
         url: $('link[rel=canonical]').href,
         price: $('span.a-color-price').textContent.trim(),
         description: getMetaTag('description')

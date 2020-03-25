@@ -91,7 +91,7 @@ const Query = {
       .catch(handleError),
 
   shopForComic: (parent, { title }) =>
-    Promise.all([comixology(title), amazon(title)]).catch(handleError)
+    Promise.all([amazon(title)]).catch(handleError)
 }
 
 module.exports = Query

@@ -8,7 +8,7 @@ const ModalItem = ({ title, price, image, description, url }) => {
     <Modal.Item>
       <Modal.Text>
         <a href={url} target="_blank" rel="noopener noreferrer">
-          <h3>{title}</h3>
+          <h4>{title}</h4>
         </a>
         <p>{description}</p>
       </Modal.Text>
@@ -24,7 +24,7 @@ const ModalItem = ({ title, price, image, description, url }) => {
 
 const ModalComponent = ({ isVisible, modalRef, title }) => {
   const { data, loading, error } = useShopForComic({ title })
-
+  console.log(title)
   if (loading || error) {
     return (
       <Modal isVisible={isVisible}>
