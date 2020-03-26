@@ -11,7 +11,7 @@ import { MaxWidth, H4 } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
-const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
+const ComicsListInner = ({ slug, orderBy, search, setTotalCount }) => {
   const [page, setPage] = useState(1)
   const comicsPromise = search ? useComicsByTitle : useComics
   const comics = comicsPromise({ page, orderBy, search })
@@ -46,7 +46,7 @@ const ComicsList = ({ slug, orderBy, search, setTotalCount }) => {
   )
 }
 
-const ComicsMain = ({ path: slug }) => {
+const ComicsList = ({ path: slug }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
@@ -62,7 +62,7 @@ const ComicsMain = ({ path: slug }) => {
           setSearch={setSearch}
           setOrderBy={setOrderBy}
         />
-        <ComicsList
+        <ComicsListInner
           orderBy={orderBy}
           search={search}
           slug={slug}
@@ -73,13 +73,13 @@ const ComicsMain = ({ path: slug }) => {
   )
 }
 
-ComicsMain.propTypes = {
+ComicsList.propTypes = {
   slug: PropTypes.string
 }
 
 const ComicsPage = () => (
   <Router>
-    <ComicsMain path="/comics" />
+    <ComicsList path="/comics" />
     <ComicDetails path="/comics/:title" />
   </Router>
 )

@@ -11,7 +11,7 @@ import { MaxWidth, H4 } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
-const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
+const CharactersListInner = ({ slug, orderBy, search, setTotalCount }) => {
   const [page, setPage] = useState(1)
   const charactersPromise = search ? useCharactersByName : useCharacters
   const characters = charactersPromise({ page, orderBy, search })
@@ -48,7 +48,7 @@ const CharactersList = ({ slug, orderBy, search, setTotalCount }) => {
   )
 }
 
-const CharactersMain = ({ path: slug }) => {
+const CharactersList = ({ path: slug }) => {
   const [orderBy, setOrderBy] = useState(sortMap.characters.ascending_alpha)
   const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
@@ -64,7 +64,7 @@ const CharactersMain = ({ path: slug }) => {
           setSearch={setSearch}
           setOrderBy={setOrderBy}
         />
-        <CharactersList
+        <CharactersListInner
           orderBy={orderBy}
           search={search}
           slug={slug}
@@ -75,13 +75,13 @@ const CharactersMain = ({ path: slug }) => {
   )
 }
 
-CharactersMain.propTypes = {
+CharactersList.propTypes = {
   slug: PropTypes.string
 }
 
 const CharactersPage = () => (
   <Router>
-    <CharactersMain path="/characters" />
+    <CharactersList path="/characters" />
     <CharacterDetails path="/characters/:name" />
   </Router>
 )
