@@ -5,6 +5,7 @@ import ComicDetails from '../styles/ComicDetailsStyles'
 import { capitalize } from '../utils/capitalize'
 import SEO from './SEO'
 import ModalComponent from './Modal'
+import { uncamel } from '../utils'
 
 const ComicDetailsComponent = ({ location: { state } }) => {
   const { description, modified, prices, creators, title, thumbnail } = state
@@ -22,7 +23,7 @@ const ComicDetailsComponent = ({ location: { state } }) => {
     },
     {
       label: 'Price',
-      value: prices.map(p => p.price).join(', ')
+      value: prices.map(p => `${uncamel(p.type)} ${p.price}`).join(', ')
     }
   ]
 

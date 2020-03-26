@@ -13,3 +13,4 @@
 11. Change sort by modify to sort by sale date.
 12. Refactor variable names.
 13. Random comic feature.
+14. Redo comic details. Use Marvel site for reference.
