@@ -91,7 +91,7 @@ const Query = {
       .catch(handleError),
 
   shopForComic: async (parent, { title }) =>
-    Promise.all([await comixology(title), await amazon(title)].flat()).catch(
+    Promise.all([await comixology(title), amazon(title)].flat()).catch(
       handleError
     )
 }

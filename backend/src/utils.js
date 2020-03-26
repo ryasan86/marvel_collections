@@ -25,6 +25,4 @@ const optimizeTerm = str => {
   return str.replace(/\//g, ' ').replace(regex, '').trim().toLowerCase()
 }
 
-console.log(optimizeTerm('True Believers: Empyre - She-Hulk (2020) #1'))
-
 module.exports = { checkStatus, handleError, responseData, optimizeTerm }

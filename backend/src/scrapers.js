@@ -50,8 +50,8 @@ const scrapers = {
         vendor: 'comixology',
         description: getMetaTag('description'),
         image: getMetaTag('image'),
-        price: $('.detail-content .item-price').text(),
-        title: $('title').text(),
+        price: $('.detail-content .item-price').first().text(),
+        title: $('title').first().text(),
         url
       }
     })
@@ -76,8 +76,6 @@ const scrapers = {
     await page.keyboard.press('Enter')
 
     await page.waitForSelector('.s-result-item', { visible: true })
-
-    await page.screenshot({ path: 'amazon.png' })
 
     const url = await page.evaluate(() => {
       const noResults = document
