@@ -1,3 +1,7 @@
+const agent = require('superagent')
+const Fuse = require('fuse.js')
+const { marvelApiRoot } = require('./constants.js')
+
 const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response
@@ -18,16 +22,74 @@ const responseData = res => {
   return res.body.data
 }
 
-const stopWords = ['a', 'also', 'an', 'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'but', 'by', 'for', 'from', 'in', 'into', 'is', 'of', 'on', 'or', 'so', 'some', 'such', 'the', 'was', 'were', 'with']
+const marvelAuth = {
+  ts: 1,
+  hash: process.env.MARVEL_MD5_HASH,
+  apikey: process.env.MARVEL_API_KEY
+}
+
+const request = {
+  get: (url, query) =>
+    agent
+      .get(marvelApiRoot + url)
+      .query({ ...query, ...marvelAuth })
+      .then(checkStatus)
+      .then(responseData)
+      .catch(handleError)
+}
+
+const offset = (page, perPage) => (page - 1) * perPage || 0
+
+const sendMarvelInfo = ({ total, results }) => ({
+  totalCount: total,
+  edges: results.map(node => ({
+    node: {
+      ...node,
+      creators: node.creators ? node.creators.items : null,
+      thumbnail: `${node.thumbnail.path}/portrait_incredible.${node.thumbnail.extension}`
+    }
+  }))
+})
+
+const getFuzzyMatches = async ({ items, matchMe }) => {
+  const fuse = new Fuse(await items, {
+    keys: ['title'],
+    findAllMatches: true,
+    includeScore: true
+  })
+  const fuzzyMatches = fuse.search(matchMe).map(fuzzy => fuzzy.item)
+
+  return fuzzyMatches
+}
+
+// prettier-ignore
+const stopWords = [
+  'a', 'also', 'an', 'and', 'any', 'are', 'as',
+  'at', 'be', 'because', 'been', 'but', 'by', 'for',
+  'from', 'in', 'into', 'is', 'of', 'on', 'or', 'so',
+  'some', 'such', 'the', 'was', 'were', 'with'
+]
 
 const optimizeTerm = str => {
-  const commonRegex = new RegExp(`\\b(${stopWords.join('|')})\\b`, 'gi')
+  const deleteCommon = new RegExp(`\\b(${stopWords.join('|')})\\b`, 'gi')
+  const deleteSpecials = /[^a-z0-9]/gi
+  const trimWhiteSpace = /\s+/g
+
   return str
-    .replace(/[^a-z0-9]/gi, ' ')
-    .replace(commonRegex, ' ')
-    .replace(/\s+/g, ' ')
+    .replace(deleteSpecials, ' ')
+    .replace(deleteCommon, ' ')
+    .replace(trimWhiteSpace, ' ')
     .trim()
     .toLowerCase()
 }
 
-module.exports = { checkStatus, handleError, responseData, optimizeTerm }
+module.exports = {
+  checkStatus,
+  handleError,
+  responseData,
+  sendMarvelInfo,
+  offset,
+  getFuzzyMatches,
+  optimizeTerm,
+  request
+}

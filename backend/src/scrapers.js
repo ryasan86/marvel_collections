@@ -15,30 +15,27 @@ const scrapers = {
     await page.keyboard.press('Enter')
 
     const resultsFound = await page
-      .waitForSelector('.topResults', {
-        timeout: 10000,
-        visible: true
-      })
+      .waitForSelector('.topResults', { visible: true })
       .catch(handleError)
 
     if (resultsFound) {
-      const productUrls = await page.evaluate(() => {
-        const listContainer = document.querySelector('.topResults')
-        const contentItems = listContainer.querySelectorAll('.content-item')
-        const itemsWithPrice = [...contentItems].filter(c => {
-          return c
+      const comicUrls = await page.evaluate(() => {
+        const topResults = document.querySelector('.topResults')
+        const contentItems = topResults.querySelectorAll('.content-item')
+        const itemsWithPrice = [...contentItems].filter(item => {
+          return item
             .querySelector('.content-cover')
             .hasAttribute('data-item-actions-data')
         })
-        const urls = itemsWithPrice.map(c => {
-          return c.querySelector('.content-img-link').href
+        const urls = itemsWithPrice.map(item => {
+          return item.querySelector('.content-img-link').href
         })
 
         return urls
       })
 
-      const requests = productUrls.map(async (url, i) => {
-        const res = await fetch(url)
+      const requests = comicUrls.map(async (comicUrl, i) => {
+        const res = await fetch(comicUrl)
         const html = await res.text()
         const $ = cheerio.load(html)
 
@@ -51,7 +48,7 @@ const scrapers = {
         }
 
         return {
-          url,
+          url: comicUrl,
           vendor: 'comixology',
           description: getMetaTag('description'),
           image: getMetaTag('image'),

@@ -1,53 +1,16 @@
-const agent = require('superagent')
-const Fuse = require('fuse.js')
-const { checkStatus, responseData, handleError } = require('../utils.js')
 const {
-  marvelApiRoot,
+  handleError,
+  sendMarvelInfo,
+  getFuzzyMatches,
+  offset,
+  request
+} = require('../utils.js')
+const {
   marvelCharsEndpoint,
   marvelComicsEndpoint,
   limit
 } = require('../constants.js')
 const { comixology } = require('../scrapers.js')
-
-const request = {
-  get: (url, query) =>
-    agent
-      .get(marvelApiRoot + url)
-      .query({ ...query, ...authParams })
-      .then(checkStatus)
-      .then(responseData)
-      .catch(handleError)
-}
-
-const authParams = {
-  ts: 1,
-  hash: process.env.MARVEL_MD5_HASH,
-  apikey: process.env.MARVEL_API_KEY
-}
-
-const sendConnection = ({ total, results }) => ({
-  totalCount: total,
-  edges: results.map(node => ({
-    node: {
-      ...node,
-      creators: node.creators ? node.creators.items : null,
-      thumbnail: `${node.thumbnail.path}/portrait_incredible.${node.thumbnail.extension}`
-    }
-  }))
-})
-
-const getFuzzyMatches = async ({ items, matchMe }) => {
-  const fuse = new Fuse(await items, {
-    keys: ['title'],
-    findAllMatches: true,
-    includeScore: true
-  })
-  const fuzzyMatches = fuse.search(matchMe).map(fuzzy => fuzzy.item)
-
-  return fuzzyMatches
-}
-
-const offset = (page, perPage) => (page - 1) * perPage || 0
 
 const Query = {
   characters: (parent, args) =>
@@ -57,7 +20,7 @@ const Query = {
         orderBy: args.orderBy,
         offset: offset(args.page, limit)
       })
-      .then(sendConnection)
+      .then(sendMarvelInfo)
       .catch(handleError),
 
   characterNameStartsWith: (parent, args) =>
@@ -68,7 +31,7 @@ const Query = {
         nameStartsWith: args.search,
         offset: offset(args.page, limit)
       })
-      .then(sendConnection)
+      .then(sendMarvelInfo)
       .catch(handleError),
 
   comics: (parent, args) =>
@@ -78,7 +41,7 @@ const Query = {
         orderBy: args.orderBy,
         offset: offset(args.page, limit)
       })
-      .then(sendConnection)
+      .then(sendMarvelInfo)
       .catch(handleError),
 
   comicTitleStartsWith: (parent, args) =>
@@ -89,7 +52,7 @@ const Query = {
         titleStartsWith: args.search,
         offset: offset(args.page, limit)
       })
-      .then(sendConnection)
+      .then(sendMarvelInfo)
       .catch(handleError),
 
   comicsByCharacter: (parent, args) =>
@@ -99,7 +62,7 @@ const Query = {
         orderBy: args.orderBy,
         offset: offset(args.page, 10)
       })
-      .then(sendConnection)
+      .then(sendMarvelInfo)
       .catch(handleError),
 
   shopForComic: async (parent, { title }) =>
