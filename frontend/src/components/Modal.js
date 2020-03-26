@@ -24,7 +24,7 @@ const ModalItem = ({ title, price, image, description, url }) => {
 
 const ModalComponent = ({ isVisible, modalRef, title }) => {
   const { data, loading, error } = useShopForComic({ title })
-  console.log(title)
+
   if (loading || error) {
     return (
       <Modal isVisible={isVisible}>

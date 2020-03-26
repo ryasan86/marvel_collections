@@ -90,8 +90,10 @@ const Query = {
       .then(sendConnection)
       .catch(handleError),
 
-  shopForComic: (parent, { title }) =>
-    Promise.all([amazon(title)]).catch(handleError)
+  shopForComic: async (parent, { title }) =>
+    Promise.all([await comixology(title), await amazon(title)].flat()).catch(
+      handleError
+    )
 }
 
 module.exports = Query

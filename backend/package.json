@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@nfront/global-styles": "^1.2.1",
+    "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -19,6 +20,7 @@
     "graphql-yoga": "^1.18.3",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "node-fetch": "^2.6.0",
     "puppeteer": "^2.1.1",
     "superagent": "^5.2.2"
   },
