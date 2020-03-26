@@ -1,4 +1,5 @@
 const agent = require('superagent')
+const Fuse = require('fuse.js')
 const { checkStatus, responseData, handleError } = require('../utils.js')
 const {
   marvelApiRoot,
@@ -6,7 +7,7 @@ const {
   marvelComicsEndpoint,
   limit
 } = require('../constants.js')
-const { comixology, amazon } = require('../scrapers.js')
+const { comixology } = require('../scrapers.js')
 
 const request = {
   get: (url, query) =>
@@ -34,6 +35,17 @@ const sendConnection = ({ total, results }) => ({
     }
   }))
 })
+
+const getFuzzyMatches = async ({ items, matchMe }) => {
+  const fuse = new Fuse(await items, {
+    keys: ['title'],
+    findAllMatches: true,
+    includeScore: true
+  })
+  const fuzzyMatches = fuse.search(matchMe).map(fuzzy => fuzzy.item)
+
+  return fuzzyMatches
+}
 
 const offset = (page, perPage) => (page - 1) * perPage || 0
 
@@ -91,9 +103,10 @@ const Query = {
       .catch(handleError),
 
   shopForComic: async (parent, { title }) =>
-    Promise.all([await comixology(title), amazon(title)].flat()).catch(
-      handleError
-    )
+    getFuzzyMatches({
+      items: [await comixology(title)].flat(),
+      matchMe: title
+    })
 }
 
 module.exports = Query
