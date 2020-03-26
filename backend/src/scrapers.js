@@ -1,17 +1,17 @@
 const puppeteer = require('puppeteer')
 const cheerio = require('cheerio')
 const fetch = require('node-fetch')
-const { optimizeTerm, handleError } = require('./utils.js')
+const { optimizeTerm, handleError, parseSLD } = require('./utils.js')
 
 // scrapers for comic vendor websites
 const scrapers = {
-  comixology: async _title => {
+  shop: async ({ store, title }) => {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
 
-    await page.goto('https://www.comixology.com/search')
+    await page.goto(store)
 
-    await page.type('[name=search]', optimizeTerm(_title))
+    await page.type('[name=search]', optimizeTerm(title))
     await page.keyboard.press('Enter')
 
     const resultsFound = await page
@@ -19,7 +19,7 @@ const scrapers = {
       .catch(handleError)
 
     if (resultsFound) {
-      const comicUrls = await page.evaluate(() => {
+      const urls = await page.evaluate(() => {
         const topResults = document.querySelector('.topResults')
         const contentItems = topResults.querySelectorAll('.content-item')
         const itemsWithPrice = [...contentItems].filter(item => {
@@ -27,14 +27,14 @@ const scrapers = {
             .querySelector('.content-cover')
             .hasAttribute('data-item-actions-data')
         })
-        const urls = itemsWithPrice.map(item => {
+        const _urls = itemsWithPrice.map(item => {
           return item.querySelector('.content-img-link').href
         })
 
-        return urls
+        return _urls
       })
 
-      const requests = comicUrls.map(async (comicUrl, i) => {
+      const requests = urls.map(async (comicUrl, i) => {
         const res = await fetch(comicUrl)
         const html = await res.text()
         const $ = cheerio.load(html)
@@ -48,8 +48,8 @@ const scrapers = {
         }
 
         return {
-          url: comicUrl,
-          vendor: 'comixology',
+          url: (comicUrl),
+          vendor: parseSLD(store),
           description: getMetaTag('description'),
           image: getMetaTag('image'),
           price: $('.detail-content .item-price').first().text(), // prettier-ignore

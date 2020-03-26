@@ -10,7 +10,12 @@ const {
   marvelComicsEndpoint,
   limit
 } = require('../constants.js')
-const { comixology } = require('../scrapers.js')
+const { shop } = require('../scrapers.js')
+
+const store = {
+  marvel: 'https://comicstore.marvel.com/search',
+  comixology: 'https://www.comixology.com/search'
+}
 
 const Query = {
   characters: (parent, args) =>
@@ -67,7 +72,10 @@ const Query = {
 
   shopForComic: async (parent, { title }) =>
     getFuzzyMatches({
-      items: [await comixology(title)].flat(),
+      items: [
+        await shop({ title, store: store.marvel }),
+        await shop({ title, store: store.comixology })
+      ].flat(),
       matchMe: title
     })
 }

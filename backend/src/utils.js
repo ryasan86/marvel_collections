@@ -83,6 +83,10 @@ const optimizeTerm = str => {
     .toLowerCase()
 }
 
+const parseSLD = url => {
+  return url.replace(/(https|http):\/\/.+\.(.+)\..+/, '$2')
+}
+
 module.exports = {
   checkStatus,
   handleError,
@@ -91,5 +95,6 @@ module.exports = {
   offset,
   getFuzzyMatches,
   optimizeTerm,
-  request
+  request,
+  parseSLD
 }
