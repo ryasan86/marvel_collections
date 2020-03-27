@@ -67,7 +67,7 @@ const CharacterDetailsInner = ({ id, thumbnail, description, name }) => (
   </CharacterDetails>
 )
 
-const CharacterDetailsComponent = () => {
+const CharacterDetailsComponent = ({ location }) => {
   let { data, loading, error } = useCharacter({
     id: extractId(location.pathname)
   })

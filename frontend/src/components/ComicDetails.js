@@ -54,7 +54,7 @@ const ComicDetailsInner = ({
   )
 }
 
-const ComicDetailsComponent = () => {
+const ComicDetailsComponent = ({ location }) => {
   const modalRef = useRef(null)
   const [title, setTitle] = useState('')
   const [isVisible, setIsVisible] = useState(false)
