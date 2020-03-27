@@ -2,7 +2,9 @@ import React from 'react'
 import { DelayMessage } from './common'
 import ErrorBoundary from './ErrorBoundary'
 
-const PleaseWaitComponent = ({ loading, error, loadingText, modalRef }) => {
+const PleaseWaitComponent = props => {
+  const { loading, error, loadingText, modalRef } = props
+
   if (loading) {
     return (
       <DelayMessage
@@ -11,6 +13,7 @@ const PleaseWaitComponent = ({ loading, error, loadingText, modalRef }) => {
       />
     )
   }
+
   if (error) {
     return <ErrorBoundary error={error} modalRef={modalRef} />
   }

@@ -19,6 +19,7 @@ const StyledRoot = css`
   *:before,
   *:after {
     box-sizing: border-box;
+    /* outline: 1px solid red; */
   }
 `
 

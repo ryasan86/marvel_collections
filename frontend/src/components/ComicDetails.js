@@ -29,7 +29,7 @@ const ComicDetailsInner = ({
   }, [title])
 
   return (
-    <>
+    <ComicDetails>
       <ComicDetails.BackgroundImage bg={thumbnail} />
       <ComicDetails.Content>
         <ComicDetails.ImageContainer>
@@ -50,7 +50,7 @@ const ComicDetailsInner = ({
           </ComicDetails.MetaItemsList>
         </ComicDetails.TextContainer>
       </ComicDetails.Content>
-    </>
+    </ComicDetails>
   )
 }
 
@@ -75,27 +75,23 @@ const ComicDetailsComponent = () => {
 
   const comic = data && data.comic.edges[0].node
 
-  const renderContent = () => {
-    return loading || error ? (
-      <ComicDetails.PleaseWait
-        error={error}
-        loading={loading}
-        loadingText="loading details..."
-      />
-    ) : (
-      <ComicDetailsInner
-        {...comic}
-        setTitle={setTitle}
-        toggleModal={toggleModal}
-      />
-    )
-  }
-
   return (
     <Layout>
       <SEO title={title} />
       <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
-      <ComicDetails>{renderContent()}</ComicDetails>
+      {loading || error ? (
+        <ComicDetails.PleaseWait
+          error={error}
+          loading={loading}
+          loadingText="loading details..."
+        />
+      ) : (
+        <ComicDetailsInner
+          {...comic}
+          setTitle={setTitle}
+          toggleModal={toggleModal}
+        />
+      )}
     </Layout>
   )
 }

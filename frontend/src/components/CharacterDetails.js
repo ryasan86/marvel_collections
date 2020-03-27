@@ -53,7 +53,7 @@ const CharacterComicsList = ({ charId }) => {
 }
 
 const CharacterDetailsInner = ({ id, thumbnail, description, name }) => (
-  <>
+  <CharacterDetails>
     <Banner bg={thumbnail}>
       <Banner.BackgroundImage bg={thumbnail} />
       <Banner.Image src={thumbnail} alt={name} />
@@ -64,31 +64,27 @@ const CharacterDetailsInner = ({ id, thumbnail, description, name }) => (
       <Description.P>{description || 'DESCRIPTION UNAVAILABLE'}</Description.P>
     </Description>
     <CharacterComicsList charId={id} />
-  </>
+  </CharacterDetails>
 )
 
 const CharacterDetailsComponent = () => {
-  const { data, loading, error } = useCharacter({
+  let { data, loading, error } = useCharacter({
     id: extractId(location.pathname)
   })
   const character = data && data.character.edges[0].node
 
-  const renderContent = () => {
-    return loading || error ? (
-      <CharacterDetails.PleaseWait
-        loading={loading}
-        error={error}
-        loadingText="loading character..."
-      />
-    ) : (
-      <CharacterDetailsInner {...character} />
-    )
-  }
-
   return (
     <Layout>
       <SEO title={name} />
-      <CharacterDetails>{renderContent()}</CharacterDetails>
+      {loading || error ? (
+        <CharacterDetails.PleaseWait
+          loading={loading}
+          error={error}
+          loadingText="loading character..."
+        />
+      ) : (
+        <CharacterDetailsInner {...character} />
+      )}
     </Layout>
   )
 }

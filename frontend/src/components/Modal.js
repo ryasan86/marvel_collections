@@ -22,7 +22,7 @@ const ModalItem = ({ title, price, image, description, url }) => {
 }
 
 const ModalComponent = ({ isVisible, title, modalRef }) => {
-  let { data, loading, error } = useShopForComic({ title })
+  const { data, loading, error } = useShopForComic({ title })
   const empty = data && data.shopForComic.length === 0
 
   const renderContent = () => {

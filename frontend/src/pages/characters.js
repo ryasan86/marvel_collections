@@ -15,7 +15,7 @@ const CharactersInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
   const [page, setPage] = useState(1)
   const charactersPromise = search ? useCharactersByName : useCharacters
   const characters = charactersPromise({ page, orderBy, search })
-  let { data, loading, error, refetch } = characters
+  const { data, loading, error, refetch } = characters
 
   useEffect(() => {
     refetch()

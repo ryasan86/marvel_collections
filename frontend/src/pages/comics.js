@@ -15,7 +15,7 @@ const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
   const [page, setPage] = useState(1)
   const comicsPromise = search ? useComicsByTitle : useComics
   const comics = comicsPromise({ page, orderBy, search })
-  let { data, loading, error, refetch } = comics
+  const { data, loading, error, refetch } = comics
 
   useEffect(() => {
     refetch()
