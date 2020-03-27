@@ -1,1 +1,1 @@
-export const extractId = str => str.replace(/\/.+\//, '')
+export const extractId = str => str.substr(str.lastIndexOf('/') + 1)
