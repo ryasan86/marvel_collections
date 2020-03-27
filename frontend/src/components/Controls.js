@@ -6,7 +6,10 @@ import { MagnifierSVG } from '../images'
 
 const Total = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false)
-  useEffect(() => setIsVisible(true), [])
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
 
   return <Controls.Total isVisible={isVisible}>{children}</Controls.Total>
 }

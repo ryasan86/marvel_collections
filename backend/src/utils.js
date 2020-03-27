@@ -35,7 +35,6 @@ const request = {
       .query({ ...query, ...marvelAuth })
       .then(checkStatus)
       .then(responseData)
-      .catch(handleError)
 }
 
 const offset = (page, perPage) => (page - 1) * perPage || 0

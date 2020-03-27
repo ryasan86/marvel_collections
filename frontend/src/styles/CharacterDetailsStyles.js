@@ -1,19 +1,23 @@
 import styled from 'styled-components'
 import SortByComponent from '../components/SortBy'
-import { BackgroundImage } from '../components/common'
+import PleaseWait from '../components/PleaseWait'
+import { BackgroundImage, MaxWidth } from '../components/common'
 
-const CharacterDetails = styled.div`
+const CharacterDetails = styled(MaxWidth)`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
   h3 {
     padding: 4rem 1.2rem;
     margin: 0;
     border-top: 1px solid var(--gray);
   }
 `
+
+CharacterDetails.PleaseWait = PleaseWait
 
 const Banner = styled.section`
   width: 100%;
@@ -74,6 +78,8 @@ const CharacterComics = styled.section`
     'title sort-by'
     'comics-list comics-list';
 `
+
+CharacterComics.PleaseWait = PleaseWait
 
 CharacterComics.H3 = styled.h3`
   grid-area: title;

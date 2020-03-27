@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import PleaseWait from '../components/PleaseWait'
+import { DelayMessage } from '../components/common'
 
 const Modal = styled.div`
   background: transparent;
@@ -15,6 +17,10 @@ const Modal = styled.div`
   left: ${props => (props.isVisible ? '0' : '-100%')};
   opacity: ${props => (props.isVisible ? '100%' : '60%')};
 `
+
+Modal.PleaseWait = PleaseWait
+
+Modal.DelayMessage = DelayMessage
 
 Modal.Inner = styled.ul`
   width: var(--max-width);

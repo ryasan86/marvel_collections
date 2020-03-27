@@ -14,3 +14,4 @@
 12. Refactor variable names.
 13. Random comic feature.
 14. Redo comic details. Use Marvel site for reference.
+15. Review styled of all pages when loading.

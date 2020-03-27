@@ -2,12 +2,17 @@ import React from 'react'
 import { DelayMessage } from './common'
 import ErrorBoundary from './ErrorBoundary'
 
-const PleaseWaitComponent = ({ loading, error, loadingText }) => {
+const PleaseWaitComponent = ({ loading, error, loadingText, modalRef }) => {
   if (loading) {
-    return <DelayMessage text={`${loadingText.toUpperCase()}...`} />
+    return (
+      <DelayMessage
+        modalRef={modalRef}
+        text={`${loadingText.toUpperCase()}...`}
+      />
+    )
   }
   if (error) {
-    return <ErrorBoundary error={error} />
+    return <ErrorBoundary error={error} modalRef={modalRef} />
   }
 }
 

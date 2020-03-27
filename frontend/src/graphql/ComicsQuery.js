@@ -1,10 +1,23 @@
 import gql from 'graphql-tag'
 import { COMIC_FRAGMENT } from './Fragments'
 
-export const ALL_COMICS = gql`
-  query AllComics($orderBy: String!, $page: Int!, $limit: Int = 35) {
+export const COMICS = gql`
+  query comics($orderBy: String!, $page: Int!, $limit: Int = 35) {
     comics(orderBy: $orderBy, page: $page, limit: $limit) {
       totalCount
+      edges {
+        node {
+          ...ComicFragment
+        }
+      }
+    }
+  }
+  ${COMIC_FRAGMENT}
+`
+
+export const COMIC = gql`
+  query comic($id: ID!) {
+    comic(id: $id) {
       edges {
         node {
           ...ComicFragment

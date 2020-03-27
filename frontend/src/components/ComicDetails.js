@@ -2,30 +2,65 @@ import React, { useState, useRef, useEffect } from 'react'
 import moment from 'moment'
 import Layout from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
-import { capitalize } from '../utils/capitalize'
 import SEO from './SEO'
 import ModalComponent from './Modal'
-import { uncamel } from '../utils'
+import { useComic } from '../graphql/ComicsHooks'
+import { uncamel, extractId, capitalize } from '../utils'
 
-const ComicDetailsComponent = ({ location: { state } }) => {
-  const { description, modified, prices, creators, title, thumbnail } = state
-  const [isVisible, setIsVisible] = useState(false)
-  const modalRef = useRef(null)
-
+const ComicDetailsInner = ({
+  description,
+  modified,
+  prices,
+  thumbnail,
+  title,
+  toggleModal,
+  creators,
+  setTitle
+}) => {
+  // prettier-ignore
   const info = [
-    {
-      label: 'Description',
-      value: description || 'DESCRIPTION UNAVAILABLE'
-    },
-    {
-      label: 'Last Modified',
-      value: moment(modified).format('LL')
-    },
-    {
-      label: 'Price',
-      value: prices.map(p => `${uncamel(p.type)} ${p.price}`).join(', ')
-    }
-  ]
+      { label: 'Description', value: description || 'DESCRIPTION UNAVAILABLE' },
+      { label: 'Last Modified', value: moment(modified).format('LL') },
+      { label: 'Price', value: prices.map(p => `${uncamel(p.type)} ${p.price}`).join(', ') }
+    ]
+
+  useEffect(() => {
+    setTitle(title)
+  }, [title])
+
+  return (
+    <>
+      <ComicDetails.BackgroundImage bg={thumbnail} />
+      <ComicDetails.Content>
+        <ComicDetails.ImageContainer>
+          <img src={thumbnail} alt={title} />
+          <button onClick={toggleModal}>Shop</button>
+        </ComicDetails.ImageContainer>
+        <ComicDetails.TextContainer>
+          <ComicDetails.Header>
+            <h3>{title}</h3>
+          </ComicDetails.Header>
+          <ComicDetails.MetaItemsList>
+            {[...info, ...creators].map((meta, i) => (
+              <ComicDetails.MetaItem key={i}>
+                <strong>{capitalize(meta.label || meta.role)}:</strong>
+                <p>{meta.value || meta.name}</p>
+              </ComicDetails.MetaItem>
+            ))}
+          </ComicDetails.MetaItemsList>
+        </ComicDetails.TextContainer>
+      </ComicDetails.Content>
+    </>
+  )
+}
+
+const ComicDetailsComponent = () => {
+  const modalRef = useRef(null)
+  const [title, setTitle] = useState('')
+  const [isVisible, setIsVisible] = useState(false)
+  const { data, loading, error } = useComic({
+    id: extractId(location.pathname)
+  })
 
   const toggleModal = e => {
     if (!modalRef.current.contains(e.target)) {
@@ -38,32 +73,29 @@ const ComicDetailsComponent = ({ location: { state } }) => {
     return () => document.removeEventListener('click', toggleModal)
   }, [isVisible])
 
+  const comic = data && data.comic.edges[0].node
+
+  const renderContent = () => {
+    return loading || error ? (
+      <ComicDetails.PleaseWait
+        error={error}
+        loading={loading}
+        loadingText="loading details..."
+      />
+    ) : (
+      <ComicDetailsInner
+        {...comic}
+        setTitle={setTitle}
+        toggleModal={toggleModal}
+      />
+    )
+  }
+
   return (
     <Layout>
       <SEO title={title} />
       <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
-      <ComicDetails>
-        <ComicDetails.BackgroundImage bg={thumbnail} />
-        <ComicDetails.Content>
-          <ComicDetails.ImageContainer>
-            <img src={thumbnail} alt={title} />
-            <button onClick={toggleModal}>Shop</button>
-          </ComicDetails.ImageContainer>
-          <ComicDetails.TextContainer>
-            <ComicDetails.Header>
-              <h3>{title}</h3>
-            </ComicDetails.Header>
-            <ComicDetails.MetaItemsList>
-              {[...info, ...creators].map((meta, i) => (
-                <ComicDetails.MetaItem key={i}>
-                  <strong>{capitalize(meta.label || meta.role)}:</strong>
-                  <p>{meta.value || meta.name}</p>
-                </ComicDetails.MetaItem>
-              ))}
-            </ComicDetails.MetaItemsList>
-          </ComicDetails.TextContainer>
-        </ComicDetails.Content>
-      </ComicDetails>
+      <ComicDetails>{renderContent()}</ComicDetails>
     </Layout>
   )
 }

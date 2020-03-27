@@ -28,6 +28,12 @@ const Query = {
       .then(sendMarvelInfo)
       .catch(handleError),
 
+  character: (parent, args) =>
+    request
+      .get(`${marvelCharsEndpoint}/${args.id}`)
+      .then(sendMarvelInfo)
+      .catch(handleError),
+
   characterNameStartsWith: (parent, args) =>
     request
       .get(marvelCharsEndpoint, {
@@ -46,6 +52,12 @@ const Query = {
         orderBy: args.orderBy,
         offset: offset(args.page, limit)
       })
+      .then(sendMarvelInfo)
+      .catch(handleError),
+
+  comic: (parent, args) =>
+    request
+      .get(`${marvelComicsEndpoint}/${args.id}`)
       .then(sendMarvelInfo)
       .catch(handleError),
 

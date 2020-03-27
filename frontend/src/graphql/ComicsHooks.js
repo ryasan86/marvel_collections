@@ -1,14 +1,21 @@
 import { useQuery } from '@apollo/react-hooks'
 import {
-  ALL_COMICS,
+  COMICS,
+  COMIC,
   COMIC_TITLE_STARTS_WITH,
   COMICS_BY_CHARACTER,
   SHOP_FOR_COMIC
 } from './ComicsQuery'
 
 export const useComics = ({ page, orderBy, limit }) => {
-  return useQuery(ALL_COMICS, {
+  return useQuery(COMICS, {
     variables: { page, orderBy, limit }
+  })
+}
+
+export const useComic = ({ id }) => {
+  return useQuery(COMIC, {
+    variables: { id }
   })
 }
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PleaseWait from '../components/PleaseWait'
 import { MaxWidth } from '../components/common'
 
 const Home = styled(MaxWidth)`
@@ -10,10 +11,13 @@ const Home = styled(MaxWidth)`
 
 Home.Section = styled.section`
   width: 100%;
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: white;
   padding: 0;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
 `
+
+Home.PleaseWait = PleaseWait
 
 export default Home

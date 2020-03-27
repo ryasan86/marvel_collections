@@ -1,7 +1,5 @@
 import React from 'react'
 import Modal from '../styles/ModalStyles'
-import PleaseWaitComponent from './PleaseWait'
-import { DelayMessage } from './common/DelayMessage'
 import { useShopForComic } from '../graphql/ComicsHooks'
 
 const ModalItem = ({ title, price, image, description, url }) => {
@@ -23,31 +21,30 @@ const ModalItem = ({ title, price, image, description, url }) => {
   )
 }
 
-const ModalComponent = ({ isVisible, modalRef, title }) => {
-  const { data, loading, error } = useShopForComic({ title })
+const ModalComponent = ({ isVisible, title, modalRef }) => {
+  let { data, loading, error } = useShopForComic({ title })
   const empty = data && data.shopForComic.length === 0
 
-  const renderContent = state => {
-    if (loading || error) {
-      return (
-        <PleaseWaitComponent
-          loading={loading}
-          error={error}
-          loadingText="searching"
-        />
-      )
-    } else if (empty) {
-      return <DelayMessage text="0 VENDORS FOUND 😮" />
-    }
-
-    return data.shopForComic.map((props, i) => <ModalItem key={i} {...props} />)
+  const renderContent = () => {
+    return loading || error ? (
+      <Modal.PleaseWait
+        modalRef={modalRef}
+        loading={loading}
+        error={error}
+        loadingText="searching"
+      />
+    ) : empty ? (
+      <Modal.DelayMessage modalRef={modalRef} text="0 VENDORS FOUND 😮" />
+    ) : (
+      <Modal.Inner ref={modalRef}>
+        {data.shopForComic.map((props, i) => (
+          <ModalItem key={i} {...props} />
+        ))}
+      </Modal.Inner>
+    )
   }
 
-  return (
-    <Modal isVisible={isVisible}>
-      <Modal.Inner ref={modalRef}>{renderContent()}</Modal.Inner>
-    </Modal>
-  )
+  return <Modal isVisible={isVisible}>{renderContent()}</Modal>
 }
 
 export default ModalComponent

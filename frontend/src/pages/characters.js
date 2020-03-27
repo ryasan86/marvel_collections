@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
+import SEO from '../components/SEO'
+import CharactersList from '../styles/CharactersPageStyles'
+import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
 import CharacterDetails from '../components/CharacterDetails'
-import SEO from '../components/SEO'
-import Controls from '../components/Controls'
 import PleaseWait from '../components/PleaseWait'
-import { MaxWidth, H4 } from '../components/common'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
-const CharactersListInner = ({ slug, orderBy, search, setTotalCount }) => {
+const CharactersInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
   const [page, setPage] = useState(1)
   const charactersPromise = search ? useCharactersByName : useCharacters
   const characters = charactersPromise({ page, orderBy, search })
-  const { data, loading, error, refetch } = characters
+  let { data, loading, error, refetch } = characters
 
   useEffect(() => {
     refetch()
@@ -23,65 +23,66 @@ const CharactersListInner = ({ slug, orderBy, search, setTotalCount }) => {
 
   if (loading || error) {
     return (
-      <PleaseWait
-        loading={loading}
-        error={error}
-        loadingText="loading characters"
-      />
+      <CharactersList.PleaseWaitContainer>
+        <PleaseWait
+          loading={loading}
+          error={error}
+          loadingText="loading characters"
+        />
+      </CharactersList.PleaseWaitContainer>
     )
   }
 
-  const { totalCount, edges } = search
+  const { totalCount, edges } = search // prettier-ignore
     ? data.characterNameStartsWith
     : data.characters
-  setTotalCount(totalCount)
 
   return (
-    <ItemsList
-      slug={slug}
-      error={error}
-      items={edges}
-      total={totalCount}
-      page={page}
-      setPage={setPage}
-    />
+    <CharactersList>
+      <CharactersList.Header>COMICS</CharactersList.Header>
+      <Controls
+        slug={slug}
+        total={totalCount}
+        setSearch={setSearch}
+        setOrderBy={setOrderBy}
+      />
+      <ItemsList
+        slug={slug}
+        error={error}
+        items={edges}
+        total={totalCount}
+        page={page}
+        setPage={setPage}
+      />
+    </CharactersList>
   )
 }
 
-const CharactersList = ({ path: slug }) => {
+const Characters = ({ path: slug }) => {
   const [orderBy, setOrderBy] = useState(sortMap.characters.ascending_alpha)
-  const [totalCount, setTotalCount] = useState(null)
   const [search, setSearch] = useState(null)
 
   return (
     <Layout>
       <SEO title="Characters" />
-      <MaxWidth>
-        <H4>CHARACTERS</H4>
-        <Controls
-          slug={slug}
-          total={totalCount}
-          setSearch={setSearch}
-          setOrderBy={setOrderBy}
-        />
-        <CharactersListInner
-          orderBy={orderBy}
-          search={search}
-          slug={slug}
-          setTotalCount={setTotalCount}
-        />
-      </MaxWidth>
+      <CharactersInner
+        orderBy={orderBy}
+        search={search}
+        slug={slug}
+        setSearch={setSearch}
+        setOrderBy={setOrderBy}
+      />
     </Layout>
   )
 }
 
-CharactersList.propTypes = {
+Characters.propTypes = {
   slug: PropTypes.string
 }
 
 const CharactersPage = () => (
   <Router>
-    <CharactersList path="/characters" />
+    <Characters path="/characters" />
     <CharacterDetails path="/characters/:name" />
   </Router>
 )

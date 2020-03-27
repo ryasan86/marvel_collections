@@ -14,11 +14,11 @@ const StyledRoot = css`
     --max-width: 118rem;
     --focus-shadow: 0 0 2px 1px var(--light-gray);
   }
+
   *,
   *:before,
   *:after {
     box-sizing: border-box;
-    /* outline: 1px solid red; */
   }
 `
 

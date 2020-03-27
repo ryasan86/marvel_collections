@@ -4,21 +4,20 @@ import Item from '../styles/ItemStyles'
 
 const CharacterItem = ({ c, slug }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const handleOnLoad = e => setIsVisible(true)
-  const handleError = () => setIsVisible(true)
-  const props = { to: `${slug}/${c.name}`, state: c }
+  const displayImg = () => setIsVisible(true)
+  const uri = `${slug}/${c.id}`
 
   return (
     <Item isVisible={isVisible}>
-      <Item.Link {...props}>
+      <Item.Link to={uri}>
         <Item.Image
-          onLoad={handleOnLoad}
-          onError={handleError}
+          onLoad={displayImg}
+          onError={displayImg}
           src={c.thumbnail}
           alt={c.name}
         />
       </Item.Link>
-      <Item.Link {...props}>
+      <Item.Link to={uri}>
         <Item.Row>{c.name}</Item.Row>
       </Item.Link>
     </Item>
@@ -27,24 +26,34 @@ const CharacterItem = ({ c, slug }) => {
 
 const ComicItem = ({ c, slug }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const loadImg = () => setIsVisible(true)
-  const props = { to: `${slug}/${c.title}`, state: c }
+  const displayImg = () => setIsVisible(true)
+  const uri = `${slug}/${c.id}`
 
   return (
     <Item isVisible={isVisible}>
-      <Item.Link {...props}>
+      <Item.Link to={uri}>
         <Item.Image
-          onLoad={loadImg}
-          onError={loadImg}
+          onLoad={displayImg}
+          onError={displayImg}
           src={c.thumbnail}
           alt={c.title}
         />
       </Item.Link>
-      <Item.Link {...props}>
+      <Item.Link to={uri}>
         <Item.Row>{c.title}</Item.Row>
       </Item.Link>
     </Item>
   )
+}
+
+ComicItem.defaultProps = {
+  c: {},
+  slug: ''
+}
+
+ComicItem.propTypes = {
+  c: PropTypes.object,
+  slug: PropTypes.string
 }
 
 const ItemComponent = props => {
@@ -54,11 +63,6 @@ const ItemComponent = props => {
     case '/comics':
       return <ComicItem {...props} />
   }
-}
-
-ItemComponent.propTypes = {
-  c: PropTypes.object.isRequired,
-  slug: PropTypes.string.isRequired
 }
 
 export default ItemComponent

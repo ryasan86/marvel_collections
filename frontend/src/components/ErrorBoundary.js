@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ErrorBoundary from '../styles/ErrorBoundaryStyles'
 
-const ErrorBoundaryComponent = ({ error, children }) => {
+const ErrorBoundaryComponent = ({ error, children, modalRef }) => {
   if (
     error.networkError &&
     error.networkError.result &&
     error.networkError.result.errors.length
   ) {
     return (
-      <ErrorBoundary>
+      <ErrorBoundary ref={modalRef}>
         {error.networkError.result.errors.map((error, i) => (
           <p key={i}>
             <span>!&nbsp;</span>
@@ -22,7 +22,7 @@ const ErrorBoundaryComponent = ({ error, children }) => {
 
   if (error.message) {
     return (
-      <ErrorBoundary>
+      <ErrorBoundary ref={modalRef}>
         <p>
           <span>!&nbsp;</span>
           {error.title}: {error.message}

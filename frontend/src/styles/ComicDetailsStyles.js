@@ -1,13 +1,20 @@
 import styled from 'styled-components'
 import { BackgroundImage } from '../components/common'
+import PleaseWait from '../components/PleaseWait'
 
 const ComicDetails = styled.div`
   flex: 1 1 auto;
   width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
+`
+
+ComicDetails.PleaseWait = styled(PleaseWait)`
+  background: black;
 `
 
 ComicDetails.BackgroundImage = BackgroundImage

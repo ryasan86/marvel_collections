@@ -8,66 +8,87 @@ import CharacterDetails, {
 } from '../styles/CharacterDetailsStyles'
 import Layout from './Layout'
 import ItemsList from './ItemsList'
-import PleaseWait from './PleaseWait'
 import { sortMap } from './SortBy'
-import { MaxWidth } from './common'
+import { useCharacter } from '../graphql/CharactersHooks'
 import { useComicsByCharacter } from '../graphql/ComicsHooks'
+import { extractId } from '../utils'
 
-const CharacterComicsList = ({ charId, orderBy }) => {
+const CharacterComicsList = ({ charId }) => {
+  const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [page, setPage] = useState(1)
   const comics = useComicsByCharacter({ page, orderBy, charId })
-  let { data, loading, error, refetch } = comics
+  const { data, loading, error, refetch } = comics
 
   useEffect(() => {
     refetch()
   }, [page, orderBy])
 
   if (loading || error) {
-    return <PleaseWait loading={loading} error={error} loadingText="loading comics" />
+    return (
+      <CharacterComics.PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading comics..."
+      />
+    )
   }
 
   const { totalCount, edges } = data.comicsByCharacter
 
   return (
-    <ItemsList
-      page={page}
-      setPage={setPage}
-      total={totalCount}
-      items={edges}
-      slug="/comics"
-    />
+    <CharacterComics>
+      <CharacterComics.H3>COMICS</CharacterComics.H3>
+      <CharacterComics.SortBy setOrderBy={setOrderBy} slug="/comics" />
+      <CharacterComics.List>
+        <ItemsList
+          page={page}
+          setPage={setPage}
+          total={totalCount}
+          items={edges}
+          slug="/comics"
+        />
+      </CharacterComics.List>
+    </CharacterComics>
   )
 }
 
-const CharacterDetailsComponent = ({ location: { state } }) => {
-  const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
-  const { id, name, thumbnail, description } = state
+const CharacterDetailsInner = ({ id, thumbnail, description, name }) => (
+  <>
+    <Banner bg={thumbnail}>
+      <Banner.BackgroundImage bg={thumbnail} />
+      <Banner.Image src={thumbnail} alt={name} />
+      <Banner.H1>{name}</Banner.H1>
+    </Banner>
+    <Description>
+      <Description.H3>DESCRIPTION</Description.H3>
+      <Description.P>{description || 'DESCRIPTION UNAVAILABLE'}</Description.P>
+    </Description>
+    <CharacterComicsList charId={id} />
+  </>
+)
+
+const CharacterDetailsComponent = () => {
+  const { data, loading, error } = useCharacter({
+    id: extractId(location.pathname)
+  })
+  const character = data && data.character.edges[0].node
+
+  const renderContent = () => {
+    return loading || error ? (
+      <CharacterDetails.PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading character..."
+      />
+    ) : (
+      <CharacterDetailsInner {...character} />
+    )
+  }
 
   return (
     <Layout>
       <SEO title={name} />
-      <MaxWidth>
-        <CharacterDetails>
-          <Banner bg={thumbnail}>
-            <Banner.BackgroundImage bg={thumbnail} />
-            <Banner.Image src={thumbnail} alt={name} />
-            <Banner.H1>{name}</Banner.H1>
-          </Banner>
-          <Description>
-            <Description.H3>DESCRIPTION</Description.H3>
-            <Description.P>
-              {description || 'DESCRIPTION UNAVAILABLE'}
-            </Description.P>
-          </Description>
-          <CharacterComics>
-            <CharacterComics.H3>COMICS</CharacterComics.H3>
-            <CharacterComics.SortBy setOrderBy={setOrderBy} slug="/comics" />
-            <CharacterComics.List>
-              <CharacterComicsList orderBy={orderBy} charId={id} />
-            </CharacterComics.List>
-          </CharacterComics>
-        </CharacterDetails>
-      </MaxWidth>
+      <CharacterDetails>{renderContent()}</CharacterDetails>
     </Layout>
   )
 }
