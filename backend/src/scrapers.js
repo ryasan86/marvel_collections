@@ -6,7 +6,7 @@ const { optimizeTerm, handleError, parseSLD } = require('./utils.js')
 // scrapers for comic vendor websites
 const scrapers = {
   shop: async ({ store, title }) => {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
     const page = await browser.newPage()
 
     await page.goto(store)
@@ -48,7 +48,7 @@ const scrapers = {
         }
 
         return {
-          url: (comicUrl),
+          url: comicUrl,
           vendor: parseSLD(store),
           description: getMetaTag('description'),
           image: getMetaTag('image'),
