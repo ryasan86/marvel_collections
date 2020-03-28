@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Redirect } from '@reach/router'
 import moment from 'moment'
 import Layout from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
@@ -7,6 +6,7 @@ import SEO from './SEO'
 import ModalComponent from './Modal'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
+import { DelayMessage } from './common/DelayMessage';
 
 const ComicDetailsInner = ({
   description,
@@ -69,10 +69,24 @@ const ComicDetailsComponent = ({ location, navigate }) => {
     }
   }
 
-  // useEffect(() => {
-  //   if (isVisible) document.addEventListener('click', toggleModal)
-  //   return () => document.removeEventListener('click', toggleModal)
-  // }, [isVisible])
+  useEffect(() => {
+    if (isVisible) document.addEventListener('click', toggleModal)
+    return () => document.removeEventListener('click', toggleModal)
+  }, [isVisible])
+
+  if (loading || error) {
+    return (
+      <ComicDetails.PleaseWait
+        error={error}
+        loading={loading}
+        loadingText="loading comic..."
+      />
+    )
+  }
+
+  if (data.comic === null) {
+    return <DelayMessage text="loading comic..." />
+  }
 
   const comic = data && data.comic.edges[0].node
 
@@ -80,19 +94,19 @@ const ComicDetailsComponent = ({ location, navigate }) => {
     <Layout>
       <SEO title={title} />
       <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
-      {loading || error ? (
+      {/* {loading || error ? (
         <ComicDetails.PleaseWait
           error={error}
           loading={loading}
           loadingText="loading comic..."
         />
-      ) : (
+      ) : ( */}
         <ComicDetailsInner
           {...comic}
           setTitle={setTitle}
           toggleModal={toggleModal}
         />
-      )}
+      {/* )} */}
     </Layout>
   )
 }
