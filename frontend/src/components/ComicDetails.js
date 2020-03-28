@@ -69,26 +69,10 @@ const ComicDetailsComponent = ({ location, navigate }) => {
     }
   }
 
-  useEffect(() => {
-    if (isVisible) document.addEventListener('click', toggleModal)
-    return () => document.removeEventListener('click', toggleModal)
-  }, [isVisible])
-
-  if (loading || error) {
-    return (
-      <Layout>
-        <ComicDetails.PleaseWait
-          error={error}
-          loading={loading}
-          loadingText="loading comic..."
-        />
-      </Layout>
-    )
-  }
-
-  if (data.comic === null) {
-    return <Redirect to="/404" noThrow />
-  }
+  // useEffect(() => {
+  //   if (isVisible) document.addEventListener('click', toggleModal)
+  //   return () => document.removeEventListener('click', toggleModal)
+  // }, [isVisible])
 
   const comic = data && data.comic.edges[0].node
 
@@ -96,11 +80,19 @@ const ComicDetailsComponent = ({ location, navigate }) => {
     <Layout>
       <SEO title={title} />
       <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
-      <ComicDetailsInner
-        {...comic}
-        setTitle={setTitle}
-        toggleModal={toggleModal}
-      />
+      {loading || error ? (
+        <ComicDetails.PleaseWait
+          error={error}
+          loading={loading}
+          loadingText="loading comic..."
+        />
+      ) : (
+        <ComicDetailsInner
+          {...comic}
+          setTitle={setTitle}
+          toggleModal={toggleModal}
+        />
+      )}
     </Layout>
   )
 }
