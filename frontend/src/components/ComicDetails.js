@@ -3,7 +3,7 @@ import moment from 'moment'
 import Layout from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
 import SEO from './SEO'
-// import ModalComponent from './Modal'
+import ModalComponent from './Modal'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
 import { DelayMessage } from './common/DelayMessage'
@@ -99,7 +99,7 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   return (
     <Layout>
       <SEO title={title} />
-      {/* <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} /> */}
+      <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
       <ComicDetailsInner
         {...comic}
         setTitle={setTitle}
