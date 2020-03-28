@@ -10,7 +10,7 @@ import { GithubCornerIcon } from './GithubCorner';
 const Layout = styled.div`
   height: 100%;
   min-height: 100vh;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   background-image: url(${CityBG}), url(${MeshPattern});
   background-repeat: no-repeat, repeat;
