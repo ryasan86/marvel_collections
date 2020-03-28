@@ -30,6 +30,7 @@ const ComicDetailsInner = ({
 
   return (
     <ComicDetails>
+      <SEO title={title} />
       <ComicDetails.BackgroundImage bg={thumbnail} />
       <ComicDetails.Content>
         <ComicDetails.ImageContainer>
@@ -75,12 +76,11 @@ const ComicDetailsComponent = ({ location }) => {
 
   return (
     <Layout>
-      <SEO title={title} />
       {title && (
         <ModalComponent
-          isVisible={isVisible}
-          modalRef={modalRef}
           title={title}
+          modalRef={modalRef}
+          isVisible={isVisible}
         />
       )}
       {loading || error ? (

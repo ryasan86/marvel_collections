@@ -64,7 +64,8 @@ export const SHOP_FOR_COMIC = gql`
       price
       image
       description
-      url
+      url,
+      favicon
     }
   }
 `

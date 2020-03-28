@@ -91,4 +91,5 @@ type ComicVendorInfo {
   image: String
   description: String
   url: String
+  favicon: String
 }

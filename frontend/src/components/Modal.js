@@ -1,25 +1,37 @@
 import React from 'react'
-import Modal from '../styles/ModalStyles'
+import Modal, { Shop, Text, ComicImg, Vendor } from '../styles/ModalStyles'
 import { useShopForComic } from '../graphql/ComicsHooks'
 
-const ModalItem = ({ title, price, image, description, url }) => {
-  return (
-    <Modal.Item>
-      <Modal.Text>
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          <h4>{title}</h4>
-        </a>
-        <p>{description}</p>
-      </Modal.Text>
-      <Modal.Price>{price}</Modal.Price>
-      <Modal.Image>
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          <img src={image} alt={title} />
-        </a>
-      </Modal.Image>
-    </Modal.Item>
-  )
-}
+const ModalItem = ({
+  title,
+  price,
+  image,
+  description,
+  url,
+  favicon,
+  vendor
+}) => (
+  <Modal.Item>
+    <Text>
+      <Text.Link href={url} target="_blank" rel="noopener noreferrer">
+        <Text.Title>{title}</Text.Title>
+      </Text.Link>
+      <Text.Description>{description}</Text.Description>
+    </Text>
+    <Vendor>
+      <Vendor.Img src={favicon} alt={vendor} />
+    </Vendor>
+    <Shop>
+      <Shop.Price>{price}</Shop.Price>
+      <Shop.Button href={url} target="_blank˝">Purchase</Shop.Button>
+    </Shop>
+    <ComicImg>
+      <ComicImg.Link href={url} target="_blank" rel="noopener noreferrer">
+        <ComicImg.Img src={image} alt={title} />
+      </ComicImg.Link>
+    </ComicImg>
+  </Modal.Item>
+)
 
 const ModalComponent = ({ isVisible, title, modalRef }) => {
   const { data, loading, error } = useShopForComic({ title })
@@ -28,9 +40,9 @@ const ModalComponent = ({ isVisible, title, modalRef }) => {
   const renderContent = () => {
     return loading || error ? (
       <Modal.PleaseWait
-        modalRef={modalRef}
-        loading={loading}
         error={error}
+        loading={loading}
+        modalRef={modalRef}
         loadingText="searching"
       />
     ) : empty ? (

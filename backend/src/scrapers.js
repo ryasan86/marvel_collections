@@ -52,13 +52,12 @@ const scrapers = {
           vendor: parseSLD(store),
           description: getMetaTag('description'),
           image: getMetaTag('image'),
+          favicon: $('link[rel="shortcut icon"]').attr('href'),
           price: $('.detail-content .item-price').first().text(), // prettier-ignore
           title: $('title').first().text() // prettier-ignore
         }
       })
-
       await browser.close()
-
       const items = await Promise.all(requests).catch(handleError)
 
       return items
