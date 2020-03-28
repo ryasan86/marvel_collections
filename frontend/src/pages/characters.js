@@ -83,7 +83,7 @@ Characters.propTypes = {
 const CharactersPage = () => (
   <Router>
     <Characters path="/characters" />
-    <CharacterDetails path="/characters/:name" />
+    <CharacterDetails path="/characters/:id" />
   </Router>
 )
 

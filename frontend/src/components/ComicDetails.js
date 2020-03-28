@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { Redirect } from '@reach/router'
 import moment from 'moment'
 import Layout from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
@@ -54,7 +55,7 @@ const ComicDetailsInner = ({
   )
 }
 
-const ComicDetailsComponent = ({ location }) => {
+const ComicDetailsComponent = ({ location, navigate }) => {
   const modalRef = useRef(null)
   const [title, setTitle] = useState('')
   const [isVisible, setIsVisible] = useState(false)
@@ -73,25 +74,33 @@ const ComicDetailsComponent = ({ location }) => {
     return () => document.removeEventListener('click', toggleModal)
   }, [isVisible])
 
+  if (loading || error) {
+    return (
+      <Layout>
+        <ComicDetails.PleaseWait
+          error={error}
+          loading={loading}
+          loadingText="loading comic..."
+        />
+      </Layout>
+    )
+  }
+
+  if (data.comic === null) {
+    return <Redirect to="/404" noThrow />
+  }
+
   const comic = data && data.comic.edges[0].node
 
   return (
     <Layout>
       <SEO title={title} />
       <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
-      {loading || error ? (
-        <ComicDetails.PleaseWait
-          error={error}
-          loading={loading}
-          loadingText="loading details..."
-        />
-      ) : (
-        <ComicDetailsInner
-          {...comic}
-          setTitle={setTitle}
-          toggleModal={toggleModal}
-        />
-      )}
+      <ComicDetailsInner
+        {...comic}
+        setTitle={setTitle}
+        toggleModal={toggleModal}
+      />
     </Layout>
   )
 }

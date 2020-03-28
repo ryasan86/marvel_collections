@@ -83,7 +83,7 @@ Comics.propTypes = {
 const ComicsPage = () => (
   <Router>
     <Comics path="/comics" />
-    <ComicDetails path="/comics/:title" />
+    <ComicDetails path="/comics/:id" />
   </Router>
 )
 
