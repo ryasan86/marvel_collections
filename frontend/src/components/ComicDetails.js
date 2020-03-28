@@ -77,11 +77,13 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   if (loading || error) {
     return (
       <Layout>
-        <ComicDetails.PleaseWait
-          error={error}
-          loading={loading}
-          loadingText="loading comic..."
-        />
+        <div style={{ width: '100%', flexGrow: 1 }}>
+          <ComicDetails.PleaseWait
+            error={error}
+            loading={loading}
+            loadingText="loading comic..."
+          />
+        </div>
       </Layout>
     )
   }
@@ -89,7 +91,9 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   if (data.comic === null) {
     return (
       <Layout>
-        <DelayMessage text="loading comic..." />
+        <div style={{ width: '100%', flexGrow: 1 }}>
+          <DelayMessage text="loading comic..." />
+        </div>
       </Layout>
     )
   }
