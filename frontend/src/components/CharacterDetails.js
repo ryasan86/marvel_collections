@@ -54,6 +54,7 @@ const CharacterComicsList = ({ charId }) => {
 
 const CharacterDetailsInner = ({ id, thumbnail, description, name }) => (
   <CharacterDetails>
+    <SEO title={name} />
     <Banner bg={thumbnail}>
       <Banner.BackgroundImage bg={thumbnail} />
       <Banner.Image src={thumbnail} alt={name} />
@@ -75,11 +76,10 @@ const CharacterDetailsComponent = ({ location }) => {
 
   return (
     <Layout>
-      <SEO title={name} />
       {loading || error ? (
         <CharacterDetails.PleaseWait
-          loading={loading}
           error={error}
+          loading={loading}
           loadingText="loading character..."
         />
       ) : (

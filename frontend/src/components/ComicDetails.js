@@ -6,7 +6,6 @@ import SEO from './SEO'
 import ModalComponent from './Modal'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
-import { DelayMessage } from './common/DelayMessage'
 
 const ComicDetailsInner = ({
   description,
@@ -55,22 +54,19 @@ const ComicDetailsInner = ({
   )
 }
 
-const ComicDetailsComponent = ({ location, navigate }) => {
+const ComicDetailsComponent = ({ location }) => {
   const modalRef = useRef(null)
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState(null)
   const [isVisible, setIsVisible] = useState(false)
-
   const { data, loading, error } = useComic({
     id: extractId(location.pathname)
   })
-
+  const comic = data && data.comic.edges[0].node
   const toggleModal = e => {
     if (!modalRef.current.contains(e.target)) {
       setIsVisible(prevState => !prevState)
     }
   }
-
-  const comic = data && data.comic.edges[0].node
 
   useEffect(() => {
     if (isVisible) document.addEventListener('click', toggleModal)
@@ -80,7 +76,13 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   return (
     <Layout>
       <SEO title={title} />
-      <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
+      {title && (
+        <ModalComponent
+          isVisible={isVisible}
+          modalRef={modalRef}
+          title={title}
+        />
+      )}
       {loading || error ? (
         <ComicDetails.PleaseWait
           error={error}
