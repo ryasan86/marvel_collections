@@ -59,6 +59,7 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   const modalRef = useRef(null)
   const [title, setTitle] = useState('')
   const [isVisible, setIsVisible] = useState(false)
+
   const { data, loading, error } = useComic({
     id: extractId(location.pathname)
   })
@@ -69,42 +70,30 @@ const ComicDetailsComponent = ({ location, navigate }) => {
     }
   }
 
+  const comic = data && data.comic.edges[0].node
+
   useEffect(() => {
     if (isVisible) document.addEventListener('click', toggleModal)
     return () => document.removeEventListener('click', toggleModal)
   }, [isVisible])
 
-  if (loading || error) {
-    return (
-      <Layout>
+  return (
+    <Layout>
+      <SEO title={title} />
+      <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
+      {loading || error ? (
         <ComicDetails.PleaseWait
           error={error}
           loading={loading}
           loadingText="loading comic..."
         />
-      </Layout>
-    )
-  }
-
-  if (data.comic === null) {
-    return (
-      <Layout>
-        <DelayMessage text="loading comic..." />
-      </Layout>
-    )
-  }
-
-  const comic = data && data.comic.edges[0].node
-
-  return (
-    <Layout>
-      <SEO title={title} />
-      <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
-      <ComicDetailsInner
-        {...comic}
-        setTitle={setTitle}
-        toggleModal={toggleModal}
-      />
+      ) : (
+        <ComicDetailsInner
+          {...comic}
+          setTitle={setTitle}
+          toggleModal={toggleModal}
+        />
+      )}
     </Layout>
   )
 }
