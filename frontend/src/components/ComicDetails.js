@@ -6,7 +6,7 @@ import SEO from './SEO'
 import ModalComponent from './Modal'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
-import { DelayMessage } from './common/DelayMessage';
+import { DelayMessage } from './common/DelayMessage'
 
 const ComicDetailsInner = ({
   description,
@@ -76,16 +76,22 @@ const ComicDetailsComponent = ({ location, navigate }) => {
 
   if (loading || error) {
     return (
-      <ComicDetails.PleaseWait
-        error={error}
-        loading={loading}
-        loadingText="loading comic..."
-      />
+      <Layout>
+        <ComicDetails.PleaseWait
+          error={error}
+          loading={loading}
+          loadingText="loading comic..."
+        />
+      </Layout>
     )
   }
 
   if (data.comic === null) {
-    return <DelayMessage text="loading comic..." />
+    return (
+      <Layout>
+        <DelayMessage text="loading comic..." />
+      </Layout>
+    )
   }
 
   const comic = data && data.comic.edges[0].node
@@ -94,19 +100,11 @@ const ComicDetailsComponent = ({ location, navigate }) => {
     <Layout>
       <SEO title={title} />
       <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
-      {/* {loading || error ? (
-        <ComicDetails.PleaseWait
-          error={error}
-          loading={loading}
-          loadingText="loading comic..."
-        />
-      ) : ( */}
-        <ComicDetailsInner
-          {...comic}
-          setTitle={setTitle}
-          toggleModal={toggleModal}
-        />
-      {/* )} */}
+      <ComicDetailsInner
+        {...comic}
+        setTitle={setTitle}
+        toggleModal={toggleModal}
+      />
     </Layout>
   )
 }
