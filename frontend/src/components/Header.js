@@ -8,11 +8,6 @@ const activeStyle = {
 
 const HeaderComponent = () => (
   <Header>
-    <Header.NavItem className="login">
-      <Header.Link to="/signin" activeStyle={activeStyle}>
-        LOGIN
-      </Header.Link>
-    </Header.NavItem>
     <Header.NavItem className="logo">
       <Header.Link to="/">
         <img src={MarvelSVG} alt="marvel" />

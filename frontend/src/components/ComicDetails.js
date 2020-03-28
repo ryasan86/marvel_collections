@@ -3,7 +3,7 @@ import moment from 'moment'
 import Layout from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
 import SEO from './SEO'
-import ModalComponent from './Modal'
+// import ModalComponent from './Modal'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
 import { DelayMessage } from './common/DelayMessage'
@@ -77,13 +77,11 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   if (loading || error) {
     return (
       <Layout>
-        <div style={{ width: '100%', flexGrow: 1 }}>
-          <ComicDetails.PleaseWait
-            error={error}
-            loading={loading}
-            loadingText="loading comic..."
-          />
-        </div>
+        <ComicDetails.PleaseWait
+          error={error}
+          loading={loading}
+          loadingText="loading comic..."
+        />
       </Layout>
     )
   }
@@ -91,9 +89,7 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   if (data.comic === null) {
     return (
       <Layout>
-        <div style={{ width: '100%', flexGrow: 1 }}>
-          <DelayMessage text="loading comic..." />
-        </div>
+        <DelayMessage text="loading comic..." />
       </Layout>
     )
   }
@@ -103,7 +99,7 @@ const ComicDetailsComponent = ({ location, navigate }) => {
   return (
     <Layout>
       <SEO title={title} />
-      <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} />
+      {/* <ModalComponent isVisible={isVisible} modalRef={modalRef} title={title} /> */}
       <ComicDetailsInner
         {...comic}
         setTitle={setTitle}

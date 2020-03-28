@@ -1,15 +1,11 @@
 import styled from 'styled-components'
 import { Link } from 'gatsby'
 
-const Header = styled.div`
-  width: 100%;
-  display: flex;
+const Header = styled.header`
   justify-content: center;
   margin: 0;
-  padding: 0;
+  display: flex;
   background: var(--dark);
-  position: relative;
-  z-index: 10;
 `
 
 Header.NavItem = styled.div`
@@ -22,13 +18,6 @@ Header.NavItem = styled.div`
   &:hover a {
     color: white;
     border-bottom-color: var(--red);
-  }
-  &.login {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 100%;
   }
   &.logo a {
     border: none;
