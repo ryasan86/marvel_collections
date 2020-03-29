@@ -13,7 +13,7 @@ import { useCharacter } from '../graphql/CharactersHooks'
 import { useComicsByCharacter } from '../graphql/ComicsHooks'
 import { extractId } from '../utils'
 
-const CharacterComicsList = ({ charId, name }) => {
+const CharacterComicsList = ({ charId }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [page, setPage] = useState(1)
   const comics = useComicsByCharacter({ page, orderBy, charId })
@@ -23,56 +23,59 @@ const CharacterComicsList = ({ charId, name }) => {
     refetch()
   }, [page, orderBy])
 
-  if (loading || error) {
-    return (
+  const renderComicsList = () => {
+    return loading || error ? (
       <CharacterComics.PleaseWait
         error={error}
         loading={loading}
         loadingText="loading comics..."
       />
+    ) : (
+      <ItemsList
+        page={page}
+        setPage={setPage}
+        data={data.comicsByCharacter}
+        slug="/comics"
+      />
     )
   }
-
-  const { totalCount, edges } = data.comicsByCharacter
 
   return (
     <CharacterComics>
       <CharacterComics.H3>COMICS WITH {name.toUpperCase()}</CharacterComics.H3>
       <CharacterComics.SortBy setOrderBy={setOrderBy} slug="/comics" />
-      <CharacterComics.List>
-        <ItemsList
-          page={page}
-          setPage={setPage}
-          items={edges}
-          total={totalCount}
-          slug="/comics"
-        />
-      </CharacterComics.List>
+      <CharacterComics.List>{renderComicsList()}</CharacterComics.List>
     </CharacterComics>
   )
 }
 
-const CharacterDetailsInner = ({ id, thumbnail, description, name }) => (
-  <CharacterDetails>
-    <SEO title={name} />
-    <Banner bg={thumbnail}>
-      <Banner.BackgroundImage bg={thumbnail} />
-      <Banner.Image src={thumbnail} alt={name} />
-      <Banner.H1>{name}</Banner.H1>
-    </Banner>
-    <Description>
-      <Description.H3>DESCRIPTION</Description.H3>
-      <Description.P>{description || 'DESCRIPTION UNAVAILABLE'}</Description.P>
-    </Description>
-    <CharacterComicsList charId={id} name={name} />
-  </CharacterDetails>
-)
+const CharacterDetailsContent = ({ _character }) => {
+  const [character] = _character
+  const { id, thumbnail, description, name } = character.node
+
+  return (
+    <CharacterDetails>
+      <SEO title={name} />
+      <Banner bg={thumbnail}>
+        <Banner.BackgroundImage bg={thumbnail} />
+        <Banner.Image src={thumbnail} alt={name} />
+        <Banner.H1>{name}</Banner.H1>
+      </Banner>
+      <Description>
+        <Description.H3>DESCRIPTION</Description.H3>
+        <Description.P>
+          {description || 'DESCRIPTION UNAVAILABLE'}
+        </Description.P>
+      </Description>
+      <CharacterComicsList charId={id} />
+    </CharacterDetails>
+  )
+}
 
 const CharacterDetailsComponent = ({ location }) => {
   const { data, loading, error } = useCharacter({
     id: extractId(location.pathname)
   })
-  const character = data && data.character.edges[0].node
 
   return (
     <Layout>
@@ -83,7 +86,7 @@ const CharacterDetailsComponent = ({ location }) => {
           loadingText="loading character..."
         />
       ) : (
-        <CharacterDetailsInner {...character} />
+        <CharacterDetailsContent _character={data.character.edges} />
       )}
     </Layout>
   )

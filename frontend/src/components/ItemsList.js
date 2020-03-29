@@ -5,21 +5,22 @@ import Item from './Item'
 import Pagination from './Pagination'
 import { DelayMessage } from './common'
 
-const ItemsListComponent = ({ items, slug, page, setPage, total, loading }) => {
+const ItemsListComponent = ({ data, slug, page, setPage, loading }) => {
+  const { totalCount, edges } = data
   const itemType = slug.toUpperCase().slice(1)
 
-  if (items.length === 0) {
+  if (edges.length === 0) {
     return <DelayMessage text={`0 ${itemType} FOUND 😮`} />
   }
 
   return (
     <>
       <ItemsList>
-        {items.map(({ node }, i) => (
+        {edges.map(({ node }, i) => (
           <Item key={node.id} c={node} slug={slug}></Item>
         ))}
       </ItemsList>
-      <Pagination page={page} setPage={setPage} total={total} />
+      <Pagination page={page} setPage={setPage} total={totalCount} />
     </>
   )
 }

@@ -7,33 +7,31 @@ import { ListHeader } from '../components/common'
 import { useCharacters } from '../graphql/CharactersHooks'
 import { useComics } from '../graphql/ComicsHooks'
 
+const homePageLimit = 10
+
 const LatestComics = () => {
   const { data, error, loading } = useComics({
     page: 1,
     orderBy: '-modified',
-    limit: 10
+    limit: homePageLimit
   })
 
-  if (loading || error) {
-    return (
-      <Home.PleaseWait
-        loading={loading}
-        error={error}
-        loadingText="loading comics"
-      />
-    )
-  }
-
-  const { edges } = data.comics
-
-  return (
+  return loading || error ? (
+    <Home.PleaseWait
+      error={error}
+      loading={loading}
+      loadingText="loading comics"
+    />
+  ) : (
     <Home.Section>
       <ListHeader>RECENT ADDITIONS</ListHeader>
       <ItemsList
         slug="/comics"
         error={error}
-        items={edges}
-        total={10}
+        data={{
+          edges: data.comics.edges,
+          totalCount: homePageLimit
+        }}
         page={1}
       />
     </Home.Section>
@@ -44,29 +42,25 @@ const LatestCharacters = () => {
   const { data, error, loading } = useCharacters({
     page: 1,
     orderBy: '-modified',
-    limit: 10
+    limit: homePageLimit
   })
 
-  if (loading || error) {
-    return (
-      <Home.PleaseWait
-        loading={loading}
-        error={error}
-        loadingText="loading characters"
-      />
-    )
-  }
-
-  const { edges } = data.characters
-
-  return (
+  return loading || error ? (
+    <Home.PleaseWait
+      error={error}
+      loading={loading}
+      loadingText="loading characters"
+    />
+  ) : (
     <Home.Section>
       <ListHeader>LATEST CHARACTERS</ListHeader>
       <ItemsList
         slug="/characters"
         error={error}
-        items={edges}
-        total={10}
+        data={{
+          edges: data.characters.edges,
+          totalCount: homePageLimit
+        }}
         page={1}
       />
     </Home.Section>

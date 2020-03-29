@@ -14,8 +14,11 @@ import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 const CharactersInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
   const [page, setPage] = useState(1)
   const charactersPromise = search ? useCharactersByName : useCharacters
-  const characters = charactersPromise({ page, orderBy, search })
-  const { data, loading, error, refetch } = characters
+  const { data, loading, error, refetch } = charactersPromise({
+    page,
+    orderBy,
+    search
+  })
 
   useEffect(() => {
     refetch()
@@ -33,7 +36,7 @@ const CharactersInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
     )
   }
 
-  const { totalCount, edges } = search // prettier-ignore
+  const characters = search // prettier-ignore
     ? data.characterNameStartsWith
     : data.characters
 
@@ -42,15 +45,14 @@ const CharactersInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
       <CharactersList.Header>COMICS</CharactersList.Header>
       <Controls
         slug={slug}
-        total={totalCount}
+        total={characters.totalCount}
         setSearch={setSearch}
         setOrderBy={setOrderBy}
       />
       <ItemsList
+        data={characters}
         slug={slug}
         error={error}
-        items={edges}
-        total={totalCount}
         page={page}
         setPage={setPage}
       />
@@ -66,10 +68,10 @@ const Characters = ({ path: slug }) => {
     <Layout>
       <SEO title="Characters" />
       <CharactersInner
-        orderBy={orderBy}
-        search={search}
         slug={slug}
+        search={search}
         setSearch={setSearch}
+        orderBy={orderBy}
         setOrderBy={setOrderBy}
       />
     </Layout>

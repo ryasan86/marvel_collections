@@ -7,16 +7,17 @@ import ModalComponent from './Modal'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
 
-const ComicDetailsInner = ({
-  description,
-  modified,
-  prices,
-  thumbnail,
-  title,
-  toggleModal,
-  creators,
-  setTitle
-}) => {
+const ComicDetailsContent = ({ _comic, toggleModal, setTitle }) => {
+  const [comic] = _comic
+  const {
+    description,
+    modified,
+    prices,
+    thumbnail,
+    title,
+    creators
+  } = comic.node
+
   // prettier-ignore
   const info = [
       { label: 'Description', value: description || 'DESCRIPTION UNAVAILABLE' },
@@ -62,7 +63,6 @@ const ComicDetailsComponent = ({ location }) => {
   const { data, loading, error } = useComic({
     id: extractId(location.pathname)
   })
-  const comic = data && data.comic.edges[0].node
   const toggleModal = e => {
     if (!modalRef.current.contains(e.target)) {
       setIsVisible(prevState => !prevState)
@@ -90,8 +90,8 @@ const ComicDetailsComponent = ({ location }) => {
           loadingText="loading comic..."
         />
       ) : (
-        <ComicDetailsInner
-          {...comic}
+        <ComicDetailsContent
+          _comic={data.comic.edges}
           setTitle={setTitle}
           toggleModal={toggleModal}
         />

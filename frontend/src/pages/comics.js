@@ -14,8 +14,11 @@ import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
   const [page, setPage] = useState(1)
   const comicsPromise = search ? useComicsByTitle : useComics
-  const comics = comicsPromise({ page, orderBy, search })
-  const { data, loading, error, refetch } = comics
+  const { data, loading, error, refetch } = comicsPromise({
+    page,
+    orderBy,
+    search
+  })
 
   useEffect(() => {
     refetch()
@@ -33,7 +36,7 @@ const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
     )
   }
 
-  const { totalCount, edges } = search // prettier-ignore
+  const comics = search // prettier-ignore
     ? data.comicTitleStartsWith
     : data.comics
 
@@ -42,15 +45,14 @@ const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
       <ComicsList.Header>COMICS</ComicsList.Header>
       <Controls
         slug={slug}
-        total={totalCount}
+        total={comics.totalCount}
         setSearch={setSearch}
         setOrderBy={setOrderBy}
       />
       <ItemsList
         slug={slug}
         error={error}
-        items={edges}
-        total={totalCount}
+        data={comics}
         page={page}
         setPage={setPage}
       />
@@ -66,10 +68,10 @@ const Comics = ({ path: slug }) => {
     <Layout>
       <SEO title="Comics" />
       <ComicsInner
-        orderBy={orderBy}
-        search={search}
         slug={slug}
+        search={search}
         setSearch={setSearch}
+        orderBy={orderBy}
         setOrderBy={setOrderBy}
       />
     </Layout>

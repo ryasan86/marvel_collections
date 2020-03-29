@@ -23,7 +23,9 @@ const ModalItem = ({
     </Vendor>
     <Shop>
       <Shop.Price>{price}</Shop.Price>
-      <Shop.Button href={url} target="_blank˝">Purchase</Shop.Button>
+      <Shop.Button href={url} target="_blank˝">
+        Purchase
+      </Shop.Button>
     </Shop>
     <ComicImg>
       <ComicImg.Link href={url} target="_blank" rel="noopener noreferrer">
@@ -37,26 +39,26 @@ const ModalComponent = ({ isVisible, title, modalRef }) => {
   const { data, loading, error } = useShopForComic({ title })
   const empty = data && data.shopForComic.length === 0
 
-  const renderContent = () => {
-    return loading || error ? (
-      <Modal.PleaseWait
-        error={error}
-        loading={loading}
-        modalRef={modalRef}
-        loadingText="searching"
-      />
-    ) : empty ? (
-      <Modal.DelayMessage modalRef={modalRef} text="0 VENDORS FOUND 😮" />
-    ) : (
-      <Modal.Inner ref={modalRef}>
-        {data.shopForComic.map((props, i) => (
-          <ModalItem key={i} {...props} />
-        ))}
-      </Modal.Inner>
-    )
-  }
-
-  return <Modal isVisible={isVisible}>{renderContent()}</Modal>
+  return (
+    <Modal isVisible={isVisible}>
+      {loading || error ? (
+        <Modal.PleaseWait
+          error={error}
+          loading={loading}
+          modalRef={modalRef}
+          loadingText="searching"
+        />
+      ) : empty ? (
+        <Modal.DelayMessage modalRef={modalRef} text="0 VENDORS FOUND 😮" />
+      ) : (
+        <Modal.Inner ref={modalRef}>
+          {data.shopForComic.map((props, i) => (
+            <ModalItem key={i} {...props} />
+          ))}
+        </Modal.Inner>
+      )}
+    </Modal>
+  )
 }
 
 export default ModalComponent
