@@ -5,7 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 import Main from '../styles/MainStyles'
 import { CityBG, MeshPattern } from '../images'
-// import { GithubCornerIcon } from './GithubCorner'
+import { GithubCornerIcon } from './GithubCorner'
 
 const Layout = styled.div`
   height: 100%;
@@ -22,7 +22,7 @@ const Layout = styled.div`
 const LayoutComponent = ({ children }) => (
   <Layout>
     <Header />
-    {/* <GithubCornerIcon /> */}
+    <GithubCornerIcon />
     <Main>{children}</Main>
     <Footer />
   </Layout>

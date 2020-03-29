@@ -1,0 +1,32 @@
+[
+  {
+    "vendor": "comixology",
+    "title": "Taskmaster (2020) #3 (of 5) - Comics by comiXology",
+    "price": "$3.99",
+    "image": "https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/Item/851516/851516._SX400_QL80_TTD_.jpg",
+    "description": "TARGET: AMI HAN! Taskmaster’s journey to clear his name brings him to South Korea’s national super human espionage agency! But before he can target Director Han, he’ll have to go toe-to-toe with the White Fox!",
+    "url": "https://www.comixology.com/Taskmaster-2020-3-of-5/digital-comic/851516?ref=c2VhcmNoL2luZGV4L2Rlc2t0b3Avc2xpZGVyTGlzdC90b3BSZXN1bHRzU2xpZGVy",
+    "favicon": "https://m.media-amazon.com/images/G/01/Comics/web/i/assets/cmx/imgs/favicon.ico?v=3",
+    "__typename": "ComicVendorInfo"
+  },
+  {
+    "vendor": "comixology",
+    "title": "Taskmaster (2002) #1 (of 4) - Comics by comiXology",
+    "price": "$1.99",
+    "image": "https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/Item/719464/719464._SX400_QL80_TTD_.jpg",
+    "description": "Taskmaster is under the employ of Iron Man’s on/off foe, Sunset Bain! While working for this “Madame Menace”, Taskmaster pulls off corporate sabotage on Stark Industries…bringing him into direct contact with Tony Stark!",
+    "url": "https://www.comixology.com/Taskmaster-2002-1-of-4/digital-comic/719464?ref=c2VhcmNoL2luZGV4L2Rlc2t0b3Avc2xpZGVyTGlzdC90b3BSZXN1bHRzU2xpZGVy",
+    "favicon": "https://m.media-amazon.com/images/G/01/Comics/web/i/assets/cmx/imgs/favicon.ico?v=3",
+    "__typename": "ComicVendorInfo"
+  },
+  {
+    "vendor": "comixology",
+    "title": "Taskmaster: Unthinkable - Comics by comiXology",
+    "price": "$6.99",
+    "image": "https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/Item/697765/697765._SX400_QL80_TTD_.jpg",
+    "description": "Collects Taskmaster #1-4 and material from Age of Heroes #3.\n \n Taskmaster has trained henchmen for every terrorist organization and criminal cartel in the Marvel Universe. So when the rumor starts that he\"s turned traitor and now works for Steve Rogers, a billion-dollar bounty is put on his head. Now, every cadre of costumed fanatics - A.I.M., Hydra, Ultimatum, the Sons of the Serpent and more - is looking to collect. Taskmaster must fight hordes upon hordes of his psychopathic students while at the same time uncovering who framed him - which requires him figuring out who he really is! That\"s right, the man with the photographic reflexes has no memory of his true identity - and you\"ll learn the unexpected truth along with him! The action-packed secret origin comes courtesy of New York Times bestselling writer Fred Van Lente (AMAZING SPIDER-MAN) and acclaimed artist Jefte Paolo (DOCTOR VOODOO)!",
+    "url": "https://www.comixology.com/Taskmaster-Unthinkable/digital-comic/697765?ref=c2VhcmNoL2luZGV4L2Rlc2t0b3Avc2xpZGVyTGlzdC90b3BSZXN1bHRzU2xpZGVy",
+    "favicon": "https://m.media-amazon.com/images/G/01/Comics/web/i/assets/cmx/imgs/favicon.ico?v=3",
+    "__typename": "ComicVendorInfo"
+  }
+]

@@ -35,7 +35,7 @@ const ModalItem = ({
   </Modal.Item>
 )
 
-const ModalComponent = ({ isVisible, title, modalRef }) => {
+const ModalComponent = ({ isVisible, title, modalRef, toggleModal }) => {
   const { data, loading, error } = useShopForComic({ title })
   const empty = data && data.shopForComic.length === 0
 
@@ -49,13 +49,17 @@ const ModalComponent = ({ isVisible, title, modalRef }) => {
           loadingText="searching"
         />
       ) : empty ? (
-        <Modal.DelayMessage modalRef={modalRef} text="0 VENDORS FOUND 😮" />
+        <Modal.DelayMessage text="0 VENDORS FOUND 😮" />
       ) : (
-        <Modal.Inner ref={modalRef}>
-          {data.shopForComic.map((props, i) => (
-            <ModalItem key={i} {...props} />
-          ))}
-        </Modal.Inner>
+        <Modal.Content>
+          <Modal.Header>Search Results</Modal.Header>
+          <Modal.CloseBtn />
+          <Modal.Inner ref={modalRef}>
+            {data.shopForComic.map((props, i) => (
+              <ModalItem key={i} {...props} />
+            ))}
+          </Modal.Inner>
+        </Modal.Content>
       )}
     </Modal>
   )

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import PleaseWait from '../components/PleaseWait'
-import { DelayMessage } from '../components/common'
+import { DelayMessage, ListHeader } from '../components/common'
 
 const Modal = styled.div`
   background: transparent;
@@ -8,34 +8,74 @@ const Modal = styled.div`
   height: 100%;
   position: fixed;
   top: 0;
-  z-index: 9999;
   justify-content: center;
   align-items: center;
   display: flex;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
   position: fixed;
-  left: ${props => (props.isVisible ? '0' : '-100%')};
-  opacity: ${props => (props.isVisible ? '100%' : '60%')};
+  background: rgba(0, 0, 0, 0.7);
+  z-index: ${props => (props.isVisible ? '9999' : '-1')};
+  opacity: ${props => (props.isVisible ? '100%' : '0')};
+`
+
+Modal.Header = styled(ListHeader)`
+  background: #555;
+  box-shadow: none;
 `
 
 Modal.PleaseWait = PleaseWait
 Modal.DelayMessage = DelayMessage
 
+Modal.Content = styled.div`
+  position: absolute;
+`
+
+Modal.CloseBtn = styled.button`
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  border-radius: 50%;
+  top: -2rem;
+  right: -2rem;
+  background: black;
+  border: 3px solid white;
+  cursor: pointer;
+  transform: rotate(45deg);
+  outline: none;
+  &:before {
+    content: '';
+    width: 0.3rem;
+    height: 2.5rem;
+    background: white;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  &:after {
+    content: '';
+    width: 2.5rem;
+    height: 0.3rem;
+    background: white;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+`
+
 Modal.Inner = styled.ul`
-  width: var(--max-width);
-  background: white;
+  width: 100%;
   max-height: 60rem;
+  max-width: 1100px;
+  background: white;
+  position: relative;
   overflow-y: scroll;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
 `
 
 Modal.Item = styled.li`
   display: flex;
-  align-items: center;
   height: 15rem;
   padding: 2rem 0 2rem 2rem;
-  border-left: 1.2rem solid var(--gray);
-  border-bottom: 2px solid var(--gray);
+  border-left: 1.2rem solid #555;
+  border-bottom: 2px solid #555;
   overflow-y: hidden;
   &:last-child {
     border-bottom: none;
@@ -43,7 +83,7 @@ Modal.Item = styled.li`
 `
 
 const Text = styled.div`
-  width: 50%;
+  width: 65%;
 `
 
 Text.Link = styled.a`
@@ -66,9 +106,10 @@ Text.Description = styled.p`
 `
 
 const Vendor = styled.div`
-  width: 7.5rem;
+  width: 10%;
   display: flex;
   justify-content: center;
+  align-items: center;
 `
 
 Vendor.Img = styled.img`
@@ -111,7 +152,7 @@ Shop.Button = styled.a`
 `
 
 const ComicImg = styled.div`
-  width: 25rem;
+  width: 10%;
   height: 100%;
 `
 
