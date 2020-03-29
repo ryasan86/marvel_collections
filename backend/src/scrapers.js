@@ -8,16 +8,17 @@ const scrapers = {
   shop: async ({ store, title }) => {
     const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
     const page = await browser.newPage()
-
+    // navigate to vendor site
     await page.goto(store)
-
+    // search for comic book
     await page.type('[name=search]', optimizeTerm(title))
-    await page.keyboard.press('Enter')
 
+    await page.keyboard.press('Enter')
+    // find comic in search results
     const resultsFound = await page
       .waitForSelector('.topResults', { visible: true })
       .catch(handleError)
-
+    // get list of urls to comic details page
     if (resultsFound) {
       const urls = await page.evaluate(() => {
         const topResults = document.querySelector('.topResults')
@@ -33,12 +34,11 @@ const scrapers = {
 
         return _urls
       })
-
+      // go to each url and collect fields
       const requests = urls.map(async (comicUrl, i) => {
         const res = await fetch(comicUrl)
         const html = await res.text()
         const $ = cheerio.load(html)
-
         const getMetaTag = name => {
           return (
             $(`meta[name="${name}"]`).attr('content') ||
