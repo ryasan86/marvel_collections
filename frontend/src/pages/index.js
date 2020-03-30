@@ -20,7 +20,7 @@ const LatestComics = () => {
     <Home.PleaseWait
       error={error}
       loading={loading}
-      loadingText="loading comics"
+      loadingText="loading comics..."
     />
   ) : (
     <Home.Section>
@@ -49,7 +49,7 @@ const LatestCharacters = () => {
     <Home.PleaseWait
       error={error}
       loading={loading}
-      loadingText="loading characters"
+      loadingText="loading characters..."
     />
   ) : (
     <Home.Section>

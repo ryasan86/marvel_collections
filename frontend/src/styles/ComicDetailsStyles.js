@@ -13,9 +13,11 @@ const ComicDetails = styled.div`
   overflow: hidden;
 `
 
-ComicDetails.PleaseWait = styled(PleaseWait)`
-  background: black;
+ComicDetails.PleaseWaitContainer = styled.div`
+  margin: 5rem 0;
 `
+
+ComicDetails.PleaseWait = PleaseWait
 
 ComicDetails.BackgroundImage = BackgroundImage
 

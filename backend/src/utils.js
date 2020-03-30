@@ -56,9 +56,9 @@ const getFuzzyMatches = async ({ items, matchMe }) => {
     findAllMatches: true,
     includeScore: true
   })
-  const fuzzyMatches = fuse.search(matchMe).map(fuzzy => fuzzy.item)
+  const edges = fuse.search(matchMe).map(fuzzy => ({ node: fuzzy.item }))
 
-  return fuzzyMatches
+  return { edges, totalCount: edges.length }
 }
 
 // prettier-ignore

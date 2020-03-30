@@ -10,7 +10,7 @@ const ItemsListComponent = ({ data, slug, page, setPage, loading }) => {
   const itemType = slug.toUpperCase().slice(1)
 
   if (edges.length === 0) {
-    return <DelayMessage text={`0 ${itemType} FOUND 😮`} />
+    return <DelayMessage text={`0 ${itemType} found 😮`} />
   }
 
   return (

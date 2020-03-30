@@ -59,13 +59,18 @@ export const COMICS_BY_CHARACTER = gql`
 export const SHOP_FOR_COMIC = gql`
   query shopForComic($title: String!) {
     shopForComic(title: $title) {
-      vendor
-      title
-      price
-      image
-      description
-      url,
-      favicon
+      totalCount
+      edges {
+        node {
+          vendor
+          title
+          price
+          image
+          description
+          url
+          favicon
+        }
+      }
     }
   }
 `

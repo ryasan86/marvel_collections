@@ -1,32 +1,59 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState, createContext, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import Layout from '../styles/LayoutStyles'
+import ModalContent from './Modal'
 import Header from './Header'
 import Footer from './Footer'
 import Main from '../styles/MainStyles'
-import { CityBG, MeshPattern } from '../images'
+import { ModalOverlay } from '../styles/ModalStyles'
 import { GithubCornerIcon } from './GithubCorner'
 
-const Layout = styled.div`
-  height: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-image: url(${CityBG}), url(${MeshPattern});
-  background-repeat: no-repeat, repeat;
-  background-size: contain, initial;
-  background-position: center -20%, left top;
-  background-attachment: fixed, fixed;
-`
+export const LocalState = createContext({
+  shopForTitle: null,
+  setShopForTitle: null,
+  modalOpen: null,
+  toggleModal: null
+})
 
-const LayoutComponent = ({ children }) => (
-  <Layout>
-    <Header />
-    <GithubCornerIcon />
-    <Main>{children}</Main>
-    <Footer />
-  </Layout>
-)
+const LayoutComponent = ({ children }) => {
+  const modalRef = useRef(null)
+  const [shopForTitle, setShopForTitle] = useState(null)
+  const [modalOpen, toggleModal] = useState(false)
+
+  const _toggleModal = e => {
+    if (!modalRef.current.contains(e.target)) {
+      toggleModal(prevState => !prevState)
+    }
+  }
+
+  useEffect(() => {
+    if (modalOpen) document.addEventListener('click', _toggleModal)
+    return () => document.removeEventListener('click', _toggleModal)
+  }, [modalOpen])
+
+  const value = { shopForTitle, setShopForTitle, modalOpen, _toggleModal }
+
+  return (
+    <LocalState.Provider value={value}>
+      <Layout>
+        <Layout.Inner modalOpen={modalOpen}>
+          <Header />
+          <Main>{children}</Main>
+          <Footer />
+        </Layout.Inner>
+        <ModalOverlay modalOpen={modalOpen} />
+        {shopForTitle && (
+          <ModalContent
+            modalRef={modalRef}
+            modalOpen={modalOpen}
+            shopForTitle={shopForTitle}
+          />
+        )}
+      </Layout>
+      <GithubCornerIcon />
+    </LocalState.Provider>
+  )
+}
 
 LayoutComponent.propTypes = {
   children: PropTypes.node.isRequired

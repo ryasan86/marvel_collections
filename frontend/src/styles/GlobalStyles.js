@@ -74,7 +74,7 @@ const StyledHtml = css`
 
   ::-webkit-scrollbar-thumb {
     background: var(--off-white);
-    border-radius: 1rem;
+    border-radius: 0 0 1rem 1rem;
   }
 
   ::-webkit-scrollbar-thumb:hover {

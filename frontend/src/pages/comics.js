@@ -19,7 +19,6 @@ const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
     orderBy,
     search
   })
-
   useEffect(() => {
     refetch()
   }, [page, orderBy, search])
@@ -30,7 +29,7 @@ const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
         <PleaseWait
           loading={loading}
           error={error}
-          loadingText="loading comics"
+          loadingText="loading comics..."
         />
       </ComicsList.PleaseWaitContainer>
     )

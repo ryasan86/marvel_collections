@@ -27,7 +27,7 @@ GithubCorner.SVG = styled.svg`
   top: 0;
   border: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 4;
 `
 
 export const GithubCornerIcon = () => (

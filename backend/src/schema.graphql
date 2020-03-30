@@ -14,7 +14,7 @@ type Query {
     search: String
   ): ComicConnection!
   comicsByCharacter(page: Int, orderBy: String, charId: ID!): ComicConnection!
-  shopForComic(title: String!): [ComicVendorInfo!]!
+  shopForComic(title: String!): ComicVendorInfoConnection
 }
 
 type Mutation {
@@ -92,4 +92,13 @@ type ComicVendorInfo {
   description: String
   url: String
   favicon: String
+}
+
+type ComicVendorInfoEdge {
+  node: ComicVendorInfo
+}
+
+type ComicVendorInfoConnection {
+  totalCount: Int
+  edges: [ComicVendorInfoEdge!]!
 }

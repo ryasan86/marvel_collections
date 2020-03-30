@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PleaseWait from '../components/PleaseWait'
 import { MaxWidth, ListHeader } from '../components/common'
 
 const CharactersList = styled(MaxWidth)`
@@ -10,5 +11,7 @@ CharactersList.Header = ListHeader
 CharactersList.PleaseWaitContainer = styled.div`
   margin: 5rem 0;
 `
+
+CharactersList.PleaseWait = PleaseWait
 
 export default CharactersList

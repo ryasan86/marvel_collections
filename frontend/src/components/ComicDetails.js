@@ -1,32 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import moment from 'moment'
-import Layout from './Layout'
+import Layout, { LocalState } from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
 import SEO from './SEO'
-import ModalComponent from './Modal'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
 
-const ComicDetailsContent = ({ _comic, toggleModal, setTitle }) => {
-  const [comic] = _comic
-  const {
-    description,
-    modified,
-    prices,
-    thumbnail,
-    title,
-    creators
-  } = comic.node
+const ComicDetailsContent = ({ comic }) => {
+  const [_comic] = comic
+  const { description, modified, prices, thumbnail, title, creators } = _comic.node // prettier-ignore
+  const { setShopForTitle, _toggleModal } = useContext(LocalState)
 
   // prettier-ignore
   const info = [
-      { label: 'Description', value: description || 'DESCRIPTION UNAVAILABLE' },
-      { label: 'Last Modified', value: moment(modified).format('LL') },
-      { label: 'Price', value: prices.map(p => `${uncamel(p.type)} ${p.price}`).join(', ') }
-    ]
+    { label: 'Description', value: description || 'DESCRIPTION UNAVAILABLE' },
+    { label: 'Last Modified', value: moment(modified).format('LL') },
+    { label: 'Price', value: prices.map(p => `${uncamel(p.type)} ${p.price}`).join(', ') }
+  ]
 
   useEffect(() => {
-    setTitle(title)
+    setShopForTitle(title)
   }, [title])
 
   return (
@@ -36,7 +29,7 @@ const ComicDetailsContent = ({ _comic, toggleModal, setTitle }) => {
       <ComicDetails.Content>
         <ComicDetails.ImageContainer>
           <img src={thumbnail} alt={title} />
-          <button onClick={toggleModal}>Shop</button>
+          <button onClick={_toggleModal}>Shop</button>
         </ComicDetails.ImageContainer>
         <ComicDetails.TextContainer>
           <ComicDetails.Header>
@@ -57,44 +50,22 @@ const ComicDetailsContent = ({ _comic, toggleModal, setTitle }) => {
 }
 
 const ComicDetailsComponent = ({ location }) => {
-  const modalRef = useRef(null)
-  const [title, setTitle] = useState(null)
-  const [isVisible, setIsVisible] = useState(false)
   const { data, loading, error } = useComic({
     id: extractId(location.pathname)
   })
-  const toggleModal = e => {
-    if (!modalRef.current.contains(e.target)) {
-      setIsVisible(prevState => !prevState)
-    }
-  }
-
-  useEffect(() => {
-    if (isVisible) document.addEventListener('click', toggleModal)
-    return () => document.removeEventListener('click', toggleModal)
-  }, [isVisible])
 
   return (
     <Layout>
-      {title && (
-        <ModalComponent
-          title={title}
-          modalRef={modalRef}
-          isVisible={isVisible}
-        />
-      )}
       {loading || error ? (
-        <ComicDetails.PleaseWait
-          error={error}
-          loading={loading}
-          loadingText="loading comic..."
-        />
+        <ComicDetails.PleaseWaitContainer>
+          <ComicDetails.PleaseWait
+            error={error}
+            loading={loading}
+            loadingText="loading comic..."
+          />
+        </ComicDetails.PleaseWaitContainer>
       ) : (
-        <ComicDetailsContent
-          _comic={data.comic.edges}
-          setTitle={setTitle}
-          toggleModal={toggleModal}
-        />
+        <ComicDetailsContent comic={data.comic.edges} />
       )}
     </Layout>
   )

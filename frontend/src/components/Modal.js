@@ -35,31 +35,32 @@ const ModalItem = ({
   </Modal.Item>
 )
 
-const ModalComponent = ({ isVisible, title, modalRef, toggleModal }) => {
-  const { data, loading, error } = useShopForComic({ title })
-  const empty = data && data.shopForComic.length === 0
+const ModalComponent = ({ modalRef, modalOpen, shopForTitle }) => {
+  const { data, loading, error } = useShopForComic({ title: shopForTitle })
+  const totalCount = data && data.shopForComic.totalCount
 
   return (
-    <Modal isVisible={isVisible}>
-      {loading || error ? (
+    <Modal modalOpen={modalOpen}>
+      {loading || error || totalCount === 0 ? (
         <Modal.PleaseWait
           error={error}
           loading={loading}
           modalRef={modalRef}
-          loadingText="searching"
+          loadingText="searching..."
+          emptyText="0 vendors found 😮"
         />
-      ) : empty ? (
-        <Modal.DelayMessage text="0 VENDORS FOUND 😮" />
       ) : (
-        <Modal.Content>
-          <Modal.Header>Search Results</Modal.Header>
+        <Modal.Inner>
           <Modal.CloseBtn />
-          <Modal.Inner ref={modalRef}>
-            {data.shopForComic.map((props, i) => (
-              <ModalItem key={i} {...props} />
+          <Modal.ItemsList ref={modalRef}>
+            <Modal.Header>
+              <span>Found {totalCount} Comics</span>
+            </Modal.Header>
+            {data.shopForComic.edges.map(({ node }, i) => (
+              <ModalItem key={i} {...node} />
             ))}
-          </Modal.Inner>
-        </Modal.Content>
+          </Modal.ItemsList>
+        </Modal.Inner>
       )}
     </Modal>
   )

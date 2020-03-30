@@ -7,7 +7,6 @@ import CharactersList from '../styles/CharactersPageStyles'
 import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
 import CharacterDetails from '../components/CharacterDetails'
-import PleaseWait from '../components/PleaseWait'
 import { sortMap } from '../components/SortBy'
 import { useCharacters, useCharactersByName } from '../graphql/CharactersHooks'
 
@@ -27,10 +26,10 @@ const CharactersInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
   if (loading || error) {
     return (
       <CharactersList.PleaseWaitContainer>
-        <PleaseWait
+        <CharactersList.PleaseWait
           loading={loading}
           error={error}
-          loadingText="loading characters"
+          loadingText="loading characters..."
         />
       </CharactersList.PleaseWaitContainer>
     )
