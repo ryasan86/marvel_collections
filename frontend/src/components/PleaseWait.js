@@ -1,19 +1,21 @@
 import React from 'react'
-import { DelayMessage } from './common'
 import ErrorBoundary from './ErrorBoundary'
+import { DelayMessage } from './common'
 
 const PleaseWaitComponent = props => {
-  const { loading, error, loadingText, modalRef, emptyText } = props
+  const { loading, error, loadingText, modalRef, className } = props
 
-  if (loading) {
-    return <DelayMessage modalRef={modalRef} text={loadingText} />
-  }
-
-  if (error) {
-    return <ErrorBoundary error={error} modalRef={modalRef} />
-  }
-
-  return <DelayMessage modalRef={modalRef} text={emptyText} />
+  return (
+    <div className={className}>
+      {loading ? (
+        <DelayMessage modalRef={modalRef} text={loadingText} />
+      ) : error ? (
+        <ErrorBoundary error={error} modalRef={modalRef} />
+      ) : (
+        ''
+      )}
+    </div>
+  )
 }
 
 export default PleaseWaitComponent

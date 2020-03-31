@@ -8,10 +8,8 @@ const CharactersList = styled(MaxWidth)`
 
 CharactersList.Header = ListHeader
 
-CharactersList.PleaseWaitContainer = styled.div`
+CharactersList.PleaseWait = styled(PleaseWait)`
   margin: 5rem 0;
 `
-
-CharactersList.PleaseWait = PleaseWait
 
 export default CharactersList

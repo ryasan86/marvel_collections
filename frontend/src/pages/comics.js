@@ -7,7 +7,6 @@ import ComicsList from '../styles/ComicsPageStyles'
 import Controls from '../components/Controls'
 import ItemsList from '../components/ItemsList'
 import ComicDetails from '../components/ComicDetails'
-import PleaseWait from '../components/PleaseWait'
 import { sortMap } from '../components/SortBy'
 import { useComics, useComicsByTitle } from '../graphql/ComicsHooks'
 
@@ -19,19 +18,18 @@ const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
     orderBy,
     search
   })
+
   useEffect(() => {
     refetch()
   }, [page, orderBy, search])
 
   if (loading || error) {
     return (
-      <ComicsList.PleaseWaitContainer>
-        <PleaseWait
-          loading={loading}
-          error={error}
-          loadingText="loading comics..."
-        />
-      </ComicsList.PleaseWaitContainer>
+      <ComicsList.PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading comics..."
+      />
     )
   }
 

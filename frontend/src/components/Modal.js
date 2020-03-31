@@ -41,7 +41,7 @@ const ModalComponent = ({ modalRef, modalOpen, shopForTitle }) => {
 
   return (
     <Modal modalOpen={modalOpen}>
-      {loading || error || totalCount === 0 ? (
+      {loading || error ? (
         <Modal.PleaseWait
           error={error}
           loading={loading}
@@ -49,6 +49,8 @@ const ModalComponent = ({ modalRef, modalOpen, shopForTitle }) => {
           loadingText="searching..."
           emptyText="0 vendors found 😮"
         />
+      ) : totalCount === 0 ? (
+        <Modal.DelayMessage modalRef={modalRef} text="0 vendors found 😮" />
       ) : (
         <Modal.Inner>
           <Modal.CloseBtn />

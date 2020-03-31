@@ -57,13 +57,11 @@ const ComicDetailsComponent = ({ location }) => {
   return (
     <Layout>
       {loading || error ? (
-        <ComicDetails.PleaseWaitContainer>
-          <ComicDetails.PleaseWait
-            error={error}
-            loading={loading}
-            loadingText="loading comic..."
-          />
-        </ComicDetails.PleaseWaitContainer>
+        <ComicDetails.PleaseWait
+          error={error}
+          loading={loading}
+          loadingText="loading comic..."
+        />
       ) : (
         <ComicDetailsContent comic={data.comic.edges} />
       )}

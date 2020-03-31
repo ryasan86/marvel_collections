@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { MaxWidth, ListHeader } from '../components/common'
+import PleaseWait from '../components/PleaseWait'
 
 const ComicsList = styled(MaxWidth)`
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
@@ -7,7 +8,7 @@ const ComicsList = styled(MaxWidth)`
 
 ComicsList.Header = ListHeader
 
-ComicsList.PleaseWaitContainer = styled.div`
+ComicsList.PleaseWait = styled(PleaseWait)`
   margin: 5rem 0;
 `
 

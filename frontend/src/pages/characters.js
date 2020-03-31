@@ -25,13 +25,11 @@ const CharactersInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
 
   if (loading || error) {
     return (
-      <CharactersList.PleaseWaitContainer>
-        <CharactersList.PleaseWait
-          loading={loading}
-          error={error}
-          loadingText="loading characters..."
-        />
-      </CharactersList.PleaseWaitContainer>
+      <CharactersList.PleaseWait
+        loading={loading}
+        error={error}
+        loadingText="loading characters..."
+      />
     )
   }
 
