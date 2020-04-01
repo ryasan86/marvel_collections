@@ -5,7 +5,7 @@ import {
   COMIC_TITLE_STARTS_WITH,
   COMICS_BY_CHARACTER,
   SHOP_FOR_COMIC
-} from './ComicsQuery'
+} from './ComicsGQL'
 
 export const useComics = ({ page, orderBy, limit }) => {
   return useQuery(COMICS, {

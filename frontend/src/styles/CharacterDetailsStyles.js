@@ -17,7 +17,9 @@ const CharacterDetails = styled(MaxWidth)`
   }
 `
 
-CharacterDetails.PleaseWait = PleaseWait
+CharacterDetails.PleaseWait = styled(PleaseWait)`
+  margin: 5rem 0;
+`
 
 const Banner = styled.section`
   width: 100%;

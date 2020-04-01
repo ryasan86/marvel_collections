@@ -1,15 +1,20 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
-import Layout, { LocalState } from './Layout'
+import Layout from './Layout'
 import ComicDetails from '../styles/ComicDetailsStyles'
 import SEO from './SEO'
 import { useComic } from '../graphql/ComicsHooks'
 import { uncamel, extractId, capitalize } from '../utils'
+import {
+  useSetShopForTitleMutation,
+  useToggleModalMutation
+} from '../graphql/LocalStateHooks'
 
 const ComicDetailsContent = ({ comic }) => {
   const [_comic] = comic
   const { description, modified, prices, thumbnail, title, creators } = _comic.node // prettier-ignore
-  const { setShopForTitle, _toggleModal } = useContext(LocalState)
+  const [setShopForTitle] = useSetShopForTitleMutation({ shopForTitle: title })
+  const [toggleModal] = useToggleModalMutation()
 
   // prettier-ignore
   const info = [
@@ -19,7 +24,7 @@ const ComicDetailsContent = ({ comic }) => {
   ]
 
   useEffect(() => {
-    setShopForTitle(title)
+    setShopForTitle({ shopForTitle: title })
   }, [title])
 
   return (
@@ -29,7 +34,7 @@ const ComicDetailsContent = ({ comic }) => {
       <ComicDetails.Content>
         <ComicDetails.ImageContainer>
           <img src={thumbnail} alt={title} />
-          <button onClick={_toggleModal}>Shop</button>
+          <button onClick={toggleModal}>Shop</button>
         </ComicDetails.ImageContainer>
         <ComicDetails.TextContainer>
           <ComicDetails.Header>

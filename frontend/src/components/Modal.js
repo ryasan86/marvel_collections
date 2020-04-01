@@ -47,7 +47,6 @@ const ModalComponent = ({ modalRef, modalOpen, shopForTitle }) => {
           loading={loading}
           modalRef={modalRef}
           loadingText="searching..."
-          emptyText="0 vendors found 😮"
         />
       ) : totalCount === 0 ? (
         <Modal.DelayMessage modalRef={modalRef} text="0 vendors found 😮" />

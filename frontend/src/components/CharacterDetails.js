@@ -13,7 +13,7 @@ import { useCharacter } from '../graphql/CharactersHooks'
 import { useComicsByCharacter } from '../graphql/ComicsHooks'
 import { extractId } from '../utils'
 
-const CharacterComicsList = ({ charId }) => {
+const CharacterComicsList = ({ charId, name }) => {
   const [orderBy, setOrderBy] = useState(sortMap.comics.ascending_alpha)
   const [page, setPage] = useState(1)
   const comics = useComicsByCharacter({ page, orderBy, charId })
@@ -23,28 +23,26 @@ const CharacterComicsList = ({ charId }) => {
     refetch()
   }, [page, orderBy])
 
-  const renderComicsList = () => {
-    return loading || error ? (
-      <CharacterComics.PleaseWait
-        error={error}
-        loading={loading}
-        loadingText="loading comics..."
-      />
-    ) : (
-      <ItemsList
-        page={page}
-        setPage={setPage}
-        data={data.comicsByCharacter}
-        slug="/comics"
-      />
-    )
-  }
-
   return (
     <CharacterComics>
       <CharacterComics.H3>COMICS WITH {name.toUpperCase()}</CharacterComics.H3>
       <CharacterComics.SortBy setOrderBy={setOrderBy} slug="/comics" />
-      <CharacterComics.List>{renderComicsList()}</CharacterComics.List>
+      <CharacterComics.List>
+        {loading || error ? (
+          <CharacterComics.PleaseWait
+            error={error}
+            loading={loading}
+            loadingText="loading comics..."
+          />
+        ) : (
+          <ItemsList
+            page={page}
+            setPage={setPage}
+            data={data.comicsByCharacter}
+            slug="/comics"
+          />
+        )}
+      </CharacterComics.List>
     </CharacterComics>
   )
 }
@@ -67,7 +65,7 @@ const CharacterDetailsContent = ({ _character }) => {
           {description || 'DESCRIPTION UNAVAILABLE'}
         </Description.P>
       </Description>
-      <CharacterComicsList charId={id} />
+      <CharacterComicsList charId={id} name={name} />
     </CharacterDetails>
   )
 }
