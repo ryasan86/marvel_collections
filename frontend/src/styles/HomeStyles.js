@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import PleaseWait from '../components/PleaseWait'
-import { MaxWidth } from '../components/common'
+import { MaxWidth } from '../styles/shared'
 
 const Home = styled(MaxWidth)`
   background: transparent;

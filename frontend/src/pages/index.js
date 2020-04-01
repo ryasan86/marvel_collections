@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import Home from '../styles/HomeStyles'
 import ItemsList from '../components/ItemsList'
-import { ListHeader } from '../components/common'
+import { ListHeader } from '../styles/shared'
 import { useCharacters } from '../graphql/CharactersHooks'
 import { useComics } from '../graphql/ComicsHooks'
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import PleaseWait from '../components/PleaseWait'
-import { DelayMessage, ListHeader } from '../components/common'
+import PleaseWait, { DelayMessage } from '../components/PleaseWait'
+import { ListHeader } from '../styles/shared'
 
 const ModalOverlay = styled.div`
   width: 100%;

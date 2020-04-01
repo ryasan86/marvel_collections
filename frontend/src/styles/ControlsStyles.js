@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Row, Input } from '../components/common'
+import { Row } from '../styles/shared'
 
 const Controls = styled.div`
   font-size: var(--regular-font);
@@ -22,7 +22,7 @@ Controls.Image = styled.img`
   padding: 1rem;
 `
 
-Controls.Input = styled(Input)`
+Controls.Input = styled.input`
   width: 50%;
   outline: none;
   border: none;

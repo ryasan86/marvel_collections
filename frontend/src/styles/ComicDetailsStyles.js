@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { BackgroundImage } from '../components/common'
 import PleaseWait from '../components/PleaseWait'
+import { BackgroundImage } from '../styles/shared'
 
 const ComicDetails = styled.div`
   flex: 1 1 auto;

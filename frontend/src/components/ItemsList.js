@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ItemsList from '../styles/ItemsListStyles'
 import Item from './Item'
 import Pagination from './Pagination'
-import { DelayMessage } from './common'
+import { DelayMessage } from './PleaseWait'
 
 const ItemsListComponent = ({ data, slug, page, setPage, loading }) => {
   const { totalCount, edges } = data

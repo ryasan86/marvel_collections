@@ -17,6 +17,14 @@ const Total = ({ children }) => {
 const ControlsComponent = ({ setSearch, total, setOrderBy, slug }) => {
   const [input, setInput] = useState('')
 
+  const handleChange = e => {
+    setInput(e.target.value)
+  }
+
+  const handleEnterPress = e => {
+    if (e.key === 'Enter') setSearch(input)
+  }
+
   return (
     <Controls>
       <Controls.Row className="top">
@@ -25,8 +33,8 @@ const ControlsComponent = ({ setSearch, total, setOrderBy, slug }) => {
           type="text"
           placeholder="SEARCH"
           value={input}
-          onChange={setInput}
-          onKeyPress={setSearch}
+          onChange={handleChange}
+          onKeyPress={handleEnterPress}
         />
       </Controls.Row>
       <Controls.Row>

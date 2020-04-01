@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import SortByComponent from '../components/SortBy'
 import PleaseWait from '../components/PleaseWait'
-import { BackgroundImage, MaxWidth } from '../components/common'
+import { MaxWidth, BackgroundImage } from '../styles/shared'
 
 const CharacterDetails = styled(MaxWidth)`
   width: 100%;
