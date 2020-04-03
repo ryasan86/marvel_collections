@@ -2,48 +2,41 @@ import React, { useState, useEffect } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 import { StyledDelayMessage } from '../styles/PleaseWaitStyles'
 
-export const DelayMessage = ({ text, type, modalRef }) => {
+export const DelayMessage = ({ textRender, type, modalRef }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const _text = text.toUpperCase()
 
   useEffect(() => {
     setIsVisible(true)
   }, [])
 
-  const renderText = () => {
-    if (_text.includes('...')) {
-      return (
-        <>
-          {_text.slice(0, -3)}
-          <span>.</span>
-          <span>.</span>
-          <span>.</span>
-        </>
-      )
-    }
-
-    return _text
-  }
-
   return (
     <StyledDelayMessage isVisible={isVisible} ref={modalRef}>
-      <h4>{renderText()}</h4>
+      <h4>{textRender}</h4>
     </StyledDelayMessage>
   )
 }
 
+const LoadingText = ({ text }) => (
+  <>
+    {text}
+    <span>.</span>
+    <span>.</span>
+    <span>.</span>
+  </>
+)
+
 const PleaseWaitComponent = props => {
-  const { loading, error, loadingText, modalRef, className } = props
+  const { loading, loadingText, error, modalRef, className } = props
 
   return (
     <div className={className}>
-      {loading ? (
-        <DelayMessage modalRef={modalRef} text={loadingText} />
-      ) : error ? (
-        <ErrorBoundary error={error} modalRef={modalRef} />
-      ) : (
-        ''
+      {loading && (
+        <DelayMessage
+          modalRef={modalRef}
+          textRender={<LoadingText text={loadingText} />}
+        />
       )}
+      {error && <ErrorBoundary error={error} modalRef={modalRef} />}
     </div>
   )
 }

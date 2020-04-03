@@ -34,7 +34,7 @@ Modal.CloseBtn = styled.button`
   position: absolute;
   border-radius: 50%;
   top: -1.5rem;
-  right: -1.5rem;
+  right: -0.7rem;
   background: var(--dark);
   border: 1.5px solid white;
   cursor: pointer;
@@ -110,8 +110,13 @@ Text.Description = styled.p`
 const Vendor = styled.div`
   width: 10%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
+`
+
+Vendor.Text = styled.span`
+  font-size: var(--regular-font);
 `
 
 Vendor.Img = styled.img`

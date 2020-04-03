@@ -18,9 +18,9 @@ const LatestComics = () => {
 
   return loading || error ? (
     <Home.PleaseWait
-      error={error}
+      loadingText="loading comics"
       loading={loading}
-      loadingText="loading comics..."
+      error={error}
     />
   ) : (
     <Home.Section>
@@ -47,9 +47,9 @@ const LatestCharacters = () => {
 
   return loading || error ? (
     <Home.PleaseWait
-      error={error}
+      loadingText="loading characters"
       loading={loading}
-      loadingText="loading characters..."
+      error={error}
     />
   ) : (
     <Home.Section>

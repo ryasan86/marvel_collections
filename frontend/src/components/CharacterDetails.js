@@ -32,7 +32,7 @@ const CharacterComicsList = ({ charId, name }) => {
           <CharacterComics.PleaseWait
             error={error}
             loading={loading}
-            loadingText="loading comics..."
+            loadingText="loading comics"
           />
         ) : (
           <ItemsList
@@ -79,9 +79,9 @@ const CharacterDetailsComponent = ({ location }) => {
     <Layout>
       {loading || error ? (
         <CharacterDetails.PleaseWait
-          error={error}
+          loadingText="loading character"
           loading={loading}
-          loadingText="loading character..."
+          error={error}
         />
       ) : (
         <CharacterDetailsContent _character={data.character.edges} />

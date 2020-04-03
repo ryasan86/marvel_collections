@@ -19,6 +19,7 @@ const ModalItem = ({
       <Text.Description>{description}</Text.Description>
     </Text>
     <Vendor>
+      <Vendor.Text>{vendor}</Vendor.Text>
       <Vendor.Img src={favicon} alt={vendor} />
     </Vendor>
     <Shop>
@@ -43,13 +44,16 @@ const ModalComponent = ({ modalRef, modalOpen, shopForTitle }) => {
     <Modal modalOpen={modalOpen}>
       {loading || error ? (
         <Modal.PleaseWait
-          error={error}
+          loadingText="searching"
           loading={loading}
+          error={error}
           modalRef={modalRef}
-          loadingText="searching..."
         />
       ) : totalCount === 0 ? (
-        <Modal.DelayMessage modalRef={modalRef} text="0 vendors found 😮" />
+        <Modal.DelayMessage
+          modalRef={modalRef}
+          textRender="0 vendors found 😮"
+        />
       ) : (
         <Modal.Inner>
           <Modal.CloseBtn />

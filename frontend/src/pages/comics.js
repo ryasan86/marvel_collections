@@ -26,9 +26,9 @@ const ComicsInner = ({ slug, orderBy, search, setSearch, setOrderBy }) => {
   if (loading || error) {
     return (
       <ComicsList.PleaseWait
+        loadingText="loading comics"
         loading={loading}
         error={error}
-        loadingText="loading comics..."
       />
     )
   }

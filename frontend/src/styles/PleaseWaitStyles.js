@@ -27,7 +27,6 @@ const StyledDelayMessage = styled.div`
     padding: 1rem 2rem;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     transition: opacity 0.3s;
-    min-width: 28rem;
     text-align: center;
     display: inline-block;
     opacity: ${props => (props.isVisible ? '1' : '0')};

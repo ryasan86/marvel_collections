@@ -19,6 +19,10 @@ Home.Section = styled.section`
   }
 `
 
-Home.PleaseWait = PleaseWait
+Home.PleaseWait = styled(PleaseWait)`
+  h4 {
+    min-width: 21.5rem;
+  }
+`
 
 export default Home
