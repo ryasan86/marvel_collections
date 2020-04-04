@@ -13,19 +13,13 @@ export const client = new ApolloClient({
     resolvers: {
       Mutation: {
         toggleModal: (_, variables, { cache }) => {
-          const { modalOpen } = cache.readQuery({
-            query: LOCAL_STATE_QUERY
-          })
-          const data = {
-            data: { modalOpen: !modalOpen }
-          }
+          const { modalOpen } = cache.readQuery({ query: LOCAL_STATE_QUERY })
+          const data = { data: { modalOpen: !modalOpen } }
           cache.writeData(data)
           return data
         },
         setShopForTitle: (_, { shopForTitle }, { cache }) => {
-          const data = {
-            data: { shopForTitle }
-          }
+          const data = { data: { shopForTitle } }
           cache.writeData(data)
           return data
         }
