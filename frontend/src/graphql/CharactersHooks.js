@@ -3,7 +3,7 @@ import {
   CHARACTERS,
   CHARACTER_NAME_STARTS_WITH,
   CHARACTER
-} from './CharactersGQL'
+} from './CharactersRequests'
 
 export const useCharacters = ({ page, orderBy, limit }) => {
   return useQuery(CHARACTERS, {

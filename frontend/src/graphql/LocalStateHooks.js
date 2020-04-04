@@ -3,7 +3,7 @@ import {
   LOCAL_STATE_QUERY,
   SET_SHOP_FOR_TITLE_MUTATION,
   TOGGLE_MODAL_MUTATION
-} from './LocalStateGQL'
+} from './LocalStateRequests'
 
 export const useLocalState = () => {
   return useQuery(LOCAL_STATE_QUERY)
