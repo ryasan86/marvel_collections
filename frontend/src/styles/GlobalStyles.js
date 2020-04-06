@@ -23,12 +23,9 @@ const StyledRoot = css`
 `
 
 const StyledHtml = css`
-  html {
-    overflow-y: scroll;
-  }
-
   html,
   body {
+    overflow-y: scroll;
     font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
     font-size: 10px;
     margin: 0;
@@ -40,43 +37,23 @@ const StyledHtml = css`
     padding: 0;
   }
 
-  li {
-    list-style-type: none;
-  }
-
-  h1 {
-    font-size: 5rem;
-  }
-
-  h2 {
-    font-size: 4rem;
-  }
-
-  h3 {
-    font-size: 3rem;
-  }
-
-  h4 {
-    font-size: 2rem;
-  }
-
-  p {
-    font-size: var(--large-font);
-  }
+  li { list-style-type: none; } 
+  h1 { font-size: 5rem; } 
+  h2 { font-size: 4rem; }
+  h3 { font-size: 3rem; }
+  h4 { font-size: 2rem; }
+  p { font-size: var(--large-font); }
 
   ::-webkit-scrollbar {
     width: 0.8rem;
   }
-
   ::-webkit-scrollbar-track {
     background-color: var(--dark);
   }
-
   ::-webkit-scrollbar-thumb {
     background: var(--off-white);
     border-radius: 0 0 1rem 1rem;
   }
-
   ::-webkit-scrollbar-thumb:hover {
     background: var(--off-white);
   }
