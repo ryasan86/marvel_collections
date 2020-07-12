@@ -13,7 +13,6 @@ const {
 const { shop } = require('../scrapers.js')
 
 const store = {
-  marvel: 'https://comicstore.marvel.com/search',
   comixology: 'https://www.comixology.com/search'
 }
 
@@ -84,10 +83,7 @@ const Query = {
 
   shopForComic: async (parent, { title }) =>
     getFuzzyMatches({
-      items: [
-        await shop({ title, store: store.marvel }),
-        await shop({ title, store: store.comixology })
-      ].flat(),
+      items: [await shop({ title, store: store.comixology })].flat(),
       matchMe: title
     })
 }

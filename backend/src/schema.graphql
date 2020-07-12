@@ -17,10 +17,6 @@ type Query {
   shopForComic(title: String!): ComicVendorInfoConnection
 }
 
-type Mutation {
-  comments: String
-}
-
 interface Node {
   id: ID!
   description: String
